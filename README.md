@@ -10,7 +10,7 @@
 
 ### 1ª Etapa
 
-**Objetivo: ** Elaborar um projeto no Eclipse com no mínimo 5 classes que estão  associadas entre si. Faça uso do encapsulamento e de métodos  construtores em todas as classes. O projeto deverá ser executado pela  linha de comando e deve ser possível **criar e listar**, em tempo de execução e através de um menu, objetos de cada uma das 5 classes
+**Objetivo:** Elaborar um projeto no Eclipse com no mínimo 5 classes que estão  associadas entre si. Faça uso do encapsulamento e de métodos  construtores em todas as classes. O projeto deverá ser executado pela  linha de comando e deve ser possível **criar e listar**, em tempo de execução e através de um menu, objetos de cada uma das 5 classes
 
 
 
