@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import doodle.entidades.Aluno;
+import doodle.entidades.Curso;
+import doodle.entidades.Matricula;
+import doodle.entidades.Pessoa;
+import doodle.entidades.Professor;
+
 public class Main {
 
 	public static void main(String[] args) throws ParseException {
@@ -15,270 +21,240 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato da data
 		Date data = new Date();
-		ArrayList<Professor> professores = new ArrayList<Professor>();
-		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-		ArrayList<Curso> cursos = new ArrayList<Curso>();
 
-		int escolha, escolha2;
+		ArrayList<Pessoa> professores = new ArrayList<Pessoa>();
+		ArrayList<Pessoa> alunos = new ArrayList<Pessoa>();
+
+		Professor professor;
+		Aluno aluno;
+
+		String nome, cpf, pais, estado, cidade, email, telefone;
+		char sexo, formacao;
+		int registro;
+
+		int escolha1, escolha2;
 
 		while (true) {
-			System.out.println("\nO que deseja fazer?");
-			System.out.println("[1] - Cadastrar");
-			System.out.println("[2] - Listar");
-			System.out.print("Informe sua escolha (número): ");
-			escolha = sc.nextInt();
+			System.out.println("\n[1] - Criar objeto");
+			System.out.println("[2] - Listar objeto");
+			System.out.println("[3] - Alterar objeto");
+			System.out.println("[4] - Remover objeto");
+			System.out.print("Informe sua escolha: ");
+			escolha1 = sc.nextInt();
 
-			switch (escolha) {
+			switch (escolha1) {
+			case 1:
+				System.out.println("\n[1] - Criar professor");
+				System.out.println("[2] - Criar aluno");
+				System.out.println("[3] - Criar curso");
+				System.out.println("[4] - Criar topico");
+				System.out.println("[5] - Criar forum");
+				System.out.print("Informe sua escolha: ");
+				escolha2 = sc.nextInt();
+				sc.nextLine();
+
+				switch (escolha2) {
 				case 1:
-					System.out.println("\n[1] - Cadastrar professor");
-					System.out.println("[2] - Cadastrar aluno");
-					System.out.println("[3] - Cadastrar curso");
-					System.out.println("[4] - Cadastrar tópico");
-					System.out.println("[5] - Cadastrar forum");
-					System.out.println("[6] - Incluir aluno em curso");
-					System.out.print("O que deseja cadastrar (número): ");
-					escolha2 = sc.nextInt();
+					System.out.println("\n\nCadastro de Professor");
+					System.out.print("\nInforme o nome completo da pessoa: ");
+					nome = sc.nextLine();
+					System.out.print("Informe o cpf: ");
+					cpf = sc.nextLine();
+					System.out.print("Informe a data de nascimetno (DD/MM/AAAA): ");
+					data = sdf.parse(sc.nextLine());
+					System.out.print("Informe o sexo (M/F): ");
+					sexo = sc.nextLine().charAt(0);
+					System.out.print("Informe o país de origem: ");
+					pais = sc.nextLine();
+					System.out.print("Informe o estado de origem: ");
+					estado = sc.nextLine();
+					System.out.print("Informe a cidade de origem: ");
+					cidade = sc.nextLine();
+					System.out.print("Informe o email: ");
+					email = sc.nextLine();
+					System.out.print("Informe o telefone: ");
+					telefone = sc.nextLine();
+					System.out.print("Informe o número de registro: ");
+					registro = sc.nextInt();
 					sc.nextLine();
-					
-					String nome, nomeCurso, conteudo, cpf, pais, estado, cidade, email, telefone;
-					char sexo;
-					
-					switch (escolha2) {
-						case 1:
-							System.out.print("\nInforme o nome completo da pessoa: ");
-							nome = sc.nextLine();
-							System.out.print("Informe o cpf: ");
-							cpf = sc.nextLine();
-							System.out.print("Informe a data de nascimetno (DD/MM/AAAA): ");
-							data = sdf.parse(sc.nextLine());
-							System.out.print("Informe o sexo (M/F): ");
-							sexo = sc.nextLine().charAt(0);
-							System.out.print("Informe o país de origem: ");
-							pais = sc.nextLine();
-							System.out.print("Informe o estado de origem: ");
-							estado = sc.nextLine();
-							System.out.print("Informe a cidade de origem: ");
-							cidade = sc.nextLine();
-							System.out.print("Informe o email: ");
-							email = sc.nextLine();
-							System.out.print("Informe o telefone: ");
-							telefone = sc.nextLine();
+					System.out.print("Qual a formação (G, M, D): ");
+					formacao = sc.nextLine().charAt(0);
 
-							professores.add(new Professor(nome, cpf, sexo, data, pais, estado, cidade, email, telefone));
-							break;
-							
-						case 2:
-							System.out.print("\nInforme o nome completo da pessoa: ");
-							nome = sc.nextLine();
-							System.out.print("Informe o cpf: ");
-							cpf = sc.nextLine();
-							System.out.print("Informe a data de nascimetno (DD/MM/AAAA): ");
-							data = sdf.parse(sc.nextLine());
-							System.out.print("Informe o sexo (M/F): ");
-							sexo = sc.nextLine().charAt(0);
-							System.out.print("Informe o país de origem: ");
-							pais = sc.nextLine();
-							System.out.print("Informe o estado de origem: ");
-							estado = sc.nextLine();
-							System.out.print("Informe a cidade de origem: ");
-							cidade = sc.nextLine();
-							System.out.print("Informe o email: ");
-							email = sc.nextLine();
-							System.out.print("Informe o telefone: ");
-							telefone = sc.nextLine();
-							
-							alunos.add(new Aluno(nome, cpf, sexo, data, pais, estado, cidade, email, telefone));
-							break;
-							
-						case 3:
-							if(professores.size() <= 0) {
-								System.out.println("\nNão há professores cadastrados, favor cadastrar um professor ao mínimo!");
-								break;
-							}
-							
-							System.out.print("\nInforme o nome de um professor: ");
-							nome = sc.nextLine();
-							System.out.print("Informe um nome para o curso: ");
-							nomeCurso = sc.nextLine();
-							System.out.print("Informe a data de início (DD/MM/AAAA): ");
-							data = sdf.parse(sc.nextLine());
-							
-							for (int i=0; i < professores.size(); i++) {
-								if(professores.get(i).getNome().contentEquals(nome))
-									cursos.add(new Curso(professores.get(i), nomeCurso, data));
-							}
-							break;
-							
-						case 4:
-							if(cursos.size() <=0) {
-								System.out.println("\nNão há cursos cadastrados, favor cadastrar um curso primeiro!");
-								break;
-							}
-							
-							System.out.print("\nQual será o título do tópico: ");
-							nome = sc.nextLine();
-							System.out.print("Descreva o conteúdo do tópico " + nome + ": ");
-							conteudo = sc.nextLine();
-							System.out.print("Em qual curso deseja cadastrar o tópico: ");
-							nomeCurso = sc.nextLine();
-							
-							for(int i=0; i < cursos.size(); i++) {
-								if(cursos.get(i).getNome().contentEquals(nomeCurso)) {
-									cursos.get(i).adicionaTopico(new Topico(nome, conteudo));
-									break;
-								}
-							}
-							break;
-							
-						case 5:
-							if(cursos.size() <= 0) {
-								System.out.println("\nNão há cursos cadastrados, favor cadastrar um curso primeiro!");
-							}
-							
-							System.out.print("\nEm qual curso deseja cadastrar o forum: ");
-							nomeCurso = sc.nextLine();
-							System.out.print("Em qual tópico deseja criar o forum: ");
-							nome = sc.nextLine();
-							
-							for(int i=0; i < cursos.size(); i++) {
-								for(int j=0; j < cursos.get(i).getTopicos().size(); j++) {
-									if(cursos.get(i).getTopicos().get(j).getTitulo().contentEquals(nome)) {
-										System.out.print("Qual será o título do fórum: ");
-										nome = sc.nextLine();
-										System.out.print("Descreva o conteúdo do fórum: ");
-										conteudo = sc.nextLine();
-										data = new Date();
-										
-										cursos.get(i).getTopicos().get(j).adicionaForum(new Forum(nome, conteudo, data));
-										break;
-									}
-								}
-							}
-							break;
-							
-						case 6:
-							if(alunos.size() <= 0) {
-								System.out.println("\nNão há alunos cadastrados, favor cadastrar alunos primeiro!");
-								break;
-							}
-							System.out.print("\nInforme o cpf do aluno: ");
-							cpf = sc.nextLine();
-							System.out.print("Em qual curso deseja cadastrar o aluno: ");
-							nomeCurso = sc.nextLine();
-							
-							for(int i=0; i<cursos.size(); i++) {
-								if(cursos.get(i).getNome().contentEquals(nomeCurso)) {
-									for(int j=0; j<alunos.size(); j++) {
-										if(alunos.get(j).getCpf().contentEquals(cpf)) {
-											alunos.get(j).setMatriculado(true);
-											cursos.get(i).adicionarAluno(alunos.get(j));
-											break;
-										}
-									}
-									break;
-								}
-							}
-							break;
-					}
+					professor = new Professor(nome, cpf, sexo, data, pais, estado, cidade, email, telefone,
+							registro, formacao);
+					professores.add(professor);
 					break;
-	
 				case 2:
-					System.out.println("\n[1] - Listar professores");
-					System.out.println("[2] - Listar alunos");
-					System.out.println("[3] - Listar cursos");
-					System.out.print("O que deseja listar (número): ");
-					escolha2 = sc.nextInt();
-					sc.nextLine();
-					
-					switch (escolha2) {
-						case 1:
-							if(professores.size() <= 0) {
-								System.out.println("\nNão há nenhum professor cadastrado!");
-								break;
-							}
-							for(int i=0; i < professores.size(); i++) {
-								System.out.println("\nProfessor: " + professores.get(i).getNome());
-								System.out.println("CPF: " + professores.get(i).getCpf());
-								System.out.println("Data de nascimento: " + professores.get(i).getDataNascimento());
-								System.out.println("Sexo: " + professores.get(i).getSexo());
-								System.out.println("Local de origem: " + professores.get(i).getLocalOrigem());
-								System.out.println("E-mail para contato: " + professores.get(i).getEmail());
-								System.out.println("Telefone para contato: " + professores.get(i).getTelefone() + "\n");
-							}
-							break;
-							
-						case 2:
-							if(alunos.size() <= 0) {
-								System.out.println("\nNão há nenhum aluno cadastrado!");
-								break;
-							}
-							for(int i=0; i < alunos.size(); i++) {
-								System.out.println("\nAluno: " + alunos.get(i).getNome());
-								System.out.println("CPF: " + alunos.get(i).getCpf());
-								System.out.println("Data de nascimento: " + alunos.get(i).getDataNascimento());
-								System.out.println("Sexo: " + alunos.get(i).getSexo());
-								System.out.println("Local de origem: " + alunos.get(i).getLocalOrigem());
-								System.out.println("E-mail para contato: " + alunos.get(i).getEmail());
-								System.out.println("Telefone para contato: " + alunos.get(i).getTelefone());
-								System.out.println((alunos.get(i).isMatriculado() ? "Está matriculado" : "Não está matriculado"));
-							}
-							break;
-							
-						case 3:
-							if(cursos.size() <= 0) {
-								System.out.println("\nNão há nenhum curso cadastrado!");
-								break;
-							}
-							// Listar cursos
-							for(int i=0; i < cursos.size(); i++) {
-								System.out.println("\n---------------------------------------------------------------");
-								System.out.println("Curso |" + cursos.get(i).getNome() + "| ministrado pelo professor " + cursos.get(i).getProfessor().getNome());
-								System.out.println("Data de inicio: " + cursos.get(i).getDataInicio());
-							
-								// Listas tópicos cadastrados em um curso, caso haja
-								if(cursos.get(i).getTopicos().size() > 0) {
-									System.out.println("\n---- Tópicos do curso ----");
-									for(int j=0; j < cursos.get(i).getTopicos().size(); j++) {
-										System.out.println("\n<< Tópico " + j + " >>");
-										System.out.println("Título: " + cursos.get(i).getTopicos().get(j).getTitulo());
-										System.out.println("Descrição: " + cursos.get(i).getTopicos().get(j).getDescricao());
-										
-										// Listar fóruns cadastrados em um tópico de um curso, caso haja
-										if(cursos.get(i).getTopicos().get(j).getForuns().size() > 0) {
-											for(int k=0; k < cursos.get(i).getTopicos().get(j).getForuns().size(); k++) {
-												System.out.println("\n< Fórum " + k + " do tópico " + j + " >");
-												System.out.println("Título do fórum: " + cursos.get(i).getTopicos().get(j).getForuns().get(k).getTitulo());
-											}
-										}
-									}
-								}
-									
-								if(cursos.get(i).getTurma().size() > 0) {
-									System.out.println("\n<< Alunos matriculados >>");
-									for(int l=0; l<cursos.get(i).getTurma().size(); l++) {
-										System.out.println("Aluno: " + cursos.get(i).getTurma().get(l).getNome());
-										System.out.println("CPF: " + cursos.get(i).getTurma().get(l).getCpf());
-										System.out.println("Data de nascimento: " + cursos.get(i).getTurma().get(l).getDataNascimento());
-										System.out.println("Sexo: " + cursos.get(i).getTurma().get(l).getSexo());
-										System.out.println("Local de origem: " + cursos.get(i).getTurma().get(l).getLocalOrigem());
-										System.out.println("E-mail para contato: " + cursos.get(i).getTurma().get(l).getEmail());
-										System.out.println("Telefone para contato: " + cursos.get(i).getTurma().get(l).getTelefone());
-										System.out.println((cursos.get(i).getTurma().get(l).isMatriculado() ? "Está matriculado" : "Não está matriculado"));
-									}
-								}
-							}
-							System.out.println("---------------------------------------------------------------");
-							break;
-					}
-					
-					break;
+					System.out.println("\n\nCadastro de Aluno");
+					System.out.print("\nInforme o nome completo da pessoa: ");
+					nome = sc.nextLine();
+					System.out.print("Informe o cpf: ");
+					cpf = sc.nextLine();
+					System.out.print("Informe a data de nascimetno (DD/MM/AAAA): ");
+					data = sdf.parse(sc.nextLine());
+					System.out.print("Informe o sexo (M/F): ");
+					sexo = sc.nextLine().charAt(0);
+					System.out.print("Informe o país de origem: ");
+					pais = sc.nextLine();
+					System.out.print("Informe o estado de origem: ");
+					estado = sc.nextLine();
+					System.out.print("Informe a cidade de origem: ");
+					cidade = sc.nextLine();
+					System.out.print("Informe o email: ");
+					email = sc.nextLine();
+					System.out.print("Informe o telefone: ");
+					telefone = sc.nextLine();
 
-			default:
-				System.out.println("\nRetornando...");
+					aluno = new Aluno(nome, cpf, sexo, data, pais, estado, cidade, email, telefone);
+					alunos.add(aluno);
+					break;
+				}
+				break;
+
+			case 2:
+				System.out.println("\n[1] - Listar professores");
+				System.out.println("[2] - Listar professor pelo cpf");
+				System.out.println("[3] - Listar alunos");
+				System.out.println("[4] - Listar aluno pelo cpf");
+				System.out.println("[5] - Listar cursos (contêm alunos matriculados, topicos e foruns)");
+				System.out.print("Informe sua escolha: ");
+				escolha2 = sc.nextInt();
+				sc.nextLine();
+
+				switch (escolha2) {
+				case 1:
+					listarPessoas(professores);
+					break;
+					
+				case 2:
+					System.out.print("\nInforme o cpf do professor: ");
+					cpf = sc.nextLine();
+					listarPessoa((Professor) obterPessoa(professores, cpf));
+					break;
+					
+				case 3:
+					listarPessoas(alunos);
+					break;
+					
+				case 4:
+					System.out.print("\nInforme o cpf do aluno: ");
+					cpf = sc.nextLine();
+					listarPessoa((Aluno) obterPessoa(alunos, cpf));
+					break;
+				}
+				break;
+			case 3:
+				System.out.println("\n[1] - Alterar professor");
+				System.out.println("[2] - Alterar aluno");
+				System.out.println("[3] - Alterar curso");
+				System.out.println("[4] - Alterar topico");
+				System.out.println("[5] - Alterar forum");
+				System.out.print("Informe sua escolha: ");
+				escolha2 = sc.nextInt();
+				sc.nextLine();
+
+				switch (escolha2) {
+				case 1:
+					break;
+				}
+				break;
+			case 4:
+				System.out.println("\n[1] - Remover professor");
+				System.out.println("[2] - Remover aluno");
+				System.out.println("[3] - Remover curso");
+				System.out.println("[4] - Remover topico");
+				System.out.println("[5] - Remover forum");
+				System.out.print("Informe sua escolha: ");
+				escolha2 = sc.nextInt();
+				sc.nextLine();
+
+				switch (escolha2) {
+				case 1:
+					break;
+				}
+				break;
 			}
 		}
-		
-		
 
 	}
+
+	// Manipulação de Pessoa
+	public static void removerPessoa(ArrayList<Pessoa> p, String cpf) {
+		for (int i = 0; i < p.size(); i++) {
+			if (p.get(i).getCpf().contentEquals(cpf)) {
+				p.remove(i);
+				return;
+			}
+		}
+	}
+
+	public static void alterarPessoa(ArrayList<Pessoa> p, String email, String cpf) {
+		for (int i = 0; i < p.size(); i++) {
+			if (p.get(i).getCpf().contentEquals(cpf)) {
+				p.get(i).setEmail(email);
+				return;
+			}
+		}
+	}
+
+	public static void alterarPessoa(ArrayList<Pessoa> p, String email, String telefone, String cpf) {
+		for (int i = 0; i < p.size(); i++) {
+			if (p.get(i).getCpf().contentEquals(cpf)) {
+				p.get(i).setEmail(email);
+				p.get(i).setTelefone(telefone);
+				return;
+			}
+		}
+	}
+	
+	public static Pessoa obterPessoa(ArrayList<Pessoa> p, String cpf) {
+		for (int i = 0; i < p.size(); i++) {
+			if (p.get(i).getCpf().contentEquals(cpf)) {
+				return p.get(i);
+			}
+		}
+		return null;
+	}
+
+	public static void listarPessoas(ArrayList<Pessoa> p) {
+		for (int i = 0; i < p.size(); i++) {
+			System.out.println("\nPessoa " + (i + 1));
+			System.out.println("Nome: " + p.get(i).getNome());
+			System.out.println("Sexo: " + p.get(i).getSexo());
+			System.out.println("Cpf: " + p.get(i).getCpf());
+			System.out.println("Data de nascimento: " + p.get(i).getDataNascimento());
+			System.out.println("Local de nascimento: " + p.get(i).getLocalOrigem());
+			System.out.println("Email: " + p.get(i).getEmail());
+			System.out.println("Telefone: " + p.get(i).getTelefone());
+		}
+	}
+	
+	public static void listarPessoa(Professor p) {
+		System.out.println("\nNome: " + p.getNome());
+		System.out.println("Sexo: " + p.getSexo());
+		System.out.println("Cpf: " + p.getCpf());
+		System.out.println("Data de nascimento: " + p.getDataNascimento());
+		System.out.println("Local de nascimento: " + p.getLocalOrigem());
+		System.out.println("Email: " + p.getEmail());
+		System.out.println("Telefone: " + p.getTelefone());
+		System.out.println("Formação: " + p.getFormacao());
+		System.out.println("Número de registro: " + p.getRegistro());
+	}
+	
+	public static void listarPessoa(Aluno a) {
+		System.out.println("\nNome: " + a.getNome());
+		System.out.println("Sexo: " + a.getSexo());
+		System.out.println("Cpf: " + a.getCpf());
+		System.out.println("Data de nascimento: " + a.getDataNascimento());
+		System.out.println("Local de nascimento: " + a.getLocalOrigem());
+		System.out.println("Email: " + a.getEmail());
+		System.out.println("Telefone: " + a.getTelefone());
+		System.out.println(a.isMatriculado() ? "Está matriculado em algum curso" : "Não está matriculado em um curso");
+	}
+
+	public static Curso cadastrarCurso(Professor p, String nome) {
+		Curso c = new Curso(p, nome);
+		return c;
+	}
+
 }
