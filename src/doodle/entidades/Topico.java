@@ -8,6 +8,7 @@ import doodle.forum.Forum;
 public class Topico extends Conteudo{
 	
 	private ArrayList<Forum> foruns;
+	private static int totalForuns = 0;
 	
 	public Topico(String titulo, String descricao, Date data) {
 		super(titulo, descricao, data);
@@ -19,8 +20,21 @@ public class Topico extends Conteudo{
 		foruns = new ArrayList<Forum>();
 	}
 	
+	public void adicionaForum(String titulo, String descricao, Date dataPublicacao) {
+		foruns.add(new Forum(titulo, descricao, dataPublicacao));
+		totalForuns++;
+	}
+	
 	public ArrayList<Forum> getForuns() {
 		return foruns;
+	}
+
+	public static int getTotalForuns() {
+		return totalForuns;
+	}
+
+	public static void setTotalForuns(int totalForuns) {
+		Topico.totalForuns = totalForuns;
 	}
 	
 }

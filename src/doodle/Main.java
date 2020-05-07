@@ -13,6 +13,8 @@ import doodle.entidades.Curso;
 import doodle.entidades.Matricula;
 import doodle.entidades.Pessoa;
 import doodle.entidades.Professor;
+import doodle.entidades.Topico;
+import doodle.forum.Forum;
 
 public class Main {
 
@@ -24,11 +26,15 @@ public class Main {
 
 		ArrayList<Pessoa> professores = new ArrayList<Pessoa>();
 		ArrayList<Pessoa> alunos = new ArrayList<Pessoa>();
+		ArrayList<Curso> cursos = new ArrayList<Curso>();
 
 		Professor professor;
 		Aluno aluno;
+		Curso curso;
+		Topico topico;
+		Forum forum;
 
-		String nome, cpf, pais, estado, cidade, email, telefone;
+		String nome, cpf, pais, estado, cidade, email, telefone, titulo, descricao;
 		char sexo, formacao;
 		int registro;
 
@@ -39,8 +45,10 @@ public class Main {
 			System.out.println("[2] - Listar objeto");
 			System.out.println("[3] - Alterar objeto");
 			System.out.println("[4] - Remover objeto");
+			System.out.println("[5] - Matricular aluno em curso");
 			System.out.print("Informe sua escolha: ");
 			escolha1 = sc.nextInt();
+			sc.nextLine();
 
 			switch (escolha1) {
 			case 1:
@@ -79,11 +87,18 @@ public class Main {
 					sc.nextLine();
 					System.out.print("Qual a formação (G, M, D): ");
 					formacao = sc.nextLine().charAt(0);
-
-					professor = new Professor(nome, cpf, sexo, data, pais, estado, cidade, email, telefone,
-							registro, formacao);
+					
+					professor = (Professor) obterPessoa(professores, cpf);
+					if (professor != null) {
+						System.out.println("\nO professor já existe!");
+						break;
+					}
+					
+					professor = new Professor(nome, cpf, sexo, data, pais, estado, cidade, email, telefone, registro,
+							formacao);
 					professores.add(professor);
 					break;
+
 				case 2:
 					System.out.println("\n\nCadastro de Aluno");
 					System.out.print("\nInforme o nome completo da pessoa: ");
@@ -105,9 +120,102 @@ public class Main {
 					System.out.print("Informe o telefone: ");
 					telefone = sc.nextLine();
 
+					aluno = (Aluno) obterPessoa(alunos, cpf);
+					if (aluno != null) {
+						System.out.println("\nO aluno já existe!");
+						break;
+					}
+
 					aluno = new Aluno(nome, cpf, sexo, data, pais, estado, cidade, email, telefone);
 					alunos.add(aluno);
 					break;
+
+				case 3:
+					System.out.println("\n\nCadastro de Curso");
+					System.out.print("\nInforme o cpf do professor: ");
+					cpf = sc.nextLine();
+
+					professor = (Professor) obterPessoa(professores, cpf);
+					if (professor == null) {
+						System.out.println("\nProfessor não encontrado!");
+						break;
+					}
+
+					System.out.print("Informe um nome para o curso: ");
+					nome = sc.nextLine();
+
+					curso = obterCurso(cursos, professor, nome);
+					if (curso != null) {
+						System.out.println("\nO curso " + nome + " ministrado pelo professor " + professor.getNome()
+								+ " já existe!");
+						break;
+					}
+
+					cursos.add(new Curso(professor, nome));
+					break;
+					
+				case 4:
+					System.out.println("\n\nCriar um Tópico em um Curso");
+					System.out.print("\nInforme o nome do curso: ");
+					nome = sc.nextLine();
+					System.out.print("Informe o cpf do professor: ");
+					cpf = sc.nextLine();
+					
+					professor = (Professor) obterPessoa(professores, cpf);
+					if (professor == null) {
+						System.out.println("\nProfessor não encontrado!");
+						break;
+					}
+					
+					curso = obterCurso(cursos, professor, nome);
+					if (curso == null) {
+						System.out.println("\nO curso não existe!");
+						break;
+					}
+					
+					System.out.print("Informe um titulo para o tópico: ");
+					titulo = sc.nextLine();
+					System.out.print("Informe uma descrição para o tópico: ");
+					descricao = sc.nextLine();
+					data = new Date();
+					curso.adicionaTopico(new Topico(titulo, descricao, data));
+					break;
+				
+				case 5: // criar fórum
+					System.out.println("\n\nCriar um Fórum em um Tópico");
+					System.out.print("\nInforme o nome do curso: ");
+					nome = sc.nextLine();
+					System.out.print("Informe o cpf do professor: ");
+					cpf = sc.nextLine();
+					
+					professor = (Professor) obterPessoa(professores, cpf);
+					if (professor == null) {
+						System.out.println("\nProfessor não encontrado!");
+						break;
+					}
+					
+					curso = obterCurso(cursos, professor, nome);
+					if (curso == null) {
+						System.out.println("\nO curso não existe!");
+						break;
+					}
+					
+					System.out.print("Informe o título do tópico: ");
+					titulo = sc.nextLine();
+					for (int i=0; i < curso.getTopico().size(); i++) {
+						if (curso.getTopico().get(i).getTitulo().contentEquals(titulo)) {
+							System.out.print("Informe um título para o fórum: ");
+							titulo = sc.nextLine();
+							System.out.print("Informe uma descrição para o fórum: ");
+							descricao = sc.nextLine();
+							data = new Date();
+							curso.getTopico().get(i).adicionaForum(titulo, descricao, data);
+							break;
+						}
+					}
+					
+					break;
+					
 				}
 				break;
 
@@ -125,22 +233,33 @@ public class Main {
 				case 1:
 					listarPessoas(professores);
 					break;
-					
+
 				case 2:
 					System.out.print("\nInforme o cpf do professor: ");
 					cpf = sc.nextLine();
-					listarPessoa((Professor) obterPessoa(professores, cpf));
+					professor = (Professor) obterPessoa(professores, cpf);
+					if (professor == null)
+						break;
+					listarPessoa(professor);
 					break;
-					
+
 				case 3:
 					listarPessoas(alunos);
 					break;
-					
+
 				case 4:
 					System.out.print("\nInforme o cpf do aluno: ");
 					cpf = sc.nextLine();
-					listarPessoa((Aluno) obterPessoa(alunos, cpf));
+					aluno = (Aluno) obterPessoa(alunos, cpf);
+					if (aluno == null)
+						break;
+					listarPessoa(aluno);
 					break;
+
+				case 5:
+					listarCursos(cursos);
+					break;
+
 				}
 				break;
 			case 3:
@@ -170,15 +289,108 @@ public class Main {
 
 				switch (escolha2) {
 				case 1:
+					System.out.print("\nInforme o cpf do professor: ");
+					cpf = sc.nextLine();
+					removerPessoa(professores, cpf);
+					break;
+
+				case 2:
+					System.out.print("\nInforme o cpf do aluno: ");
+					cpf = sc.nextLine();
+					removerPessoa(alunos, cpf);
+					break;
+
+				case 3:
+					System.out.print("\nInforme o nome do curso: ");
+					nome = sc.nextLine();
+					System.out.print("Informe o cpf do professor que ministra o curso: ");
+					cpf = sc.nextLine();
+
+					professor = (Professor) obterPessoa(professores, cpf);
+					if (professor == null) {
+						System.out.println("\nO professor informado não existe!");
+						break;
+					}
+					curso = obterCurso(cursos, professor, nome);
+					if (curso == null) {
+						System.out.println("\nO curso informado não existe!");
+						break;
+					}
+
+					removerCurso(cursos, nome, professor);
+					break;
+					
+				case 4:
+					System.out.print("\nInforme o nome do curso: ");
+					nome = sc.nextLine();
+					System.out.print("Informe o cpf do professor: ");
+					cpf = sc.nextLine();
+					
+					professor = (Professor) obterPessoa(professores, cpf);
+					if (professor == null) {
+						System.out.println("\nProfessor não encontrado!");
+						break;
+					}
+					
+					curso = obterCurso(cursos, professor, nome);
+					if (curso == null) {
+						System.out.println("\nO curso não existe!");
+						break;
+					}
+					
+					System.out.print("Informe o título do tópico: ");
+					titulo = sc.nextLine();
+					topico = curso.getTopico(titulo);
+					if(topico == null) {
+						System.out.println("\nO tópico informado não existe!");
+						return;
+					}
+					
+					curso.removeTopico(topico);
+					break;
+					
+				case 5:
+					break;
+
+				}
+				break;
+				
+			case 5:
+				System.out.print("\nInforme o nome do curso: ");
+				nome = sc.nextLine();
+				System.out.print("Informe o cpf do professor que ministra o curso: ");
+				cpf = sc.nextLine();
+				
+				professor = (Professor) obterPessoa(professores, cpf);
+				if (professor == null) {
+					System.out.println("\nProfessor não encontrado!");
 					break;
 				}
+
+				curso = obterCurso(cursos, professor, nome);
+				if (curso == null) {
+					System.out.println("\nO curso informado não existe!");
+					break;
+				}
+				
+				System.out.print("Informe o cpf do aluno: ");
+				cpf = sc.nextLine();
+				
+				aluno = (Aluno) obterPessoa(alunos, cpf);
+				if(aluno == null) {
+					System.out.println("\nO aluno informado não existe!");
+					break;
+				}
+				
+				curso.matricularAluno(aluno);
+				
 				break;
 			}
 		}
 
 	}
 
-	// Manipulação de Pessoa
+	// Funções para Pessoa(s)
 	public static void removerPessoa(ArrayList<Pessoa> p, String cpf) {
 		for (int i = 0; i < p.size(); i++) {
 			if (p.get(i).getCpf().contentEquals(cpf)) {
@@ -206,7 +418,7 @@ public class Main {
 			}
 		}
 	}
-	
+
 	public static Pessoa obterPessoa(ArrayList<Pessoa> p, String cpf) {
 		for (int i = 0; i < p.size(); i++) {
 			if (p.get(i).getCpf().contentEquals(cpf)) {
@@ -228,7 +440,7 @@ public class Main {
 			System.out.println("Telefone: " + p.get(i).getTelefone());
 		}
 	}
-	
+
 	public static void listarPessoa(Professor p) {
 		System.out.println("\nNome: " + p.getNome());
 		System.out.println("Sexo: " + p.getSexo());
@@ -240,7 +452,7 @@ public class Main {
 		System.out.println("Formação: " + p.getFormacao());
 		System.out.println("Número de registro: " + p.getRegistro());
 	}
-	
+
 	public static void listarPessoa(Aluno a) {
 		System.out.println("\nNome: " + a.getNome());
 		System.out.println("Sexo: " + a.getSexo());
@@ -252,9 +464,55 @@ public class Main {
 		System.out.println(a.isMatriculado() ? "Está matriculado em algum curso" : "Não está matriculado em um curso");
 	}
 
-	public static Curso cadastrarCurso(Professor p, String nome) {
-		Curso c = new Curso(p, nome);
-		return c;
+	// Funções para Curso(s)
+	public static void removerCurso(ArrayList<Curso> c, String nome, Professor p) {
+		for (int i = 0; i < c.size(); i++) {
+			if (c.get(i).getNome().contentEquals(nome) && c.get(i).getProfessor().getCpf().contentEquals(p.getCpf())) {
+				c.remove(i);
+				Curso.setTotalCursos(Curso.getTotalCursos() - 1);
+				return;
+			}
+		}
 	}
 
+	public static Curso obterCurso(ArrayList<Curso> c, Professor p, String nome) {
+		for (int i = 0; i < c.size(); i++) {
+			if (c.get(i).getNome().contentEquals(nome) && c.get(i).getProfessor().getCpf().contentEquals(p.getCpf())) {
+				return c.get(i);
+			}
+		}
+		return null;
+	}
+
+	public static void listarCursos(ArrayList<Curso> c) {
+		System.out.println("\n------- " + Curso.getTotalCursos() + " cursos cadastrados -------");
+		for (int i = 0; i < c.size(); i++) {
+			System.out.println("\n----------------------------------------------------");
+			System.out.println("Curso "+ (i+1) +": " + c.get(i).getNome());
+			System.out.println("Professor: " + c.get(i).getProfessor().getNome());
+			
+			System.out.println("\n----- " + Matricula.getTotalMatriculas() + " alunos matriculados -----");
+			for (int j=0; j < c.get(i).getTurma().size(); j++) {
+				System.out.println("\nMatricula: " + c.get(i).getTurma().get(j).getNumeroMatricula());
+				System.out.println("Aluno: " + c.get(i).getTurma().get(j).getAluno().getNome());
+				System.out.println("CPF: " + c.get(i).getTurma().get(j).getAluno().getCpf());
+			}
+			
+			System.out.println("\n----- " + Curso.getTotalTopicos() + " tópicos cadastrados -----");
+			for (int k=0; k < c.get(i).getTopico().size(); k++) {
+				System.out.println("\nTópico: " + c.get(i).getTopico().get(k).getTitulo());
+				System.out.println("Descrição: " + c.get(i).getTopico().get(k).getDescricao());
+				
+				if (c.get(i).getTopico().get(k).getForuns().size() > 0) {
+					for (int l=0; l < c.get(i).getTopico().get(k).getForuns().size(); l++) {
+						System.out.println("\nFórum " + (l+1) + ": " + c.get(i).getTopico().get(k).getForuns().get(l).getTitulo());
+						System.out.println("Decrição: " + c.get(i).getTopico().get(k).getForuns().get(l).getDescricao());
+					}
+				}
+				
+			}
+			System.out.println("----------------------------------------------------");
+		}
+	}
+	
 }

@@ -24,14 +24,6 @@ public class Aluno extends Pessoa {
 	public void perguntaEmForum(Curso curso, Forum forum) {
 
 	}
-	
-	public void enviaAtividade() {
-		
-	}
-	
-	public void visualizaTopico() {
-		
-	}
 	//
 
 	public boolean isMatriculado() {

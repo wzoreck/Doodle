@@ -10,33 +10,52 @@ public class Curso {
 	private Professor professor;
 	private ArrayList<Matricula> alunosMatriculados;
 	private ArrayList<Topico> topicos;
+	private static int totalCursos = 0;
+	private static int totalTopicos = 0;
 
 	public Curso(Professor professor, String nome) {
 		this.professor = professor;
 		this.nome = nome;
-		alunosMatriculados = new ArrayList<Matricula>();
-		topicos = new ArrayList<Topico>();
+		this.alunosMatriculados = new ArrayList<Matricula>();
+		this.topicos = new ArrayList<Topico>();
+		totalCursos++;
 	}
 
 	public Curso(Professor professor, String nome, Date dataInicio) {
 		this.professor = professor;
 		this.nome = nome;
 		this.dataInicio = dataInicio;
-		alunosMatriculados = new ArrayList<Matricula>();
-		topicos = new ArrayList<Topico>();
-	}
-
-	public void adicionarAluno(Aluno aluno) {
-		Date data = new Date();
-		Matricula matricula = new Matricula(aluno, data);
-		alunosMatriculados.add(matricula);
+		this.alunosMatriculados = new ArrayList<Matricula>();
+		this.topicos = new ArrayList<Topico>();
+		totalCursos++;
 	}
 
 	public void adicionaTopico(Topico topico) {
 		for (int i = 0; i < topicos.size(); i++)
-			if (topicos.get(i).getTitulo().contentEquals(topico.getTitulo()))
+			if (topicos.get(i).equals(topico))
 				return;
 		topicos.add(topico);
+		totalTopicos++;
+	}
+	
+	public void removeTopico(Topico topico) {
+		for (int i = 0; i < topicos.size(); i++) {
+			if (topicos.get(i).equals(topico)) {
+				topicos.remove(i);
+				return;
+			}
+		}
+		totalTopicos--;
+	}
+	
+	public void matricularAluno(Aluno a) {
+		for (int i=0; i < alunosMatriculados.size(); i++) {
+			if(alunosMatriculados.get(i).getAluno().equals(a))
+				return;
+		}
+		
+		Matricula m = new Matricula(a);
+		this.alunosMatriculados.add(m);
 	}
 
 	public String getNome() {
@@ -56,26 +75,38 @@ public class Curso {
 		return alunosMatriculados;
 	}
 
-	public ArrayList<Topico> getTopicos() {
-		return topicos;
+	public Topico getTopico(String titulo) {
+		for (int i = 0; i < topicos.size(); i++) {
+			if (topicos.get(i).getTitulo().contentEquals(titulo))
+				return topicos.get(i);
+		}
+		return null;
+	}
+	
+	public ArrayList<Topico> getTopico() {
+		return topicos; 
 	}
 
-	public void removerAluno(String cpf) {
+	public void removerAluno(Aluno a) {
 		for (int i = 0; i < alunosMatriculados.size(); i++) {
-			if (alunosMatriculados.get(i).getAluno().getCpf().contentEquals(cpf)) {
+			if (alunosMatriculados.get(i).getAluno().equals(a)) {
 				alunosMatriculados.remove(i);
 				return;
 			}
 		}
 	}
 
-	public void removeTopico(Topico topico) {
-		for (int i = 0; i < topicos.size(); i++) {
-			if (topicos.get(i).getTitulo().contentEquals(topico.getTitulo())) {
-				topicos.remove(i);
-				return;
-			}
-		}
+	public static int getTotalCursos() {
+		return totalCursos;
 	}
+
+	public static void setTotalCursos(int totalCursos) {
+		Curso.totalCursos = totalCursos;
+	}
+
+	public static int getTotalTopicos() {
+		return totalTopicos;
+	}
+	
 
 }
