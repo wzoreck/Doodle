@@ -9,53 +9,74 @@ public class Curso {
 	private Date dataInicio;
 	private Professor professor;
 	private ArrayList<Aluno> alunos;
-	private ArrayList<Topico> topicos; // susbtituir por:
-	private ArrayList<Conteudo> conteudos;
-	private static int totalCursos = 0;
-	// novo --
+	private ArrayList<Conteudo> conteudos; // Criar um metodo listaConteudos() ainda
 	private int vagas;
 
 	public Curso(Professor professor, String nome) {
 		this.professor = professor;
 		this.nome = nome;
-		//this.alunosMatriculados = new ArrayList<Matricula>();
-		this.topicos = new ArrayList<Topico>();
-		totalCursos++;
+		this.conteudos = new ArrayList<Conteudo>();
 	}
 
 	public Curso(Professor professor, String nome, Date dataInicio) {
 		this.professor = professor;
 		this.nome = nome;
 		this.dataInicio = dataInicio;
-		//this.alunosMatriculados = new ArrayList<Matricula>();
-		this.topicos = new ArrayList<Topico>();
-		totalCursos++;
+		this.conteudos = new ArrayList<Conteudo>();
 	}
 
-	public void adicionaTopico(Topico topico) {
-		for (int i = 0; i < topicos.size(); i++)
-			if (topicos.get(i).equals(topico))
+	public void adicionaAluno(Aluno aluno) {
+		if (this.alunos.size() >= this.vagas)
+			return;
+
+		for (int i = 0; i < this.alunos.size(); i++)
+			if (this.alunos.get(i).equals(aluno))
 				return;
-		topicos.add(topico);
+
+		this.alunos.add(aluno);
 	}
-	
-	public void removeTopico(Topico topico) {
-		for (int i = 0; i < topicos.size(); i++) {
-			if (topicos.get(i).equals(topico)) {
-				topicos.remove(i);
+
+	public void removeAluno(Aluno aluno) {
+		for (int i = 0; i < this.alunos.size(); i++) {
+			if (this.alunos.get(i).equals(aluno)) {
+				this.alunos.remove(i);
+				return;
+			}
+		}
+	}
+
+	public void listaAlunos() {
+		for (int i = 0; i < this.alunos.size(); i++) {
+			System.out.println("\nNome: " + this.alunos.get(i).getNome());
+			System.out.println("Email: " + this.alunos.get(i).getEmail());
+			System.out.println("Data de nascimento: " + this.alunos.get(i).getDataNascimento());
+			System.out.println(this.alunos.get(i).isMatriculado() ? "Está matriculado!" : "Não está matriculado!");
+		}
+	}
+
+	public void adicionaConteudo(Conteudo conteudo) {
+		for (int i = 0; i < this.conteudos.size(); i++)
+			if (this.conteudos.get(i).equals(conteudo))
+				return;
+
+		this.conteudos.add(conteudo);
+	}
+
+	public void removeConteudo(Conteudo conteudo) {
+		for (int i = 0; i < this.conteudos.size(); i++) {
+			if (this.conteudos.get(i).equals(conteudo)) {
+				this.conteudos.remove(i);
 				return;
 			}
 		}
 	}
 	
-	public void matricularAluno(Aluno a) {
-		for (int i=0; i < alunosMatriculados.size(); i++) {
-			if(alunosMatriculados.get(i).getAluno().equals(a))
-				return;
-		}
-		
-		Matricula m = new Matricula(a);
-		this.alunosMatriculados.add(m);
+	public void InformacaoCurso() {
+		System.out.println("\nNome: " + this.nome);
+		System.out.println("Criado em: " + this.getDataInicio());
+		System.out.println("Alunos matriculados: " + this.vagas);
+		System.out.println("Professor: " + this.professor.getNome());
+		System.out.println("Contato: " + this.professor.getEmail());
 	}
 
 	public String getNome() {
@@ -66,43 +87,5 @@ public class Curso {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(dataInicio);
 	}
-
-	public Professor getProfessor() {
-		return professor;
-	}
-
-	public ArrayList<Matricula> getTurma() {
-		return alunosMatriculados;
-	}
-
-	public Topico getTopico(String titulo) {
-		for (int i = 0; i < topicos.size(); i++) {
-			if (topicos.get(i).getTitulo().contentEquals(titulo))
-				return topicos.get(i);
-		}
-		return null;
-	}
-	
-	public ArrayList<Topico> getTopico() {
-		return topicos; 
-	}
-
-	public void removerAluno(Aluno a) {
-		for (int i = 0; i < alunosMatriculados.size(); i++) {
-			if (alunosMatriculados.get(i).getAluno().equals(a)) {
-				alunosMatriculados.remove(i);
-				return;
-			}
-		}
-	}
-
-	public static int getTotalCursos() {
-		return totalCursos;
-	}
-
-	public static void setTotalCursos(int totalCursos) {
-		Curso.totalCursos = totalCursos;
-	}
-	
 
 }

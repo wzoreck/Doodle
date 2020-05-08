@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import doodle.entidades.Curso;
 import doodle.entidades.Pessoa;
 import doodle.entidades.Professor;
 
@@ -32,21 +33,9 @@ public class Main {
 		
 		Pessoa p = new Professor("Daniel", "daniel@email.com", sdf.parse("08/07/2000"), "daniel", "123", 3.000f, 10);
 		
-		String login, senha;
-		System.out.print("Informe o login: ");
-		login = sc.nextLine();
-		System.out.print("Informe a senha: ");
-		senha = sc.nextLine();
+		Curso c = new Curso((Professor) p, "POO", data);
 		
-		
-		boolean retorno = p.validaUsuario(login, senha);
-		
-		if(retorno == true)
-			System.out.println("Liberado");
-		
-		System.out.println(p.getTipoPessoa());
-		
-		
+		c.InformacaoCurso();
 		
 
 //		ArrayList<Pessoa> professores = new ArrayList<Pessoa>();
