@@ -1,50 +1,54 @@
 package doodle.entidades;
 
+import java.util.ArrayList;
 import java.util.Date;
 
-import doodle.forum.Forum;
-
 public class Professor extends Pessoa {
-	private int registro;
-	private char formacao;
-
-	public Professor(String nome, String cpf, char sexo, Date dataNascimento, String pais, String estado, String cidade,
-			int registro, char formacao) {
-		super(nome, cpf, sexo, dataNascimento, pais, estado, cidade);
-		this.registro = registro;
-		this.formacao = formacao;
+	private float salario;
+	private int cargaHorariaSemanal;
+	private ArrayList<String> historicoCursos; // Armazenar "certificados dos cursos, Nome e carga horária"
+	
+	public Professor(String nome, String email, Date dataNascimento, float salario, int cargaHorariaSemanal) {
+		super(nome, email, dataNascimento);
+		this.salario = salario;
+		this.cargaHorariaSemanal = cargaHorariaSemanal;
+		this.historicoCursos = new ArrayList<String>();
 	}
 
-	public Professor(String nome, String cpf, char sexo, Date dataNascimento, String pais, String estado, String cidade,
-			String email, String telefone, int registro, char formacao) {
-		super(nome, cpf, sexo, dataNascimento, pais, estado, cidade, email, telefone);
-		this.registro = registro;
-		this.formacao = formacao;
+	public Professor(String nome, String email, Date dataNascimento, String login, String passwd, float salario,
+			int cargaHorariaSemanal) {
+		super(nome, email, dataNascimento, login, passwd);
+		this.salario = salario;
+		this.cargaHorariaSemanal = cargaHorariaSemanal;
+		this.historicoCursos = new ArrayList<String>();
 	}
 	
+	public void adicionaHistorico(String informacaoCurso) {
+		this.historicoCursos.add(informacaoCurso);
+	}
+
+	public float getSalario() {
+		return salario;
+	}
+
+	public void setSalario(float salario) {
+		this.salario = salario;
+	}
+
+	public int getCargaHorariaSemanal() {
+		return cargaHorariaSemanal;
+	}
+
+	public void setCargaHorariaSemanal(int cargaHorariaSemanal) {
+		this.cargaHorariaSemanal = cargaHorariaSemanal;
+	}
+
+	public ArrayList<String> getHistoricoCursos() {
+		return historicoCursos;
+	}
+
 	@Override
-	public void respondeEmForum(Curso curso, Forum forum) {
-		
+	protected String tipoPessoa() {
+		return "professor";
 	}
-
-	public int getRegistro() {
-		return registro;
-	}
-
-	public String getFormacao() {
-		switch (this.formacao) {
-		case 'G':
-			return "Graduado";
-		case 'M':
-			return "Mestre";
-		case 'D':
-			return "Doutor";
-		}
-		return "Formação Desconhecida";
-	}
-
-	public void setFormacao(char formacao) {
-		this.formacao = formacao;
-	}
-
 }

@@ -1,37 +1,42 @@
 package doodle.entidades;
 
+import java.util.ArrayList;
 import java.util.Date;
 
-import doodle.forum.Forum;
-
 public class Aluno extends Pessoa {
-
 	private boolean matriculado;
+	private ArrayList<String> certificados;
 
-	public Aluno(String nome, String cpf, char sexo, Date dataNascimento, String pais, String estado, String cidade,
-			String email, String telefone) {
-		super(nome, cpf, sexo, dataNascimento, pais, estado, cidade, email, telefone);
+	public Aluno(String nome, String email, Date dataNascimento) {
+		super(nome, email, dataNascimento);
 		this.matriculado = false;
+		this.certificados = new ArrayList<String>();
+	}
+	
+	public Aluno(String nome, String email, Date dataNascimento, String login, String passwd) {
+		super(nome, email, dataNascimento, login, passwd);
+		this.matriculado = false;
+		this.certificados = new ArrayList<String>();
 	}
 
-	public Aluno(String nome, String cpf, char sexo, Date dataNascimento, String pais, String estado, String cidade,
-			String email, String telefone, boolean matriculado) {
-		super(nome, cpf, sexo, dataNascimento, pais, estado, cidade, email, telefone);
-		this.matriculado = matriculado;
+	public void adicionaCertificado(String certificado) {
+		this.certificados.add(certificado);
 	}
-
-	//
-	public void perguntaEmForum(Curso curso, Forum forum) {
-
-	}
-	//
-
+	
 	public boolean isMatriculado() {
 		return matriculado;
 	}
 
-	public void setMatriculado(boolean estaAtivo) {
-		this.matriculado = estaAtivo;
+	public void setMatriculado(boolean matriculado) {
+		this.matriculado = matriculado;
 	}
 
+	public ArrayList<String> getCertificados() {
+		return certificados;
+	}
+
+	@Override
+	protected String tipoPessoa() {
+		return "aluno";
+	}
 }

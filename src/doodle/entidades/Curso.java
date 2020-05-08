@@ -8,15 +8,17 @@ public class Curso {
 	private String nome;
 	private Date dataInicio;
 	private Professor professor;
-	private ArrayList<Matricula> alunosMatriculados;
-	private ArrayList<Topico> topicos;
+	private ArrayList<Aluno> alunos;
+	private ArrayList<Topico> topicos; // susbtituir por:
+	private ArrayList<Conteudo> conteudos;
 	private static int totalCursos = 0;
-	private static int totalTopicos = 0;
+	// novo --
+	private int vagas;
 
 	public Curso(Professor professor, String nome) {
 		this.professor = professor;
 		this.nome = nome;
-		this.alunosMatriculados = new ArrayList<Matricula>();
+		//this.alunosMatriculados = new ArrayList<Matricula>();
 		this.topicos = new ArrayList<Topico>();
 		totalCursos++;
 	}
@@ -25,7 +27,7 @@ public class Curso {
 		this.professor = professor;
 		this.nome = nome;
 		this.dataInicio = dataInicio;
-		this.alunosMatriculados = new ArrayList<Matricula>();
+		//this.alunosMatriculados = new ArrayList<Matricula>();
 		this.topicos = new ArrayList<Topico>();
 		totalCursos++;
 	}
@@ -35,7 +37,6 @@ public class Curso {
 			if (topicos.get(i).equals(topico))
 				return;
 		topicos.add(topico);
-		totalTopicos++;
 	}
 	
 	public void removeTopico(Topico topico) {
@@ -45,7 +46,6 @@ public class Curso {
 				return;
 			}
 		}
-		totalTopicos--;
 	}
 	
 	public void matricularAluno(Aluno a) {
@@ -102,10 +102,6 @@ public class Curso {
 
 	public static void setTotalCursos(int totalCursos) {
 		Curso.totalCursos = totalCursos;
-	}
-
-	public static int getTotalTopicos() {
-		return totalTopicos;
 	}
 	
 
