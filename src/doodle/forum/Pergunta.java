@@ -1,5 +1,6 @@
 package doodle.forum;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ public class Pergunta {
 	private ArrayList<Resposta> respostas;
 	private Date data;
 	private static int totalRespostas = 0;
-	
+
 	public Pergunta(Pessoa autor, String duvida, Date data) {
 		this.autor = autor;
 		this.duvida = duvida;
@@ -27,14 +28,22 @@ public class Pergunta {
 		this.data = data;
 		this.respostas = new ArrayList<Resposta>();
 	}
-	
+
 	public void adicionaResposta(Resposta resposta) {
 		this.respostas.add(resposta);
 		totalRespostas++;
 	}
-	
+
 	public void removeResposta(int indice) {
 		this.respostas.remove(indice);
+	}
+
+	public void listaRespostas() {
+		for (int i = 0; i < this.respostas.size(); i++) {
+			System.out.println("\tResposta " + (i + 1) + ": " + this.respostas.get(i).getResposta());
+			System.out.println("\tAutor: " + this.respostas.get(i).getAutor().getNome());
+			System.out.println("\tpublicado em " + this.respostas.get(i).getData());
+		}
 	}
 
 	public String getAutor() {
@@ -61,12 +70,13 @@ public class Pergunta {
 		return respostas;
 	}
 
-	public Date getData() {
-		return data;
+	public String getData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(this.data);
 	}
 
 	public static int getTotalRespostas() {
 		return totalRespostas;
 	}
-	
+
 }

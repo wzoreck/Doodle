@@ -1,5 +1,6 @@
 package doodle.forum;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import doodle.entidades.Pessoa;
@@ -35,8 +36,9 @@ public class Resposta {
 		this.resposta = resposta;
 	}
 
-	public Date getData() {
-		return data;
+	public String getData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(this.data);
 	}
 
 	public boolean isCorreta() {

@@ -2,7 +2,7 @@ package doodle.entidades;
 
 import java.util.Date;
 
-public class Conteudo {
+public abstract class Conteudo {
 	protected String titulo;
 	protected String descricao;
 	protected Date dataPublicacao;
@@ -64,5 +64,11 @@ public class Conteudo {
 	public Date getDataTermino() {
 		return dataTermino;
 	}
-		
+	
+	public String getTipoConteudo() {
+		return tipoConteudo();
+	}
+	
+	// Método abstrato
+	protected abstract String tipoConteudo();
 }

@@ -8,7 +8,6 @@ import doodle.entidades.Conteudo;
 public class Forum extends Conteudo {
 	private boolean aberto;
 	private ArrayList<Pergunta> perguntas;
-	private static int totalPerguntas = 0;
 
 	public Forum(String titulo, String descricao, Date dataPublicacao) {
 		super(titulo, descricao, dataPublicacao);
@@ -25,11 +24,21 @@ public class Forum extends Conteudo {
 
 	public void adicionaPergunta(Pergunta pergunta) {
 		this.perguntas.add(pergunta);
-		totalPerguntas++;
 	}
 
 	public void removePergunta(int indice) {
 		this.perguntas.remove(indice);
+	}
+
+	public void listar() {
+		for (int i = 0; i < this.perguntas.size(); i++) {
+			System.out.println("\nTítulo: " + this.perguntas.get(i).getTitulo());
+			System.out.println("Duvida: " + this.perguntas.get(i).getDuvida());
+			System.out.println("Autor: " + this.perguntas.get(i).getAutor());
+			System.out.println("Data de publicação: " + this.perguntas.get(i).getData());
+			
+			this.perguntas.get(i).listaRespostas();
+		}
 	}
 
 	public boolean isAberto() {
@@ -44,8 +53,9 @@ public class Forum extends Conteudo {
 		return perguntas;
 	}
 
-	public static int getTotalPerguntas() {
-		return totalPerguntas;
+	@Override
+	protected String tipoConteudo() {
+		return "forum";
 	}
 
 }
