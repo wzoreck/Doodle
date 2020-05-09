@@ -37,7 +37,7 @@ public class Main {
 		Aluno aluno = null;
 		Curso curso = null;
 
-		String nome, email, nomeUsuario, senha;
+		String nome, email, nomeUsuario, senha, titulo, descricao;
 		boolean controle = true;
 		int escolha1 = 0, escolha2, escolhaCurso, cargaHorariaSemanal;
 		float salario;
@@ -199,16 +199,38 @@ public class Main {
 						break;
 
 					case 4:
-						
+						System.out.print("\nTitulo para o questionário: ");
+						titulo = sc.nextLine();
+						System.out.println("Descrição: ");
+						descricao = sc.nextLine();
+						data = new Date();
+						curso.adicionaQuestionario(titulo, descricao, data);
 						break;
 
 					case 5:
+						System.out.print("\nInforme o título do questionário que deseja remover: ");
+						titulo = sc.nextLine();
+						curso.removeConteudo(titulo);
 						break;
+
 					case 6:
+						System.out.print("\nTitulo para o fórum: ");
+						titulo = sc.nextLine();
+						System.out.println("Descrição: ");
+						descricao = sc.nextLine();
+						data = new Date();
+						curso.adicionaForum(titulo, descricao, data);
 						break;
+
 					case 7:
+						System.out.print("\nInforme o título do fórum que deseja remover: ");
+						titulo = sc.nextLine();
+						curso.removeConteudo(titulo);
 						break;
+
 					case 8:
+						System.out.println("\n---Conteúdos do Curso---");
+						curso.listaConteudos();
 						break;
 
 					}

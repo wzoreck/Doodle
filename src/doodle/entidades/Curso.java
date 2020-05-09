@@ -12,7 +12,7 @@ public class Curso {
 	private Date dataInicio;
 	private Professor professor;
 	private ArrayList<Aluno> alunos;
-	private ArrayList<Conteudo> conteudos; // Criar um metodo listaConteudos() ainda
+	private ArrayList<Conteudo> conteudos;
 	private int vagas = 40;
 
 	public Curso(Professor professor, String nome) {
@@ -64,27 +64,52 @@ public class Curso {
 		Questionario q = new Questionario(titulo, descricao, data);
 		this.conteudos.add(q);
 	}
-	
+
 	public void adicionaForum(String titulo, String descricao, Date data) {
+		for (int i = 0; i < conteudos.size(); i++)
+			if (this.conteudos.get(i).getTitulo().contentEquals(titulo))
+				return;
+
 		Forum f = new Forum(titulo, descricao, data);
 		this.conteudos.add(f);
 	}
 
-	public void removeConteudo(Conteudo conteudo) {
+	public void removeConteudo(String titulo) {
 		for (int i = 0; i < this.conteudos.size(); i++) {
-			if (this.conteudos.get(i).equals(conteudo)) {
+			if (this.conteudos.get(i).getTitulo().contentEquals(titulo)) {
 				this.conteudos.remove(i);
 				return;
 			}
 		}
 	}
-	
+
 	public void informacaoCurso() {
 		System.out.println("Nome: " + this.nome);
 		System.out.println("Criado em: " + getDataInicio());
 		System.out.println("Alunos matriculados: " + this.vagas);
 		System.out.println("Professor: " + this.professor.getNome());
 		System.out.println("Contato: " + this.professor.getEmail());
+	}
+
+	public void listaConteudos() {
+		Forum f = null;
+		Questionario q = null;
+
+		for (int i = 0; i < this.conteudos.size(); i++) {
+
+			System.out.println("\nTítulo " + this.conteudos.get(i).getTipoConteudo() + ": " + this.conteudos.get(i).getTitulo());
+			System.out.println("Descrição: " + this.conteudos.get(i).getDescricao());
+			System.out.println("Data de publicação: " + this.conteudos.get(i).getDataPublicacao());
+
+			if (this.conteudos.get(i).getTipoConteudo().contentEquals("forum")) {
+				f = (Forum) this.conteudos.get(i);
+				f.listar();
+			} else {
+				q = (Questionario) this.conteudos.get(i);
+				q.listaQuestoes();
+			}
+
+		}
 	}
 
 	public String getNome() {
@@ -94,10 +119,6 @@ public class Curso {
 	public String getDataInicio() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(dataInicio);
-	}
-
-	public ArrayList<Conteudo> getConteudos() {
-		return conteudos;
 	}
 
 }

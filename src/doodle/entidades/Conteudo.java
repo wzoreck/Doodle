@@ -1,5 +1,6 @@
 package doodle.entidades;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Conteudo {
@@ -44,8 +45,9 @@ public abstract class Conteudo {
 		this.descricao = descricao;
 	}
 
-	public Date getDataPublicacao() {
-		return dataPublicacao;
+	public String getDataPublicacao() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(dataPublicacao);
 	}
 
 	public boolean isPrazo() {
@@ -57,12 +59,14 @@ public abstract class Conteudo {
 		this.dataTermino = dataTermino;
 	}
 
-	public Date getDataInicio() {
-		return dataInicio;
+	public String getDataInicio() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(dataInicio);
 	}
 
-	public Date getDataTermino() {
-		return dataTermino;
+	public String getDataTermino() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(dataTermino);
 	}
 	
 	public String getTipoConteudo() {
