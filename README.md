@@ -7,8 +7,7 @@
 | Baixar código fonte apartir de etapa específica do projeto   |
 | :----------------------------------------------------------- |
 | [Primeira Etapa](https://github.com/wzoreck/Doodle/releases/tag/V1.0_Primeira_Etapa) - Abstração e Encapsulamento |
-| - Herança e Polimorfismo                                     |
-
+| [Segunda Etapa](https://github.com/wzoreck/Doodle/releases/tag/V2.0_Segunda_Etapa) - Herança e Polimorfismo |                            
 
 
 ------
