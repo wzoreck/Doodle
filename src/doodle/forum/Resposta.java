@@ -10,7 +10,7 @@ public class Resposta {
 	private String resposta;
 	private Date data;
 	private boolean correta;
-	
+
 	public Resposta(Pessoa autor, String resposta, Date data) {
 		this.autor = autor;
 		this.resposta = resposta;
@@ -48,5 +48,5 @@ public class Resposta {
 	public void setCorreta(boolean correta) {
 		this.correta = correta;
 	}
-	
+
 }

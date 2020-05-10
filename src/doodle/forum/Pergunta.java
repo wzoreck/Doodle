@@ -12,7 +12,6 @@ public class Pergunta {
 	private String duvida;
 	private ArrayList<Resposta> respostas;
 	private Date data;
-	private static int totalRespostas = 0;
 
 	public Pergunta(Pessoa autor, String duvida, Date data) {
 		this.autor = autor;
@@ -31,7 +30,6 @@ public class Pergunta {
 
 	public void adicionaResposta(Resposta resposta) {
 		this.respostas.add(resposta);
-		totalRespostas++;
 	}
 
 	public void removeResposta(int indice) {
@@ -74,9 +72,4 @@ public class Pergunta {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(this.data);
 	}
-
-	public static int getTotalRespostas() {
-		return totalRespostas;
-	}
-
 }
