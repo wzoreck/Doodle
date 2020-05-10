@@ -32,10 +32,10 @@ public class Forum extends Conteudo {
 
 	public void listar() {
 		for (int i = 0; i < this.perguntas.size(); i++) {
-			System.out.println("\nTítulo pergunta " + (i + 1) + ": " + this.perguntas.get(i).getTitulo());
-			System.out.println("Duvida: " + this.perguntas.get(i).getDuvida());
-			System.out.println("Autor: " + this.perguntas.get(i).getAutor());
-			System.out.println("Data de publicação: " + this.perguntas.get(i).getData());
+			System.out.println("\n	Pergunta " + (i + 1) + ": " + this.perguntas.get(i).getTitulo());
+			System.out.println("	Duvida: " + this.perguntas.get(i).getDuvida());
+			System.out.println("	Autor: " + this.perguntas.get(i).getAutor());
+			System.out.println("	publicado em " + this.perguntas.get(i).getData());
 
 			this.perguntas.get(i).listaRespostas();
 		}
@@ -47,6 +47,10 @@ public class Forum extends Conteudo {
 
 	public void setAberto(boolean aberto) {
 		this.aberto = aberto;
+	}
+
+	public ArrayList<Pergunta> getPerguntas() {
+		return perguntas;
 	}
 
 	@Override

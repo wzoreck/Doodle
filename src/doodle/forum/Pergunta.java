@@ -40,9 +40,9 @@ public class Pergunta {
 
 	public void listaRespostas() {
 		for (int i = 0; i < this.respostas.size(); i++) {
-			System.out.println("\tResposta " + (i + 1) + ": " + this.respostas.get(i).getResposta());
-			System.out.println("\tAutor: " + this.respostas.get(i).getAutor().getNome());
-			System.out.println("\tPublicado em " + this.respostas.get(i).getData());
+			System.out.println("\n		Resposta " + (i + 1) + ": " + this.respostas.get(i).getResposta());
+			System.out.println("		Autor: " + this.respostas.get(i).getAutor().getNome());
+			System.out.println("		publicado em " + this.respostas.get(i).getData());
 		}
 	}
 

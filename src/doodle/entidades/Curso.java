@@ -40,6 +40,7 @@ public class Curso {
 
 		this.alunos.add(aluno);
 		aluno.setMatriculado(true);
+		aluno.adicionaCurso(this);
 	}
 
 	public void removeAluno(Aluno aluno) {
@@ -86,7 +87,6 @@ public class Curso {
 	public void informacaoCurso() {
 		System.out.println("Nome: " + this.nome);
 		System.out.println("Criado em: " + getDataInicio());
-		System.out.println("Alunos matriculados: " + this.vagas);
 		System.out.println("Professor: " + this.professor.getNome());
 		System.out.println("Contato: " + this.professor.getEmail());
 	}
@@ -97,7 +97,8 @@ public class Curso {
 
 		for (int i = 0; i < this.conteudos.size(); i++) {
 
-			System.out.println("\nTítulo " + this.conteudos.get(i).getTipoConteudo() + ": " + this.conteudos.get(i).getTitulo());
+			System.out.println(
+					"\nTítulo " + this.conteudos.get(i).getTipoConteudo() + ": " + this.conteudos.get(i).getTitulo());
 			System.out.println("Descrição: " + this.conteudos.get(i).getDescricao());
 			System.out.println("Data de publicação: " + this.conteudos.get(i).getDataPublicacao());
 
@@ -119,6 +120,10 @@ public class Curso {
 	public String getDataInicio() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(dataInicio);
+	}
+
+	public ArrayList<Conteudo> getConteudos() {
+		return conteudos;
 	}
 
 }
