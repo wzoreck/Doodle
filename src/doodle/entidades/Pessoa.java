@@ -1,6 +1,7 @@
 package doodle.entidades;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import doodle.forum.Forum;
@@ -12,11 +13,13 @@ public abstract class Pessoa {
 	private Date dataNascimento;
 	private String login;
 	private String passwd;
+	protected ArrayList<Curso> cursos;
 
 	public Pessoa(String nome, String email, Date dataNascimento) {
 		this.nome = nome;
 		this.email = email;
 		this.dataNascimento = dataNascimento;
+		this.cursos = new ArrayList<Curso>();
 	}
 
 	public Pessoa(String nome, String email, Date dataNascimento, String login, String passwd) {
@@ -25,6 +28,7 @@ public abstract class Pessoa {
 		this.dataNascimento = dataNascimento;
 		this.login = login;
 		this.passwd = passwd;
+		this.cursos = new ArrayList<Curso>();
 	}
 
 	public boolean validaUsuario(String login, String passwd) {
@@ -51,14 +55,34 @@ public abstract class Pessoa {
 				f.getPerguntas().get(j).adicionaResposta(new Resposta(this, resposta, data));
 	}
 
+	public Curso getCurso(String nome) {
+		for (int i = 0; i < this.cursos.size(); i++)
+			if (this.cursos.get(i).getNome().contentEquals(nome))
+				return this.cursos.get(i);
+		return null;
+	}
+	
+	public void listaCursos() {
+		for (int i = 0; i < this.cursos.size(); i++)
+			System.out.println("Curso " + (i + 1) + ": " + this.cursos.get(i).getNome());
+	}
+	
 	public String getNome() {
 		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getDataNascimento() {
 		// Formata a data e retorna como String
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(dataNascimento);
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getEmail() {
@@ -75,14 +99,6 @@ public abstract class Pessoa {
 
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
 	}
 
 	public String getTipoPessoa() {
