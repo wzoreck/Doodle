@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import doodle.bd.UtilBD;
 import doodle.entidades.Aluno;
 import doodle.entidades.Curso;
 import doodle.entidades.Pessoa;
@@ -26,7 +27,12 @@ import doodle.entidades.Professor;
 public class Main {
 
 	public static void main(String[] args) throws ParseException {
-
+		
+		//Teste
+		UtilBD.initBD();
+		UtilBD.fecharConexao();
+		//
+		
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato da data
 		Date data = new Date();
