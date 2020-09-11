@@ -55,7 +55,7 @@ public class UtilBD {
 			System.out.println("1234");
 			conexao = getConexao();
 			Statement statement = conexao.createStatement();
-			
+
 			criarPessoa(statement);
 			criarAluno(statement);
 			criarProfessor(statement);
@@ -63,6 +63,9 @@ public class UtilBD {
 			criarMatricula(statement);
 			criarConteudo(statement);
 			criarQuestionario(statement);
+			criarForum(statement);
+			criarPerguntaForum(statement);
+			criarRespostaForum(statement);
 
 			statement.close();
 		} catch (SQLException exception) {
@@ -149,26 +152,65 @@ public class UtilBD {
 				+ "(NULL, 1, 'Trabalho etapa 1', 'Abordar os conceitos de Abstração e Encapsulamento', '2020-03-20', TRUE, '2020-03-20', '2020-04-20')");
 		stm.executeUpdate("INSERT INTO conteudo VALUES"
 				+ "(NULL, 2, 'Forum Dúvidas', 'Para dúvidas que surgirem na matéria', '2020-04-18', TRUE, '2020-04-18', '2020-12-30')");
+		stm.executeUpdate("INSERT INTO conteudo VALUES"
+				+ "(NULL, 1, 'Questionario 1', 'Referente a POO', '2020-07-05', TRUE, '2020-07-05', '2020-07-25')");
 	}
 
 	private static void criarQuestionario(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS questionario");
-		
-		stm.executeUpdate("CREATE TABLE questionario (" + 
-				"id_questao INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + 
-				"id_conteudo INTEGER NOT NULL," + 
-				"questao VARCHAR(1000) NOT NULL," + "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo))");
+
+		stm.executeUpdate("CREATE TABLE questionario (" + "id_questao INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "id_conteudo INTEGER NOT NULL," + "questao VARCHAR(1000) NOT NULL,"
+				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo))");
+
+		stm.executeUpdate(
+				"INSERT INTO questionario VALUES" + "(NULL, 3, 'Para que serve o paradigma de Orientação a Objetos?')");
+		stm.executeUpdate("INSERT INTO questionario VALUES"
+				+ "(NULL, 3, 'Quais são os quatro pilares da Orientação a Objetos?')");
+		stm.executeUpdate("INSERT INTO questionario VALUES" + "(NULL, 3, 'Defina o processo de herança?')");
+		stm.executeUpdate("INSERT INTO questionario VALUES" + "(NULL, 3, 'Qual a utilidade do polimorfismo?')");
+		stm.executeUpdate("INSERT INTO questionario VALUES"
+				+ "(NULL, 3, 'Expliqu o que significa [establecer um contrato] quando falamos de interface?')");
 	}
 
 	private static void criarForum(Statement stm) throws SQLException {
-		stm.executeUpdate("");
+		stm.executeUpdate("DROP TABLE IF EXISTS forum");
+
+		stm.executeUpdate("CREATE TABLE forum (" + "id_forum INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+				+ "id_conteudo INTEGER NOT NULL," + "aberto	BOOLEAN NOT NULL DEFAULT 'TRUE',"
+				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo))");
+
+		stm.executeUpdate("INSERT INTO FORUM VALUES" + "(NULL, 2, TRUE)");
 	}
 
-	private static void criarPergunta(Statement stm) throws SQLException {
-		stm.executeUpdate("");
+	private static void criarPerguntaForum(Statement stm) throws SQLException {
+		stm.executeUpdate("DROP TABLE IF EXISTS pergunta_forum");
+
+		stm.executeUpdate("CREATE TABLE pergunta_forum ("
+				+ "id_pergunta INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," + "id_forum INTEGER NOT NULL,"
+				+ "id_autor INTEGER NOT NULL," + "titulo VARCHAR(150) NOT NULL," + "duvida VARCHAR(1000) NOT NULL,"
+				+ "data TEXT NOT NULL," + "FOREIGN KEY (id_forum) REFERENCES forum (id_forum),"
+				+ "FOREIGN KEY (id_autor) REFERENCES pessoa (id_pessoa))");
+
+		stm.executeUpdate("INSERT INTO pergunta_forum VALUES"
+				+ "(NULL, 1, 3, 'Como utilizar listas em Java?', 'Dúvida que surgiu durante a 1ª etapa do projeto', '2020-04-11')");
+		stm.executeUpdate("INSERT INTO pergunta_forum VALUES"
+				+ "(NULL, 1, 1, 'Como utilizar vetores em Java?', 'Dúvida que surgiu durante o projeto', '2020-04-17')");
 	}
 
-	private static void criarResposta(Statement stm) throws SQLException {
-		stm.executeUpdate("");
+	private static void criarRespostaForum(Statement stm) throws SQLException {
+		stm.executeUpdate("DROP TABLE IF EXISTS resposta_forum");
+
+		stm.executeUpdate("CREATE TABLE resposta_forum ("
+				+ "id_resposta INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," + "id_forum INTEGER NOT NULL,"
+				+ "id_pergunta INTEGER NOT NULL," + "id_autor INTEGER NOT NULL," + "resposta VARCHAR(1000) NOT NULL,"
+				+ "data VARCHAR(10) NOT NULL," + "correta BOOLEAN NOT NULL DEFAULT 0,"
+				+ "FOREIGN KEY (id_pergunta) REFERENCES pergunta_forum (id_pergunta),"
+				+ "FOREIGN KEY (id_forum) REFERENCES forum (id_forum),"
+				+ "FOREIGN KEY (id_autor) REFERENCES pessoa (id_pessoa))");
+
+		stm.executeUpdate("INSERT INTO resposta_forum VALUES"
+				+ "(NULL, 1, 1, 2, 'Basta utilizar a classe List ou Arraylist!"
+				+ "E informar o tipo que será a lista, ela é modelada como tipo genérico!', '2020-06-17', TRUE)");
 	}
 }
