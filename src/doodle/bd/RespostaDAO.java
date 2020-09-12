@@ -7,13 +7,13 @@ import doodle.forum.Resposta;
 public class RespostaDAO implements InterfaceDAO<Resposta>{
 
 	@Override
-	public void criar(Resposta referencia) {
+	public void adicionar(Resposta referencia) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Resposta> consultar() {
+	public List<Resposta> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}

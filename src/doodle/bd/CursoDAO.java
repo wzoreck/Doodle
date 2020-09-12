@@ -7,13 +7,13 @@ import doodle.entidades.Curso;
 public class CursoDAO implements InterfaceDAO<Curso> {
 
 	@Override
-	public void criar(Curso referencia) {
+	public void adicionar(Curso referencia) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Curso> consultar() {
+	public List<Curso> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}

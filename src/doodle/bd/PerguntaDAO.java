@@ -7,13 +7,13 @@ import doodle.forum.Pergunta;
 public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 
 	@Override
-	public void criar(Pergunta referencia) {
+	public void adicionar(Pergunta referencia) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Pergunta> consultar() {
+	public List<Pergunta> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}

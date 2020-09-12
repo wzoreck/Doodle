@@ -78,7 +78,7 @@ public class UtilBD {
 
 		stm.executeUpdate("CREATE TABLE pessoa (" + "id_pessoa INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
 				+ "nome VARCHAR(100) NOT NULL," + "email VARCHAR(100) NOT NULL,"
-				+ "data_nascimento VARCHAR(10) NOT NULL," + "login VARCHAR(50) NOT NULL,"
+				+ "data_nascimento VARCHAR(10) NOT NULL," + "login VARCHAR(50) NOT NULL UNIQUE,"
 				+ "passwd VARCHAR(50) NOT NULL)");
 
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
@@ -97,7 +97,7 @@ public class UtilBD {
 		stm.executeUpdate("DROP TABLE IF EXISTS aluno");
 
 		stm.executeUpdate("CREATE TABLE aluno (" + "id_aluno INTEGER NOT NULL UNIQUE,"
-				+ "matriculado BOOLEAN NOT NULL DEFAULT 0," + "FOREIGN KEY (id_aluno) REFERENCES pessoa (id_pessoa))");
+				+ "matriculado BOOLEAN NOT NULL DEFAULT FALSE," + "FOREIGN KEY (id_aluno) REFERENCES pessoa (id_pessoa))");
 
 		stm.executeUpdate("INSERT INTO aluno VALUES" + "(1, FALSE)");
 		stm.executeUpdate("INSERT INTO aluno VALUES" + "(3, FALSE)");
@@ -212,5 +212,12 @@ public class UtilBD {
 		stm.executeUpdate("INSERT INTO resposta_forum VALUES"
 				+ "(NULL, 1, 1, 2, 'Basta utilizar a classe List ou Arraylist!"
 				+ "E informar o tipo que será a lista, ela é modelada como tipo genérico!', '2020-06-17', TRUE)");
+	}
+	
+	public static void alterarBd(String sql) throws SQLException {
+		Connection bd = getConexao();
+		Statement stm = bd.createStatement();
+		stm.executeUpdate(sql);
+		stm.close();
 	}
 }

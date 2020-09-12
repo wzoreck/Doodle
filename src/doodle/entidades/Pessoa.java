@@ -8,6 +8,7 @@ import doodle.forum.Forum;
 import doodle.forum.Resposta;
 
 public abstract class Pessoa {
+	private int id;
 	private String nome;
 	private String email;
 	private Date dataNascimento;
@@ -67,6 +68,14 @@ public abstract class Pessoa {
 			System.out.println("Curso " + (i + 1) + ": " + this.cursos.get(i).getNome());
 	}
 	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -93,10 +102,18 @@ public abstract class Pessoa {
 		this.email = email;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+	
 	public void setLogin(String login) {
 		this.login = login;
 	}
 
+	public String getPasswd() {
+		return passwd;
+	}
+	
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}

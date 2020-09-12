@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import doodle.bd.AlunoDAO;
 import doodle.bd.UtilBD;
 import doodle.entidades.Aluno;
 import doodle.entidades.Curso;
@@ -28,15 +29,21 @@ public class Main {
 
 	public static void main(String[] args) throws ParseException {
 		
-		
+		// Teste Iniciar BD
 		UtilBD.initBD();
 		UtilBD.fecharConexao();
-		
+		// Teste
 		
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato da data
 		Date data = new Date();
 
+		// Teste inserir aluno
+		AlunoDAO a = new AlunoDAO();
+		data = sdf.parse("01/01/2000");
+		a.adicionar(new Aluno("Marica", "aa", data , "marica", "1234"));
+		//
+		
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
 
 		Professor professor = null;
