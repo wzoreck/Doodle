@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import doodle.bd.AlunoDAO;
+import doodle.bd.CursoDAO;
 import doodle.bd.ProfessorDAO;
 import doodle.bd.UtilBD;
 import doodle.entidades.Aluno;
@@ -29,12 +30,12 @@ import doodle.entidades.Professor;
 public class Main {
 
 	public static void main(String[] args) throws ParseException {
-		
+
 		// Teste Iniciar BD
 		UtilBD.initBD();
 		UtilBD.fecharConexao();
 		// Teste
-		
+
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato da data
 		Date data = new Date();
@@ -42,12 +43,25 @@ public class Main {
 		// Teste inserir aluno
 		AlunoDAO a = new AlunoDAO();
 		data = sdf.parse("01/01/2000");
-		a.adicionar(new Aluno("Marica", "aa", data , "marica", "1234"));
-		
+		a.adicionar(new Aluno("Marica", "aa", data, "marica", "1234"));
+
+		// Teste inserir professor
 		ProfessorDAO p = new ProfessorDAO();
-		p.adicionar(new Professor("Carlos", "ab", data, "carlos", "1234", 3400.01f, 30));
+		Professor carlos = new Professor("Carlos", "ab", data, "carlos", "1234", 3400.01f, 30);
+		p.adicionar(carlos);
+
+		// Teste inserir curso e matricular alunos
+		Curso c = new Curso(carlos, "Análise de Sistemas", data);
+		Aluno lira = new Aluno("Lira", "çakdjka", data, "lira", "1234");
+		a.adicionar(lira);
+		c.adicionaAluno(lira);
+		Aluno liro = new Aluno("Liro", "iwetrja", data, "liro", "1234");
+		a.adicionar(liro);
+		c.adicionaAluno(liro);
+		CursoDAO cd = new CursoDAO();
+		cd.adicionar(c);
 		//
-		
+
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
 
 		Professor professor = null;

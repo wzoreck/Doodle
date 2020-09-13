@@ -10,21 +10,21 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 	@Override
 	public void adicionar(Aluno aluno) {
 		try {
-			String query_pessoa = "INSERT INTO pessoa VALUES (NULL, '" + aluno.getNome() + "', '" + aluno.getEmail()
+			String queryPessoa = "INSERT INTO pessoa VALUES (NULL, '" + aluno.getNome() + "', '" + aluno.getEmail()
 					+ "', '" + aluno.getDataNascimento() + "', '" + aluno.getLogin() + "', '" + aluno.getPasswd()
 					+ "')";
 
-			UtilBD.alterarBd(query_pessoa);
+			UtilBD.alterarBd(queryPessoa);
 
 		} catch (SQLException e1) {
 			System.err.println("Falaha ao inserir Pessoa no banco de dados");
 		}
 		
 		try {
-			String query_aluno = "INSERT INTO aluno (id_aluno)\n" + "SELECT (id_pessoa) FROM pessoa\n" + "WHERE login = '"
+			String queryAluno = "INSERT INTO aluno (id_aluno)\n" + "SELECT (id_pessoa) FROM pessoa\n" + "WHERE login = '"
 					+ aluno.getLogin() + "'";
 
-			UtilBD.alterarBd(query_aluno);
+			UtilBD.alterarBd(queryAluno);
 			
 		} catch (SQLException e2) {
 			System.err.println("Falaha ao inserir Aluno no banco de dados");

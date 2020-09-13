@@ -122,6 +122,14 @@ public class Curso {
 		return sdf.format(dataInicio);
 	}
 
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public ArrayList<Aluno> getAlunos() {
+		return alunos;
+	}
+
 	public ArrayList<Conteudo> getConteudos() {
 		return conteudos;
 	}
