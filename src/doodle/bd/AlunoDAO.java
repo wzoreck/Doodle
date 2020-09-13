@@ -16,19 +16,17 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 
 			UtilBD.alterarBd(query_pessoa);
 
-		} catch (SQLException e) {
+		} catch (SQLException e1) {
 			System.err.println("Falaha ao inserir Pessoa no banco de dados");
 		}
 		
 		try {
-			
-			System.out.println("login: " + aluno.getLogin());
-			
 			String query_aluno = "INSERT INTO aluno (id_aluno)\n" + "SELECT (id_pessoa) FROM pessoa\n" + "WHERE login = '"
 					+ aluno.getLogin() + "'";
 
 			UtilBD.alterarBd(query_aluno);
-		} catch (SQLException a) {
+			
+		} catch (SQLException e2) {
 			System.err.println("Falaha ao inserir Aluno no banco de dados");
 		}
 

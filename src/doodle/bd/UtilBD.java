@@ -97,7 +97,8 @@ public class UtilBD {
 		stm.executeUpdate("DROP TABLE IF EXISTS aluno");
 
 		stm.executeUpdate("CREATE TABLE aluno (" + "id_aluno INTEGER NOT NULL UNIQUE,"
-				+ "matriculado BOOLEAN NOT NULL DEFAULT FALSE," + "FOREIGN KEY (id_aluno) REFERENCES pessoa (id_pessoa))");
+				+ "matriculado BOOLEAN NOT NULL DEFAULT FALSE,"
+				+ "FOREIGN KEY (id_aluno) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO aluno VALUES" + "(1, FALSE)");
 		stm.executeUpdate("INSERT INTO aluno VALUES" + "(3, FALSE)");
@@ -108,7 +109,8 @@ public class UtilBD {
 		stm.executeUpdate("DROP TABLE IF EXISTS professor");
 
 		stm.executeUpdate("CREATE TABLE professor (" + "id_professor INTEGER NOT NULL UNIQUE," + "salario NUMERIC,"
-				+ "carga_horaria_semanal INTEGER," + "FOREIGN KEY (id_professor) REFERENCES pessoa (id_pessoa))");
+				+ "carga_horaria_semanal INTEGER,"
+				+ "FOREIGN KEY (id_professor) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO professor VALUES" + "(2, 3250.27, 20)");
 		stm.executeUpdate("INSERT INTO professor VALUES" + "(5, 4100.52, 10)");
@@ -119,7 +121,7 @@ public class UtilBD {
 
 		stm.executeUpdate("CREATE TABLE curso (" + "id_curso INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
 				+ "nome VARCHAR(70) NOT NULL," + "data_inicio VARCHAR(10) NOT NULL," + "id_professor INTEGER NOT NULL,"
-				+ "FOREIGN KEY (id_professor) REFERENCES pessoa (id_pessoa))");
+				+ "FOREIGN KEY (id_professor) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO curso VALUES" + "(NULL, 'POO1-2020', '2020-01-01', 2)");
 		stm.executeUpdate("INSERT INTO curso VALUES" + "(NULL, 'Redes-2020', '2020-01-01', 5)");
@@ -129,8 +131,9 @@ public class UtilBD {
 		stm.executeUpdate("DROP TABLE IF EXISTS matricula_curso");
 
 		stm.executeUpdate("CREATE TABLE matricula_curso (" + "id_aluno INTEGER NOT NULL," + "id_curso INTEGER NOT NULL,"
-				+ "PRIMARY KEY(id_aluno, id_curso)" + "FOREIGN KEY (id_aluno) REFERENCES pessoa (id_pessoa),"
-				+ "FOREIGN KEY (id_curso) REFERENCES curso (id_curso))");
+				+ "PRIMARY KEY(id_aluno, id_curso)"
+				+ "FOREIGN KEY (id_aluno) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE,"
+				+ "FOREIGN KEY (id_curso) REFERENCES curso (id_curso) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO matricula_curso VALUES" + "(1, 1)");
 		stm.executeUpdate("INSERT INTO matricula_curso VALUES" + "(1, 2)");
@@ -146,7 +149,8 @@ public class UtilBD {
 		stm.executeUpdate("CREATE TABLE conteudo (" + "id_conteudo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
 				+ "id_curso INTEGER NOT NULL," + "titulo VARCHAR(50) NOT NULL," + "descricao VARCHAR(50) NOT NULL,"
 				+ "data_publicacao VARCHAR(10) NOT NULL," + "prazo BOOLEAN," + "data_inicio VARCHAR(10),"
-				+ "data_termino VARCHAR(10)," + "FOREIGN KEY (id_curso) REFERENCES curso (id_curso))");
+				+ "data_termino VARCHAR(10),"
+				+ "FOREIGN KEY (id_curso) REFERENCES curso (id_curso) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO conteudo VALUES"
 				+ "(NULL, 1, 'Trabalho etapa 1', 'Abordar os conceitos de Abstração e Encapsulamento', '2020-03-20', TRUE, '2020-03-20', '2020-04-20')");
@@ -161,7 +165,7 @@ public class UtilBD {
 
 		stm.executeUpdate("CREATE TABLE questionario (" + "id_questao INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "id_conteudo INTEGER NOT NULL," + "questao VARCHAR(1000) NOT NULL,"
-				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo))");
+				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo) ON DELETE CASCADE)");
 
 		stm.executeUpdate(
 				"INSERT INTO questionario VALUES" + "(NULL, 3, 'Para que serve o paradigma de Orientação a Objetos?')");
@@ -178,7 +182,7 @@ public class UtilBD {
 
 		stm.executeUpdate("CREATE TABLE forum (" + "id_forum INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
 				+ "id_conteudo INTEGER NOT NULL," + "aberto	BOOLEAN NOT NULL DEFAULT 'TRUE',"
-				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo))");
+				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO FORUM VALUES" + "(NULL, 2, TRUE)");
 	}
@@ -205,15 +209,15 @@ public class UtilBD {
 				+ "id_resposta INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," + "id_forum INTEGER NOT NULL,"
 				+ "id_pergunta INTEGER NOT NULL," + "id_autor INTEGER NOT NULL," + "resposta VARCHAR(1000) NOT NULL,"
 				+ "data VARCHAR(10) NOT NULL," + "correta BOOLEAN NOT NULL DEFAULT 0,"
-				+ "FOREIGN KEY (id_pergunta) REFERENCES pergunta_forum (id_pergunta),"
-				+ "FOREIGN KEY (id_forum) REFERENCES forum (id_forum),"
-				+ "FOREIGN KEY (id_autor) REFERENCES pessoa (id_pessoa))");
+				+ "FOREIGN KEY (id_pergunta) REFERENCES pergunta_forum (id_pergunta) ON DELETE CASCADE,"
+				+ "FOREIGN KEY (id_forum) REFERENCES forum (id_forum) ON DELETE CASCADE,"
+				+ "FOREIGN KEY (id_autor) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO resposta_forum VALUES"
 				+ "(NULL, 1, 1, 2, 'Basta utilizar a classe List ou Arraylist!"
 				+ "E informar o tipo que será a lista, ela é modelada como tipo genérico!', '2020-06-17', TRUE)");
 	}
-	
+
 	public static void alterarBd(String sql) throws SQLException {
 		Connection bd = getConexao();
 		Statement stm = bd.createStatement();

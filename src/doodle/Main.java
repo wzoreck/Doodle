@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import doodle.bd.AlunoDAO;
+import doodle.bd.ProfessorDAO;
 import doodle.bd.UtilBD;
 import doodle.entidades.Aluno;
 import doodle.entidades.Curso;
@@ -42,6 +43,9 @@ public class Main {
 		AlunoDAO a = new AlunoDAO();
 		data = sdf.parse("01/01/2000");
 		a.adicionar(new Aluno("Marica", "aa", data , "marica", "1234"));
+		
+		ProfessorDAO p = new ProfessorDAO();
+		p.adicionar(new Professor("Carlos", "ab", data, "carlos", "1234", 3400.01f, 30));
 		//
 		
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
