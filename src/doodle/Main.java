@@ -21,11 +21,14 @@ import java.util.Scanner;
 import doodle.bd.AlunoDAO;
 import doodle.bd.CursoDAO;
 import doodle.bd.ProfessorDAO;
+import doodle.bd.QuestionarioDAO;
 import doodle.bd.UtilBD;
 import doodle.entidades.Aluno;
+import doodle.entidades.Conteudo;
 import doodle.entidades.Curso;
 import doodle.entidades.Pessoa;
 import doodle.entidades.Professor;
+import doodle.questionario.Questionario;
 
 public class Main {
 
@@ -58,8 +61,22 @@ public class Main {
 		Aluno liro = new Aluno("Liro", "iwetrja", data, "liro", "1234");
 		a.adicionar(liro);
 		c.adicionaAluno(liro);
+		
+		Conteudo conteudo1 = new Questionario("Teste de lógica 1", "questionario divertido", data, data, data);
+		c.adicionaConteudo(conteudo1);
+		Conteudo conteudo2 = new Questionario("Teste de lógica 2", "questionario bacana", data, data, data);
+		c.adicionaConteudo(conteudo2);
 		CursoDAO cd = new CursoDAO();
 		cd.adicionar(c);
+		
+		// Teste inserir Questao Questionarios
+		Questionario q1 = (Questionario) conteudo1;
+		q1.adicionaQuestao("Explique a diferença do diagrama de casos de uso para o de classes");
+		q1.adicionaQuestao("Como é representada uma classe no diagrama de classes?");
+		q1.adicionaQuestao("Quais são todos os diagramas UML?");
+		QuestionarioDAO questionarioDao = new QuestionarioDAO();
+		questionarioDao.adicionar(q1);
+		
 		//
 
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();

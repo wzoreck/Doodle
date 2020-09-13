@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import doodle.entidades.Aluno;
+import doodle.entidades.Conteudo;
 import doodle.entidades.Curso;
 
 public class CursoDAO implements InterfaceDAO<Curso> {
@@ -26,6 +27,19 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 						+ "' ), (SELECT id_curso FROM curso WHERE nome = '" + curso.getNome() + "' ) )";
 
 				UtilBD.alterarBd(queryMatricula);
+			}
+		} catch (SQLException e2) {
+			System.err.println("Falaha ao inserir Matriculas no banco de dados");
+		}
+		try {
+			for (Conteudo conteudo : curso.getConteudos()) {
+				String queryConteudo = "INSERT INTO conteudo VALUES (NULL,"
+						+ "(SELECT id_curso FROM curso WHERE nome = '" + curso.getNome() + "' ),'"
+						+ conteudo.getTitulo() + "', '" + conteudo.getDescricao() + "', '"
+						+ conteudo.getDataPublicacao() + "', " + conteudo.isPrazo() + ", '" + conteudo.getDataInicio()
+						+ "', '" + conteudo.getDataTermino() + "' )";
+
+				UtilBD.alterarBd(queryConteudo);
 			}
 		} catch (SQLException e2) {
 			System.err.println("Falaha ao inserir Matriculas no banco de dados");

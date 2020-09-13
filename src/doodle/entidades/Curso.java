@@ -65,6 +65,10 @@ public class Curso {
 		Questionario q = new Questionario(titulo, descricao, data);
 		this.conteudos.add(q);
 	}
+	
+	public void adicionaConteudo(Conteudo conteudo) {
+		this.conteudos.add(conteudo);
+	}
 
 	public void adicionaForum(String titulo, String descricao, Date data) {
 		for (int i = 0; i < conteudos.size(); i++)

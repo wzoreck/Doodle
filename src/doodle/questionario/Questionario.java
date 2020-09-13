@@ -27,7 +27,11 @@ public class Questionario extends Conteudo {
 		for (int i = 0; i < this.questoes.size(); i++)
 			System.out.println("Questão " + (i + 1) + ": " + this.questoes.get(i));
 	}
-
+	
+	public ArrayList<String> getQuestoes() {
+		return questoes;
+	}
+	
 	@Override
 	protected String tipoConteudo() {
 		return "questionario";
