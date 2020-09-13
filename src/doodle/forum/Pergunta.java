@@ -47,6 +47,10 @@ public class Pergunta {
 	public String getAutor() {
 		return autor.getNome();
 	}
+	
+	public Pessoa getObjetoAutor() {
+		return autor;
+	}
 
 	public String getTitulo() {
 		return titulo;

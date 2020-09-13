@@ -120,7 +120,7 @@ public class UtilBD {
 		stm.executeUpdate("DROP TABLE IF EXISTS curso");
 
 		stm.executeUpdate("CREATE TABLE curso (" + "id_curso INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-				+ "nome VARCHAR(70) NOT NULL," + "data_inicio VARCHAR(10) NOT NULL," + "id_professor INTEGER NOT NULL,"
+				+ "nome VARCHAR(70) NOT NULL UNIQUE," + "data_inicio VARCHAR(10) NOT NULL," + "id_professor INTEGER NOT NULL,"
 				+ "FOREIGN KEY (id_professor) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO curso VALUES" + "(NULL, 'POO1-2020', '2020-01-01', 2)");
@@ -147,7 +147,7 @@ public class UtilBD {
 		stm.executeUpdate("DROP TABLE IF EXISTS conteudo");
 
 		stm.executeUpdate("CREATE TABLE conteudo (" + "id_conteudo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-				+ "id_curso INTEGER NOT NULL," + "titulo VARCHAR(50) NOT NULL," + "descricao VARCHAR(50) NOT NULL,"
+				+ "id_curso INTEGER NOT NULL," + "titulo VARCHAR(50) NOT NULL UNIQUE," + "descricao VARCHAR(50) NOT NULL,"
 				+ "data_publicacao VARCHAR(10) NOT NULL," + "prazo BOOLEAN," + "data_inicio VARCHAR(10),"
 				+ "data_termino VARCHAR(10),"
 				+ "FOREIGN KEY (id_curso) REFERENCES curso (id_curso) ON DELETE CASCADE)");

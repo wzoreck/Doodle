@@ -20,6 +20,7 @@ import java.util.Scanner;
 
 import doodle.bd.AlunoDAO;
 import doodle.bd.CursoDAO;
+import doodle.bd.ForumDAO;
 import doodle.bd.ProfessorDAO;
 import doodle.bd.QuestionarioDAO;
 import doodle.bd.UtilBD;
@@ -28,6 +29,8 @@ import doodle.entidades.Conteudo;
 import doodle.entidades.Curso;
 import doodle.entidades.Pessoa;
 import doodle.entidades.Professor;
+import doodle.forum.Forum;
+import doodle.forum.Pergunta;
 import doodle.questionario.Questionario;
 
 public class Main {
@@ -64,7 +67,7 @@ public class Main {
 		
 		Conteudo conteudo1 = new Questionario("Teste de lógica 1", "questionario divertido", data, data, data);
 		c.adicionaConteudo(conteudo1);
-		Conteudo conteudo2 = new Questionario("Teste de lógica 2", "questionario bacana", data, data, data);
+		Conteudo conteudo2 = new Forum("Forum AS 1", "xablau", data, false, data, data);
 		c.adicionaConteudo(conteudo2);
 		CursoDAO cd = new CursoDAO();
 		cd.adicionar(c);
@@ -77,6 +80,12 @@ public class Main {
 		QuestionarioDAO questionarioDao = new QuestionarioDAO();
 		questionarioDao.adicionar(q1);
 		
+		// Teste inserir Forum e perguntas existentes
+		Forum forum1 = (Forum) conteudo2;
+		forum1.adicionaPergunta(new Pergunta(liro, "Duvida diagrama", "Como uso o Astah UML?", data));
+		forum1.adicionaPergunta(new Pergunta(lira, "Duvida Prova", "Quando acontecerá a primeira prova ?", data));
+		ForumDAO f1 = new ForumDAO();
+		f1.adicionar(forum1);
 		//
 
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();

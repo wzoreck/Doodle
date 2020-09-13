@@ -18,7 +18,7 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 			UtilBD.alterarBd(queryCurso);
 
 		} catch (SQLException e1) {
-			System.err.println("Falaha ao inserir Curso no banco de dados");
+			System.err.println("Falha ao inserir Curso no banco de dados");
 		}
 		try {
 			for (Aluno aluno : curso.getAlunos()) {
@@ -29,7 +29,7 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 				UtilBD.alterarBd(queryMatricula);
 			}
 		} catch (SQLException e2) {
-			System.err.println("Falaha ao inserir Matriculas no banco de dados");
+			System.err.println("Falha ao inserir Matriculas no banco de dados");
 		}
 		try {
 			for (Conteudo conteudo : curso.getConteudos()) {

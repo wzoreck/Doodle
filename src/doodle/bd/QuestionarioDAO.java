@@ -18,7 +18,7 @@ public class QuestionarioDAO implements InterfaceDAO<Questionario> {
 				UtilBD.alterarBd(queryQuestionario);
 			}
 		} catch (SQLException e) {
-			System.err.println("Falaha ao inserir Questoes no banco de dados");
+			System.err.println("Falha ao inserir Questoes no banco de dados");
 		}
 	}
 
