@@ -21,6 +21,7 @@ import java.util.Scanner;
 import doodle.bd.AlunoDAO;
 import doodle.bd.CursoDAO;
 import doodle.bd.ForumDAO;
+import doodle.bd.PerguntaDAO;
 import doodle.bd.ProfessorDAO;
 import doodle.bd.QuestionarioDAO;
 import doodle.bd.UtilBD;
@@ -82,10 +83,15 @@ public class Main {
 		
 		// Teste inserir Forum e perguntas existentes
 		Forum forum1 = (Forum) conteudo2;
-		forum1.adicionaPergunta(new Pergunta(liro, "Duvida diagrama", "Como uso o Astah UML?", data));
+		Pergunta x1 = new Pergunta(liro, "Duvida diagrama", "Como uso o Astah UML?", data);
+		forum1.adicionaPergunta(x1);
 		forum1.adicionaPergunta(new Pergunta(lira, "Duvida Prova", "Quando acontecerá a primeira prova ?", data));
 		ForumDAO f1 = new ForumDAO();
 		f1.adicionar(forum1);
+		
+		// Teste inserir Pergunta
+		PerguntaDAO pda1 = new PerguntaDAO();
+		pda1.adicionar(x1);
 		//
 
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();

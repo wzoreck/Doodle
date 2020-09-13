@@ -24,6 +24,7 @@ public class Forum extends Conteudo {
 
 	public void adicionaPergunta(Pergunta pergunta) {
 		this.perguntas.add(pergunta);
+		pergunta.setTituloForum(this.titulo);
 	}
 
 	public void removePergunta(int indice) {

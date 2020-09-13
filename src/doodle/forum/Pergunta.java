@@ -12,6 +12,7 @@ public class Pergunta {
 	private String duvida;
 	private ArrayList<Resposta> respostas;
 	private Date data;
+	private String tituloForumPertencente;
 
 	public Pergunta(Pessoa autor, String duvida, Date data) {
 		this.autor = autor;
@@ -75,5 +76,13 @@ public class Pergunta {
 	public String getData() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(this.data);
+	}
+	
+	public String getTituloForum() {
+		return tituloForumPertencente;
+	}
+	
+	public void setTituloForum(String titulo) {
+		tituloForumPertencente = titulo;
 	}
 }
