@@ -48,19 +48,18 @@ public class Main {
 		Professor professor = null;
 		Aluno aluno = null;
 		Curso curso = null;
-		
+
 		// Objetos DAO
 		AlunoDAO alunoDAO = new AlunoDAO();
 		ProfessorDAO professorDAO = new ProfessorDAO();
-		
+
 		ForumDAO forumDAO = new ForumDAO();
 		PerguntaDAO perguntaDAO = new PerguntaDAO();
 		RespostaDAO respostaDAO = new RespostaDAO();
-		
 
 		String nome, email, nomeUsuario, senha, titulo, descricao, pergunta, resposta, titulo2;
 		boolean controle = true, controle2 = true;
-		int escolha1 = 0, escolha2, escolhaCurso, cargaHorariaSemanal;
+		int escolha1 = 0, escolha2, escolhaCurso, cargaHorariaSemanal, id;
 		float salario;
 
 		while (true) {
@@ -119,12 +118,23 @@ public class Main {
 					break;
 
 				case 3:
-					System.out.print("\nInforme o email da pessoa: ");
-					email = sc.nextLine();
+					System.out.print("\nInforme o ID da pessoa: ");
+					id = sc.nextInt();
+					sc.nextLine();
 
-					for (int i = 0; i < pessoas.size(); i++)
-						if (pessoas.get(i).getEmail().contentEquals(email))
-							pessoas.remove(i);
+					for (Pessoa pessoa : pessoas) {
+						if (pessoa.getId() == id) {
+							pessoas.remove(pessoa);
+							if (pessoa.getTipoPessoa().contentEquals("professor")) {
+								System.out.println("Implementar ainda");
+							} else if (pessoa.getTipoPessoa().contentEquals("aluno")) {
+								aluno = (Aluno) pessoa;
+								alunoDAO.remover(aluno);
+							}
+							break;
+						}
+					}
+
 					break;
 
 				case 4:
@@ -154,8 +164,10 @@ public class Main {
 					break;
 
 				case 5:
+					System.out.println("\nULTIMO ID PESSOA: " + Pessoa.proxID);
 					for (int i = 0; i < pessoas.size(); i++) {
-						System.out.println("\nNome: " + pessoas.get(i).getNome());
+						System.out.println("\nID: " + pessoas.get(i).getId());
+						System.out.println("Nome: " + pessoas.get(i).getNome());
 						System.out.println("Email: " + pessoas.get(i).getEmail());
 						System.out.println("Data de nascimento: " + pessoas.get(i).getDataNascimento());
 						System.out.println(pessoas.get(i).getNome() + " é um " + pessoas.get(i).getTipoPessoa());

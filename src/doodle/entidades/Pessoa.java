@@ -16,7 +16,7 @@ public abstract class Pessoa {
 	private String passwd;
 	protected ArrayList<Curso> cursos;
 	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
-	private static int proxID = 5;
+	public static int proxID = 5;
 
 	public Pessoa(String nome, String email, Date dataNascimento, String login, String passwd) {
 		this.nome = nome;

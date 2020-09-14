@@ -46,9 +46,15 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 	}
 
 	@Override
-	public void remover(Aluno referencia) {
-		// TODO Auto-generated method stub
-
+	public void remover(Aluno aluno) {
+		try {
+			String queryDeleteAluno = "DELETE FROM aluno WHERE id_aluno = '" + aluno.getId() + "'";
+			UtilBD.alterarBd(queryDeleteAluno);
+			String queryDeletePessoa = "DELETE FROM pessoa WHERE id_pessoa = '" + aluno.getId() + "'";
+			UtilBD.alterarBd(queryDeletePessoa);
+		} catch (SQLException e) {
+			System.err.println("Falha ao remover Pessoa-Aluno do banco de dados");
+		}
 	}
 
 }
