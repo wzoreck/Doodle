@@ -46,8 +46,15 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 	}
 
 	@Override
-	public void remover(Professor referencia) {
-		// TODO Auto-generated method stub
+	public void remover(Professor professor) {
+		try {
+			String queryDeleteProfessor = "DELETE FROM professor WHERE id_professor = '" + professor.getId() + "'";
+			UtilBD.alterarBd(queryDeleteProfessor);
+			String queryDeletePessoa = "DELETE FROM pessoa WHERE id_pessoa = '" + professor.getId() + "'";
+			UtilBD.alterarBd(queryDeletePessoa);
+		} catch (SQLException e) {
+			System.err.println("Falha ao remover Pessoa-Professor do banco de dados");
+		}
 
 	}
 

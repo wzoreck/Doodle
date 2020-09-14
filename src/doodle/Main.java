@@ -126,7 +126,8 @@ public class Main {
 						if (pessoa.getId() == id) {
 							pessoas.remove(pessoa);
 							if (pessoa.getTipoPessoa().contentEquals("professor")) {
-								System.out.println("Implementar ainda");
+								professor = (Professor) pessoa;
+								professorDAO.remover(professor);
 							} else if (pessoa.getTipoPessoa().contentEquals("aluno")) {
 								aluno = (Aluno) pessoa;
 								alunoDAO.remover(aluno);
