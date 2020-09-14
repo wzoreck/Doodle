@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import doodle.bd.QuestionarioDAO;
 import doodle.forum.Forum;
 import doodle.questionario.Questionario;
 
@@ -15,6 +16,7 @@ public class Curso {
 	private ArrayList<Aluno> alunos;
 	private ArrayList<Conteudo> conteudos;
 	private int vagas = 40;
+	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
 	private static int proxID = 2;
 
 	public Curso(Professor professor, String nome, Date dataInicio) {
@@ -61,6 +63,10 @@ public class Curso {
 	public void adicionaQuestionario(String titulo, String descricao, Date data) {
 		Questionario q = new Questionario(titulo, descricao, data);
 		this.conteudos.add(q);
+		
+		ArrayList<Integer> id = new ArrayList<Integer>();
+		QuestionarioDAO questionarioDAO = new QuestionarioDAO();
+		questionarioDAO.adicionar(q, id);
 	}
 	
 	public void adicionaConteudo(Conteudo conteudo) {
@@ -116,10 +122,6 @@ public class Curso {
 
 	public int getID() {
 		return id;
-	}
-	
-	public void setID(int id) {
-		this.id = id;
 	}
 	
 	public String getNome() {

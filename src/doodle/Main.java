@@ -53,7 +53,6 @@ public class Main {
 		AlunoDAO alunoDAO = new AlunoDAO();
 		ProfessorDAO professorDAO = new ProfessorDAO();
 		
-		QuestionarioDAO questionarioDAO = new QuestionarioDAO();
 		ForumDAO forumDAO = new ForumDAO();
 		PerguntaDAO perguntaDAO = new PerguntaDAO();
 		RespostaDAO respostaDAO = new RespostaDAO();

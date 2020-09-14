@@ -6,16 +6,20 @@ import java.util.Date;
 import doodle.entidades.Pessoa;
 
 public class Resposta {
-	private int id;
+	private int idResposta;
 	private Pessoa autor;
 	private String resposta;
 	private Date data;
 	private boolean correta;
+	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
+	private static int proxIDResposta = 1;
 
 	public Resposta(Pessoa autor, String resposta, Date data) {
 		this.autor = autor;
 		this.resposta = resposta;
 		this.data = data;
+		Resposta.proxIDResposta++;
+		this.idResposta = proxIDResposta;
 	}
 
 	public Resposta(Pessoa autor, String resposta, Date data, boolean correta) {
@@ -23,14 +27,12 @@ public class Resposta {
 		this.resposta = resposta;
 		this.data = data;
 		this.correta = correta;
+		Resposta.proxIDResposta++;
+		this.idResposta = proxIDResposta;
 	}
 
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
+	public int getIDResposta() {
+		return idResposta;
 	}
 	
 	public Pessoa getAutor() {

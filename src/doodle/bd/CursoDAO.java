@@ -59,8 +59,7 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 		// data_termino
 		try {
 			String queryConteudo = "INSERT INTO conteudo VALUES (NULL," + curso.getID() + "," + conteudo.getTitulo()
-					+ "','" + conteudo.getDescricao() + "','" + conteudo.getDataPublicacao() + "'," + conteudo.isPrazo()
-					+ ", '" + conteudo.getDataInicio() + "', '" + conteudo.getDataTermino() + "' )";
+					+ "','" + conteudo.getDescricao() + "','" + conteudo.getDataPublicacao() + "' )";
 
 			UtilBD.alterarBd(queryConteudo);
 

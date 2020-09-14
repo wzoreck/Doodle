@@ -82,14 +82,14 @@ public class UtilBD {
 				+ "data_nascimento VARCHAR(10) NOT NULL," + "login VARCHAR(50) NOT NULL UNIQUE,"
 				+ "passwd VARCHAR(50) NOT NULL)");
 
-		stm.executeUpdate("INSERT INTO pessoa VALUES"
-				+ "(1, 'Joao Nico', 'joao@aluno.email.com', '2000-01-01', 'joao', '1234')");
+		stm.executeUpdate(
+				"INSERT INTO pessoa VALUES" + "(1, 'Joao Nico', 'joao@aluno.email.com', '2000-01-01', 'joao', '1234')");
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
 				+ "(2, 'Lucas', 'lucas@professor.email.com', '1980-08-28', 'lucas', '1234')");
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
 				+ "(3, 'Daniel Wzoreck', 'daniel@aluno.email.com', '2000-08-07', 'daniel', '1234')");
-		stm.executeUpdate("INSERT INTO pessoa VALUES"
-				+ "(4, 'Ana Luiza', 'ana@aluno.email.com', '1999-02-05', 'ana', '1234')");
+		stm.executeUpdate(
+				"INSERT INTO pessoa VALUES" + "(4, 'Ana Luiza', 'ana@aluno.email.com', '1999-02-05', 'ana', '1234')");
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
 				+ "(5, 'Luciano', 'luciano@professor.email.com', '1979-06-15', 'luciano', '1234')");
 	}
@@ -121,7 +121,8 @@ public class UtilBD {
 		stm.executeUpdate("DROP TABLE IF EXISTS curso");
 
 		stm.executeUpdate("CREATE TABLE curso (" + "id_curso INTEGER NOT NULL PRIMARY KEY UNIQUE,"
-				+ "nome VARCHAR(70) NOT NULL UNIQUE," + "data_inicio VARCHAR(10) NOT NULL," + "id_professor INTEGER NOT NULL,"
+				+ "nome VARCHAR(70) NOT NULL UNIQUE," + "data_inicio VARCHAR(10) NOT NULL,"
+				+ "id_professor INTEGER NOT NULL,"
 				+ "FOREIGN KEY (id_professor) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO curso VALUES" + "(1, 'POO1-2020', '2020-01-01', 2)");
@@ -147,67 +148,65 @@ public class UtilBD {
 	private static void criarConteudo(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS conteudo");
 
-		stm.executeUpdate("CREATE TABLE conteudo (" + "id_conteudo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-				+ "id_curso INTEGER NOT NULL," + "titulo VARCHAR(50) NOT NULL UNIQUE," + "descricao VARCHAR(50) NOT NULL,"
-				+ "data_publicacao VARCHAR(10) NOT NULL," + "prazo BOOLEAN," + "data_inicio VARCHAR(10),"
-				+ "data_termino VARCHAR(10),"
+		stm.executeUpdate("CREATE TABLE conteudo (" + "id_conteudo INTEGER NOT NULL PRIMARY KEY UNIQUE,"
+				+ "id_curso INTEGER NOT NULL," + "titulo VARCHAR(50) NOT NULL UNIQUE,"
+				+ "descricao VARCHAR(50) NOT NULL," + "data_publicacao VARCHAR(10) NOT NULL,"
 				+ "FOREIGN KEY (id_curso) REFERENCES curso (id_curso) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO conteudo VALUES"
-				+ "(NULL, 1, 'Trabalho etapa 1', 'Abordar os conceitos de Abstração e Encapsulamento', '2020-03-20', TRUE, '2020-03-20', '2020-04-20')");
+				+ "(1, 1, 'Trabalho etapa 1', 'Abordar os conceitos de Abstração e Encapsulamento', '2020-03-20')");
 		stm.executeUpdate("INSERT INTO conteudo VALUES"
-				+ "(NULL, 2, 'Forum Dúvidas', 'Para dúvidas que surgirem na matéria', '2020-04-18', TRUE, '2020-04-18', '2020-12-30')");
-		stm.executeUpdate("INSERT INTO conteudo VALUES"
-				+ "(NULL, 1, 'Questionario 1', 'Referente a POO', '2020-07-05', TRUE, '2020-07-05', '2020-07-25')");
+				+ "(2, 2, 'Forum Dúvidas', 'Para dúvidas que surgirem na matéria', '2020-04-18')");
+		stm.executeUpdate("INSERT INTO conteudo VALUES" + "(3, 1, 'Questionario 1', 'Referente a POO', '2020-07-05')");
 	}
 
 	private static void criarQuestionario(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS questionario");
 
-		stm.executeUpdate("CREATE TABLE questionario (" + "id_questao INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+		stm.executeUpdate("CREATE TABLE questionario (" + "id_questao INTEGER NOT NULL PRIMARY KEY UNIQUE,"
 				+ "id_conteudo INTEGER NOT NULL," + "questao VARCHAR(1000) NOT NULL,"
 				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo) ON DELETE CASCADE)");
 
 		stm.executeUpdate(
-				"INSERT INTO questionario VALUES" + "(NULL, 3, 'Para que serve o paradigma de Orientação a Objetos?')");
+				"INSERT INTO questionario VALUES" + "(1, 3, 'Para que serve o paradigma de Orientação a Objetos?')");
+		stm.executeUpdate(
+				"INSERT INTO questionario VALUES" + "(2, 3, 'Quais são os quatro pilares da Orientação a Objetos?')");
+		stm.executeUpdate("INSERT INTO questionario VALUES" + "(3, 3, 'Defina o processo de herança?')");
+		stm.executeUpdate("INSERT INTO questionario VALUES" + "(4, 3, 'Qual a utilidade do polimorfismo?')");
 		stm.executeUpdate("INSERT INTO questionario VALUES"
-				+ "(NULL, 3, 'Quais são os quatro pilares da Orientação a Objetos?')");
-		stm.executeUpdate("INSERT INTO questionario VALUES" + "(NULL, 3, 'Defina o processo de herança?')");
-		stm.executeUpdate("INSERT INTO questionario VALUES" + "(NULL, 3, 'Qual a utilidade do polimorfismo?')");
-		stm.executeUpdate("INSERT INTO questionario VALUES"
-				+ "(NULL, 3, 'Expliqu o que significa [establecer um contrato] quando falamos de interface?')");
+				+ "(5, 3, 'Expliqu o que significa [establecer um contrato] quando falamos de interface?')");
 	}
 
 	private static void criarForum(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS forum");
 
-		stm.executeUpdate("CREATE TABLE forum (" + "id_forum INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+		stm.executeUpdate("CREATE TABLE forum (" + "id_forum INTEGER NOT NULL PRIMARY KEY UNIQUE,"
 				+ "id_conteudo INTEGER NOT NULL," + "aberto	BOOLEAN NOT NULL DEFAULT 'TRUE',"
 				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo) ON DELETE CASCADE)");
 
-		stm.executeUpdate("INSERT INTO FORUM VALUES" + "(NULL, 2, TRUE)");
+		stm.executeUpdate("INSERT INTO FORUM VALUES" + "(1, 2, TRUE)");
 	}
 
 	private static void criarPerguntaForum(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS pergunta_forum");
 
 		stm.executeUpdate("CREATE TABLE pergunta_forum ("
-				+ "id_pergunta INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," + "id_forum INTEGER NOT NULL,"
+				+ "id_pergunta INTEGER NOT NULL PRIMARY KEY UNIQUE," + "id_forum INTEGER NOT NULL,"
 				+ "id_autor INTEGER NOT NULL," + "titulo VARCHAR(150) NOT NULL," + "duvida VARCHAR(1000) NOT NULL,"
 				+ "data TEXT NOT NULL," + "FOREIGN KEY (id_forum) REFERENCES forum (id_forum),"
 				+ "FOREIGN KEY (id_autor) REFERENCES pessoa (id_pessoa))");
 
 		stm.executeUpdate("INSERT INTO pergunta_forum VALUES"
-				+ "(NULL, 1, 3, 'Como utilizar listas em Java?', 'Dúvida que surgiu durante a 1ª etapa do projeto', '2020-04-11')");
+				+ "(1, 1, 3, 'Como utilizar listas em Java?', 'Dúvida que surgiu durante a 1ª etapa do projeto', '2020-04-11')");
 		stm.executeUpdate("INSERT INTO pergunta_forum VALUES"
-				+ "(NULL, 1, 1, 'Como utilizar vetores em Java?', 'Dúvida que surgiu durante o projeto', '2020-04-17')");
+				+ "(2, 1, 1, 'Como utilizar vetores em Java?', 'Dúvida que surgiu durante o projeto', '2020-04-17')");
 	}
 
 	private static void criarRespostaForum(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS resposta_forum");
 
 		stm.executeUpdate("CREATE TABLE resposta_forum ("
-				+ "id_resposta INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," + "id_forum INTEGER NOT NULL,"
+				+ "id_resposta INTEGER NOT NULL PRIMARY KEY UNIQUE," + "id_forum INTEGER NOT NULL,"
 				+ "id_pergunta INTEGER NOT NULL," + "id_autor INTEGER NOT NULL," + "resposta VARCHAR(1000) NOT NULL,"
 				+ "data VARCHAR(10) NOT NULL," + "correta BOOLEAN NOT NULL DEFAULT 0,"
 				+ "FOREIGN KEY (id_pergunta) REFERENCES pergunta_forum (id_pergunta) ON DELETE CASCADE,"
@@ -215,7 +214,7 @@ public class UtilBD {
 				+ "FOREIGN KEY (id_autor) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO resposta_forum VALUES"
-				+ "(NULL, 1, 1, 2, 'Basta utilizar a classe List ou Arraylist!"
+				+ "(1, 1, 1, 2, 'Basta utilizar a classe List ou Arraylist!"
 				+ "E informar o tipo que será a lista, ela é modelada como tipo genérico!', '2020-06-17', TRUE)");
 	}
 
@@ -225,7 +224,7 @@ public class UtilBD {
 		stm.executeUpdate(sql);
 		stm.close();
 	}
-	
+
 	public static ResultSet consultarBD(String sql) throws SQLException {
 		Connection bd = UtilBD.getConexao();
 		Statement stm = bd.createStatement();

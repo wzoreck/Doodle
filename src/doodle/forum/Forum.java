@@ -6,21 +6,18 @@ import java.util.Date;
 import doodle.entidades.Conteudo;
 
 public class Forum extends Conteudo {
-	private int id;
+	private int idForum;
 	private boolean aberto;
 	private ArrayList<Pergunta> perguntas;
+	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
+	private static int proxIDForum = 1;
 
 	public Forum(String titulo, String descricao, Date dataPublicacao) {
 		super(titulo, descricao, dataPublicacao);
 		this.aberto = true;
 		this.perguntas = new ArrayList<Pergunta>();
-	}
-
-	public Forum(String titulo, String descricao, Date dataPublicacao, boolean prazo, Date dataInicio,
-			Date dataTermino) {
-		super(titulo, descricao, dataPublicacao, prazo, dataInicio, dataTermino);
-		this.aberto = true;
-		this.perguntas = new ArrayList<Pergunta>();
+		Forum.proxIDForum++;
+		this.idForum = proxIDForum;
 	}
 
 	public void adicionaPergunta(Pergunta pergunta) {
@@ -43,12 +40,8 @@ public class Forum extends Conteudo {
 		}
 	}
 
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
+	public int getIDForum() {
+		return idForum;
 	}
 	
 	public boolean isAberto() {

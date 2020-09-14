@@ -7,20 +7,15 @@ import java.util.Date;
 import doodle.entidades.Pessoa;
 
 public class Pergunta {
-	private int id;
+	private int idPergunta;
 	private Pessoa autor;
 	private String titulo;
 	private String duvida;
 	private ArrayList<Resposta> respostas;
 	private Date data;
 	private String tituloForumPertencente;
-
-	public Pergunta(Pessoa autor, String duvida, Date data) {
-		this.autor = autor;
-		this.duvida = duvida;
-		this.data = data;
-		this.respostas = new ArrayList<Resposta>();
-	}
+	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
+	private static int proxIDPergunta = 2;
 
 	public Pergunta(Pessoa autor, String titulo, String duvida, Date data) {
 		this.autor = autor;
@@ -28,6 +23,8 @@ public class Pergunta {
 		this.duvida = duvida;
 		this.data = data;
 		this.respostas = new ArrayList<Resposta>();
+		Pergunta.proxIDPergunta++;
+		this.idPergunta = proxIDPergunta;
 	}
 
 	public void adicionaResposta(Resposta resposta) {
@@ -46,12 +43,8 @@ public class Pergunta {
 		}
 	}
 
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
+	public int getIDPergunta() {
+		return idPergunta;
 	}
 	
 	public String getAutor() {

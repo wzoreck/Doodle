@@ -7,17 +7,16 @@ import doodle.entidades.Conteudo;
 
 public class Questionario extends Conteudo {
 
-	private int id;
+	private int idQuestionario;
 	private ArrayList<String> questoes;
+	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
+	private static int proxIDQuestao = 5;
 
 	public Questionario(String titulo, String descricao, Date data) {
 		super(titulo, descricao, data);
 		questoes = new ArrayList<String>();
-	}
-
-	public Questionario(String titulo, String descricao, Date data, Date dataInicio, Date dataFim) {
-		super(titulo, descricao, data, true, dataInicio, dataFim);
-		questoes = new ArrayList<String>();
+		Questionario.proxIDQuestao++;
+		this.idQuestionario = proxIDQuestao;
 	}
 
 	public void adicionaQuestao(String questao) {
@@ -29,12 +28,8 @@ public class Questionario extends Conteudo {
 			System.out.println("Questão " + (i + 1) + ": " + this.questoes.get(i));
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public int getIDQuestionario() {
+		return idQuestionario;
 	}
 
 	public ArrayList<String> getQuestoes() {
