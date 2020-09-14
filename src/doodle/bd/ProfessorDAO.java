@@ -1,8 +1,10 @@
 package doodle.bd;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import doodle.entidades.Professor;
 
@@ -34,9 +36,34 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 	}
 
 	@Override
-	public List<Professor> listar() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Professor> listar() {
+		ArrayList<Professor> professores = new ArrayList<Professor>();
+		Professor professor = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato da data
+		try {
+			String querySelectAlunos = "SELECT * FROM pessoa INNER JOIN professor ON pessoa.id_pessoa = professor.id_professor";
+			ResultSet resultSet = UtilBD.consultarBD(querySelectAlunos);
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id_pessoa");
+				String nome = resultSet.getString("nome");
+				String email = resultSet.getString("email");
+				String data = resultSet.getString("data_nascimento");
+				String login = resultSet.getString("login");
+				String passwd = resultSet.getString("passwd");
+				float salario = resultSet.getFloat("salario");
+				int cargaHorariaSemanal = resultSet.getInt("carga_horaria_semanal");
+				professor = new Professor(nome, email, sdf.parse(data), login, passwd, salario, cargaHorariaSemanal, false);
+				professor.setId(id);
+				professores.add(professor);
+			}
+			resultSet.getStatement().close();
+			sdf.clone();
+		} catch (SQLException e) {
+			System.err.println("Não foi possível buscar os Professores no banco de dados");
+		} catch (ParseException e) {
+			System.err.println("Falha ao transformar String para Data - ProfessoroDAO");
+		}
+		return professores;
 	}
 
 	@Override

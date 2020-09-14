@@ -44,6 +44,7 @@ public class Main {
 
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
 		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+		ArrayList<Professor> professores = new ArrayList<Professor>();
 
 		Professor professor = null;
 		Aluno aluno = null;
@@ -165,16 +166,19 @@ public class Main {
 
 				case 5:
 					alunos = alunoDAO.listar();
+					professores = professorDAO.listar();
 					pessoas = new ArrayList<Pessoa>();
 					for (Aluno a : alunos)
 						pessoas.add(a);
+					for (Professor p : professores)
+						pessoas.add(p);
 					
-					for (int i = 0; i < pessoas.size(); i++) {
-						System.out.println("\nID: " + pessoas.get(i).getId());
-						System.out.println("Nome: " + pessoas.get(i).getNome());
-						System.out.println("Email: " + pessoas.get(i).getEmail());
-						System.out.println("Data de nascimento: " + pessoas.get(i).getDataNascimento());
-						System.out.println(pessoas.get(i).getNome() + " é um " + pessoas.get(i).getTipoPessoa());
+					for (Pessoa p : pessoas) {
+						System.out.println("\nID: " + p.getId());
+						System.out.println("Nome: " + p.getNome());
+						System.out.println("Email: " + p.getEmail());
+						System.out.println("Data de nascimento: " + p.getDataNascimento());
+						System.out.println(p.getNome() + " é um " + p.getTipoPessoa());
 					}
 					break;
 
