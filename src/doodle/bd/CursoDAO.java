@@ -56,8 +56,14 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 	}
 
 	@Override
-	public void atualizar(Curso referencia) {
-		// TODO Auto-generated method stub
+	public void atualizar(Curso curso, int aux) {
+		try {
+			String queryUpdateCurso = "UPDATE curso SET " + "nome = '" + curso.getNome() + "', data_inicio = '"
+					+ curso.getDataInicio() + "', id_professor = " + aux + " WHERE id_curso =" + curso.getID();
+			UtilBD.alterarBd(queryUpdateCurso);
+		} catch (SQLException e) {
+			System.err.println("Falha ao realizar o update de Curso");
+		}
 
 	}
 

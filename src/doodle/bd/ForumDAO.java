@@ -28,7 +28,7 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 	}
 
 	@Override
-	public void atualizar(Forum referencia) {
+	public void atualizar(Forum referencia, int aux) {
 		// TODO Auto-generated method stub
 
 	}

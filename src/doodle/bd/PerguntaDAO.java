@@ -29,7 +29,7 @@ public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 	}
 
 	@Override
-	public void atualizar(Pergunta referencia) {
+	public void atualizar(Pergunta referencia, int aux) {
 		// TODO Auto-generated method stub
 
 	}

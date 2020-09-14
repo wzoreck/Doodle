@@ -68,7 +68,7 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 	}
 
 	@Override
-	public void atualizar(Professor professor) {
+	public void atualizar(Professor professor, int aux) {
 		try {
 			String queryUpdatePessoa = "UPDATE pessoa SET " + "nome = '" + professor.getNome() + "', email = '"
 					+ professor.getEmail() + "', data_nascimento = '" + professor.getDataNascimento() + "', login = '"

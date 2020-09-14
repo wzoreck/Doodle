@@ -92,6 +92,7 @@ public class Curso {
 	}
 
 	public void informacaoCurso() {
+		System.out.println("ID: " + this.id);
 		System.out.println("Nome: " + this.nome);
 		System.out.println("Criado em: " + getDataInicio());
 		System.out.println("Professor: " + this.professor.getNome());
@@ -131,10 +132,18 @@ public class Curso {
 	public String getNome() {
 		return this.nome;
 	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	public String getDataInicio() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(dataInicio);
+	}
+	
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
 	public Professor getProfessor() {

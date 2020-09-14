@@ -65,7 +65,7 @@ public class Main {
 
 		while (true) {
 			controle = true;
-			
+
 			// Preencher a lista de pessoas com os dados vindos do banco de dados
 			alunos = alunoDAO.listar(0);
 			professores = professorDAO.listar(0);
@@ -75,7 +75,7 @@ public class Main {
 			for (Professor p : professores)
 				pessoas.add(p);
 			//
-			
+
 			while (controle) {
 				System.out.println("\n[1] - criar professor");
 				System.out.println("[2] - crirar aluno");
@@ -173,7 +173,7 @@ public class Main {
 							p.setPasswd(senha);
 
 							if (p.getTipoPessoa().contentEquals("aluno")) {
-								alunoDAO.atualizar((Aluno) p);
+								alunoDAO.atualizar((Aluno) p, 0);
 							} else if (p.getTipoPessoa().contentEquals("professor")) {
 								professor = (Professor) p;
 								System.out.print("Salário: ");
@@ -183,7 +183,7 @@ public class Main {
 								cargaHorariaSemanal = sc.nextInt();
 								professor.setCargaHorariaSemanal(cargaHorariaSemanal);
 								sc.nextLine();
-								professorDAO.atualizar((Professor) professor);
+								professorDAO.atualizar((Professor) professor, 0);
 							}
 
 							break;
@@ -240,6 +240,7 @@ public class Main {
 					System.out.println("[2] - acessar curso");
 					System.out.println("[3] - remover curso");
 					System.out.println("[4] - voltar para tela de login");
+					System.out.println("[5] - editar curso");
 					System.out.print("Informe sua escolha: ");
 					escolha2 = sc.nextInt();
 					sc.nextLine();
@@ -373,6 +374,17 @@ public class Main {
 						controle = false;
 						break;
 
+					case 5: // Editar Curso
+						System.out.println("\n---Editar curso---");
+						professor.listaCursos();
+						System.out.print("\nID do curso que deseja editar: ");
+						id = sc.nextInt();
+						sc.nextLine();
+
+						System.out.print("Novo nome: ");
+						nome = sc.nextLine();
+						data = new Date();
+						professor.editarCurso(nome, data, id);
 					}
 
 					break;

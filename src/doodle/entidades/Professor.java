@@ -46,6 +46,19 @@ public class Professor extends Pessoa {
 		}
 	}
 
+	public void editarCurso(String nome, Date data, int idCurso) {
+		CursoDAO cursoDAO = new CursoDAO();
+		for (Curso curso : cursos) {
+			if (curso.getID() == idCurso) {
+				curso.setNome(nome);
+				curso.setDataInicio(data);
+				
+				cursoDAO.atualizar(curso, this.getId());
+				break;
+			}
+		}
+	}
+	
 	public float getSalario() {
 		return salario;
 	}

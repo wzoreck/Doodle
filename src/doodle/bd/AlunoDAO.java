@@ -67,7 +67,7 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 	}
 
 	@Override
-	public void atualizar(Aluno aluno) {
+	public void atualizar(Aluno aluno, int aux) {
 		try {
 			String queryUpdatePessoa = "UPDATE pessoa SET " + "nome = '" + aluno.getNome() + "', email = '"
 					+ aluno.getEmail() + "', data_nascimento = '" + aluno.getDataNascimento() + "', login = '"

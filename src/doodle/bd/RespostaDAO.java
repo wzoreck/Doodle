@@ -30,7 +30,7 @@ public class RespostaDAO implements InterfaceDAO<Resposta> {
 	}
 
 	@Override
-	public void atualizar(Resposta referencia) {
+	public void atualizar(Resposta referencia, int aux) {
 		// TODO Auto-generated method stub
 
 	}
