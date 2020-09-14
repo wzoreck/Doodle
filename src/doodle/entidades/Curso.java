@@ -65,6 +65,7 @@ public class Curso {
 		this.conteudos.add(q);
 		
 		ArrayList<Integer> id = new ArrayList<Integer>();
+		id.add(this.getID());
 		QuestionarioDAO questionarioDAO = new QuestionarioDAO();
 		questionarioDAO.adicionar(q, id);
 	}

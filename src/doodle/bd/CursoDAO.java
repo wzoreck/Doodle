@@ -90,12 +90,13 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 		}
 	}
 
-	public void adicinarConteudo(Conteudo conteudo, Curso curso) {
+	public void adicinarConteudo(Conteudo conteudo, int idCurso) {
 		// id_conteudo, id_curso, titulo, descricao, data_publicao, prazo, data_inicio,
 		// data_termino
 		try {
-			String queryConteudo = "INSERT INTO conteudo VALUES (NULL," + curso.getID() + "," + conteudo.getTitulo()
-					+ "','" + conteudo.getDescricao() + "','" + conteudo.getDataPublicacao() + "' )";
+			String queryConteudo = "INSERT INTO conteudo VALUES (" + conteudo.getId() + "," + idCurso + ", '"
+					+ conteudo.getTitulo() + "','" + conteudo.getDescricao() + "','" + conteudo.getDataPublicacao()
+					+ "' )";
 
 			UtilBD.alterarBd(queryConteudo);
 
