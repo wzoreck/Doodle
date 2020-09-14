@@ -18,18 +18,23 @@ public class Professor extends Pessoa {
 		this.cargaHorariaSemanal = cargaHorariaSemanal;
 	}
 
+	public void adicionaCursos() {
+		CursoDAO cursoDAO = new CursoDAO();
+		this.cursos = cursoDAO.listar(this.getId());
+	}
+	
 	public void criaCurso(String nome, Date data) {
 		for (int i = 0; i < this.cursos.size(); i++)
 			if (this.cursos.get(i).getNome().contentEquals(nome))
 				return;
 
-		Curso c = new Curso(this, nome, data);
-		this.cursos.add(c);
+		Curso curso = new Curso(this, nome, data);
+		this.cursos.add(curso);
 		CursoDAO cursoDAO = new CursoDAO();
 		// id[0] -> id do professor
 		ArrayList<Integer> id = new ArrayList<Integer>();
 		id.add(this.getId());
-		cursoDAO.adicionar(c, id);
+		cursoDAO.adicionar(curso, id);
 	}
 
 	public void removeCurso(String nome) {

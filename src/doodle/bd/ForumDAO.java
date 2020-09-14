@@ -22,7 +22,7 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 	}
 
 	@Override
-	public List<Forum> listar() {
+	public List<Forum> listar(int aux) {
 		// TODO Auto-generated method stub
 		return null;
 	}

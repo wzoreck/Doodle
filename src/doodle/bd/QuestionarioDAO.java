@@ -24,7 +24,7 @@ public class QuestionarioDAO implements InterfaceDAO<Questionario> {
 	}
 
 	@Override
-	public List<Questionario> listar() {
+	public List<Questionario> listar(int aux) {
 		// TODO Auto-generated method stub
 		return null;
 	}

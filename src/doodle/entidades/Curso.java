@@ -124,6 +124,10 @@ public class Curso {
 		return id;
 	}
 	
+	public void setID(int id) {
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return this.nome;
 	}

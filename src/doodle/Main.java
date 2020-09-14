@@ -65,7 +65,17 @@ public class Main {
 
 		while (true) {
 			controle = true;
-
+			
+			// Preencher a lista de pessoas com os dados vindos do banco de dados
+			alunos = alunoDAO.listar(0);
+			professores = professorDAO.listar(0);
+			pessoas = new ArrayList<Pessoa>();
+			for (Aluno a : alunos)
+				pessoas.add(a);
+			for (Professor p : professores)
+				pessoas.add(p);
+			//
+			
 			while (controle) {
 				System.out.println("\n[1] - criar professor");
 				System.out.println("[2] - crirar aluno");
@@ -182,14 +192,6 @@ public class Main {
 					break;
 
 				case 5:
-					alunos = alunoDAO.listar();
-					professores = professorDAO.listar();
-					pessoas = new ArrayList<Pessoa>();
-					for (Aluno a : alunos)
-						pessoas.add(a);
-					for (Professor p : professores)
-						pessoas.add(p);
-
 					for (Pessoa p : pessoas) {
 						System.out.println("\nID: " + p.getId());
 						System.out.println("Nome: " + p.getNome());
@@ -230,6 +232,7 @@ public class Main {
 
 			// Pessoa Logada
 			while (controle) {
+				professor.adicionaCursos();
 				switch (escolha1) {
 
 				case 1: // Se for uma Professor

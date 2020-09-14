@@ -1,8 +1,10 @@
 package doodle.bd;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import doodle.entidades.Aluno;
 import doodle.entidades.Conteudo;
@@ -25,9 +27,32 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 	}
 
 	@Override
-	public List<Curso> listar() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Curso> listar(int aux) {
+		ProfessorDAO professorDAO = new ProfessorDAO();
+		ArrayList<Curso> cursos = new ArrayList<Curso>();
+		Curso curso = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato da data
+		try {
+			String querySelectCursos = "SELECT * FROM curso WHERE id_professor = " + aux;
+			ResultSet resultSet = UtilBD.consultarBD(querySelectCursos);
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id_curso");
+				String nome = resultSet.getString("nome");
+				String dataInicio = resultSet.getString("data_inicio");
+				int idProfessor = resultSet.getInt("id_professor");
+
+				curso = new Curso(professorDAO.get(idProfessor), nome, sdf.parse(dataInicio));
+				curso.setID(id);
+				cursos.add(curso);
+			}
+			resultSet.getStatement().close();
+			sdf.clone();
+		} catch (SQLException e) {
+			System.err.println("Não foi possível buscar os Cursos no banco de dados");
+		} catch (ParseException e) {
+			System.err.println("Falha ao converter String para Data CursoDAO");
+		}
+		return cursos;
 	}
 
 	@Override

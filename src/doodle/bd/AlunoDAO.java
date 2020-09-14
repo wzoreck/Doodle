@@ -36,7 +36,7 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 	}
 
 	@Override
-	public ArrayList<Aluno> listar() {
+	public ArrayList<Aluno> listar(int aux) {
 		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 		Aluno aluno = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato da data

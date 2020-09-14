@@ -24,7 +24,7 @@ public class RespostaDAO implements InterfaceDAO<Resposta> {
 	}
 
 	@Override
-	public List<Resposta> listar() {
+	public List<Resposta> listar(int aux) {
 		// TODO Auto-generated method stub
 		return null;
 	}
