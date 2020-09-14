@@ -161,7 +161,7 @@ public class Main {
 							System.out.print("Escolha uma senha: ");
 							senha = sc.nextLine();
 							p.setPasswd(senha);
-							
+
 							if (p.getTipoPessoa().contentEquals("aluno")) {
 								alunoDAO.atualizar((Aluno) p);
 							} else if (p.getTipoPessoa().contentEquals("professor")) {

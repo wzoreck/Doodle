@@ -96,5 +96,33 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 		}
 
 	}
+	
+	public Professor get(int idPessoa) {
+		Professor professor = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			String querySelectProfessor = "SELECT * FROM pessoa INNER JOIN professor ON pessoa.id_pessoa = professor.id_professor"
+					+ " WHERE id_pessoa = " + idPessoa;
+			ResultSet resultSet = UtilBD.consultarBD(querySelectProfessor);
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id_pessoa");
+				String nome = resultSet.getString("nome");
+				String email = resultSet.getString("email");
+				String data = resultSet.getString("data_nascimento");
+				String login = resultSet.getString("login");
+				String passwd = resultSet.getString("passwd");
+				float salario = resultSet.getFloat("salario");
+				int cargaHorariaSemanal = resultSet.getInt("carga_horaria_semanal");
+				professor = new Professor(nome, email, sdf.parse(data), login, passwd, salario, cargaHorariaSemanal, false);
+				professor.setId(id);
+			}
+			resultSet.getStatement().close();
+		} catch (SQLException e) {
+			System.err.println("Falha ao buscar Professor no banco de dados");
+		} catch (ParseException e) {
+			System.err.println("Falha ao converter String para Data ProfessorDAO");
+		}
+		return professor;
+	}
 
 }
