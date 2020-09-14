@@ -13,9 +13,9 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 	@Override
 	public void adicionar(Aluno aluno, ArrayList<Integer> id) {
 		try {
-			String queryPessoa = "INSERT INTO pessoa VALUES (NULL, '" + aluno.getNome() + "', '" + aluno.getEmail()
-					+ "', '" + aluno.getDataNascimento() + "', '" + aluno.getLogin() + "', '" + aluno.getPasswd()
-					+ "')";
+			String queryPessoa = "INSERT INTO pessoa VALUES (" + aluno.getId() + ", '" + aluno.getNome() + "', '"
+					+ aluno.getEmail() + "', '" + aluno.getDataNascimento() + "', '" + aluno.getLogin() + "', '"
+					+ aluno.getPasswd() + "')";
 
 			UtilBD.alterarBd(queryPessoa);
 
@@ -67,9 +67,18 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 	}
 
 	@Override
-	public void atualizar(Aluno referencia) {
-		// TODO Auto-generated method stub
-
+	public void atualizar(Aluno aluno) {
+		try {
+			String queryUpdatePessoa = "UPDATE pessoa SET " + "nome = '" + aluno.getNome() + "', email = '"
+					+ aluno.getEmail() + "', data_nascimento = '" + aluno.getDataNascimento() + "', login = '"
+					+ aluno.getLogin() + "', passwd = '" + aluno.getPasswd() + "' WHERE id_pessoa = " + aluno.getId();
+			UtilBD.alterarBd(queryUpdatePessoa);
+			String queryUpdateAluno = "UPDATE aluno SET " + "matriculado = " + aluno.isMatriculado()
+					+ " WHERE id_aluno = " + aluno.getId();
+			UtilBD.alterarBd(queryUpdateAluno);
+		} catch (SQLException e) {
+			System.err.println("Falha ao realizar o update de Pessoa-Aluno");
+		}
 	}
 
 	@Override

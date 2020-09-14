@@ -13,9 +13,9 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 	@Override
 	public void adicionar(Professor professor, ArrayList<Integer> id) {
 		try {
-			String queryPessoa = "INSERT INTO pessoa VALUES (NULL, '" + professor.getNome() + "', '"
-					+ professor.getEmail() + "', '" + professor.getDataNascimento() + "', '" + professor.getLogin()
-					+ "', '" + professor.getPasswd() + "')";
+			String queryPessoa = "INSERT INTO pessoa VALUES (" + professor.getId() + ", '" + professor.getNome()
+					+ "', '" + professor.getEmail() + "', '" + professor.getDataNascimento() + "', '"
+					+ professor.getLogin() + "', '" + professor.getPasswd() + "')";
 
 			UtilBD.alterarBd(queryPessoa);
 
@@ -52,7 +52,8 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 				String passwd = resultSet.getString("passwd");
 				float salario = resultSet.getFloat("salario");
 				int cargaHorariaSemanal = resultSet.getInt("carga_horaria_semanal");
-				professor = new Professor(nome, email, sdf.parse(data), login, passwd, salario, cargaHorariaSemanal, false);
+				professor = new Professor(nome, email, sdf.parse(data), login, passwd, salario, cargaHorariaSemanal,
+						false);
 				professor.setId(id);
 				professores.add(professor);
 			}

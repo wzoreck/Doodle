@@ -139,29 +139,37 @@ public class Main {
 					break;
 
 				case 4:
-					System.out.print("\nInforme o email da pessoa: ");
-					email = sc.nextLine();
+					System.out.print("\nInforme o ID da pessoa: ");
+					id = sc.nextInt();
+					sc.nextLine();
 
-					for (int i = 0; i < pessoas.size(); i++)
-						if (pessoas.get(i).getEmail().contentEquals(email)) {
+					for (Pessoa p : pessoas) {
+						if (p.getId() == id) {
 							System.out.println("\n---Alterando Pessoa---");
 							System.out.print("\nNome: ");
 							nome = sc.nextLine();
-							pessoas.get(i).setNome(nome);
+							p.setNome(nome);
 							System.out.print("Email: ");
 							email = sc.nextLine();
-							pessoas.get(i).setEmail(email);
+							p.setEmail(email);
 							System.out.print("Data de Nascimento (DD/MM/AAAA): ");
 							data = sdf.parse(sc.nextLine());
-							pessoas.get(i).setDataNascimento(data);
+							p.setDataNascimento(data);
 							System.out.print("Escolha um nome de usuário: ");
 							nomeUsuario = sc.nextLine();
-							pessoas.get(i).setLogin(nomeUsuario);
+							p.setLogin(nomeUsuario);
 							System.out.print("Escolha uma senha: ");
 							senha = sc.nextLine();
-							pessoas.get(i).setPasswd(senha);
+							p.setPasswd(senha);
+							
+							if (p.getTipoPessoa().contentEquals("aluno"))
+								alunoDAO.atualizar((Aluno) p);
+							else if (p.getTipoPessoa().contentEquals("professor"))
+								professorDAO.atualizar((Professor) p);
+							
 							break;
 						}
+					}
 					break;
 
 				case 5:
