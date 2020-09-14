@@ -93,4 +93,32 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 		}
 	}
 
+	public Aluno get(int idPessoa) {
+		Aluno aluno = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			String querySelectAluno = "SELECT * FROM pessoa INNER JOIN aluno ON pessoa.id_pessoa = aluno.id_aluno"
+					+ " WHERE id_pessoa = " + idPessoa;
+			ResultSet resultSet = UtilBD.consultarBD(querySelectAluno);
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id_pessoa");
+				String nome = resultSet.getString("nome");
+				String email = resultSet.getString("email");
+				String data = resultSet.getString("data_nascimento");
+				String login = resultSet.getString("login");
+				String passwd = resultSet.getString("passwd");
+				boolean matriculado = resultSet.getBoolean("matriculado");
+				aluno = new Aluno(nome, email, sdf.parse(data), login, passwd, false);
+				aluno.setId(id);
+				aluno.setMatriculado(matriculado);
+			}
+			resultSet.getStatement().close();
+		} catch (SQLException e) {
+			System.err.println("Falha ao buscar Aluno no banco de dados");
+		} catch (ParseException e) {
+			System.err.println("Falha ao converter String para Data AlunoDAO");
+		}
+		return aluno;
+	}
+
 }

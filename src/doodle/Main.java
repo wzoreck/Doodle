@@ -161,12 +161,12 @@ public class Main {
 							System.out.print("Escolha uma senha: ");
 							senha = sc.nextLine();
 							p.setPasswd(senha);
-							
+
 							if (p.getTipoPessoa().contentEquals("aluno"))
 								alunoDAO.atualizar((Aluno) p);
 							else if (p.getTipoPessoa().contentEquals("professor"))
 								professorDAO.atualizar((Professor) p);
-							
+
 							break;
 						}
 					}
@@ -180,7 +180,7 @@ public class Main {
 						pessoas.add(a);
 					for (Professor p : professores)
 						pessoas.add(p);
-					
+
 					for (Pessoa p : pessoas) {
 						System.out.println("\nID: " + p.getId());
 						System.out.println("Nome: " + p.getNome());
