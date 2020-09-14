@@ -37,10 +37,12 @@ public class Professor extends Pessoa {
 		cursoDAO.adicionar(curso, id);
 	}
 
-	public void removeCurso(String nome) {
-		for (int i = 0; i < this.cursos.size(); i++) {
-			if (this.cursos.get(i).getNome().contentEquals(nome)) {
-				this.cursos.remove(i);
+	public void removeCurso(int id) {
+		CursoDAO cursoDAO = new CursoDAO();
+		for (Curso curso : cursos) {
+			if(curso.getID() == id) {
+				cursoDAO.remover(curso);
+				this.cursos.remove(curso);
 				return;
 			}
 		}

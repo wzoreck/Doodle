@@ -365,9 +365,10 @@ public class Main {
 					case 3: // remover curso
 						System.out.println("\n---Seus cursos---");
 						professor.listaCursos();
-						System.out.print("\nNome do curso que deseja remover: ");
-						nome = sc.nextLine();
-						professor.removeCurso(nome);
+						System.out.print("\nID do curso que deseja remover: ");
+						id = sc.nextInt();
+						sc.nextLine();
+						professor.removeCurso(id);
 						break;
 
 					case 4:

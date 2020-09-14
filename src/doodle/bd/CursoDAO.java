@@ -68,8 +68,13 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 	}
 
 	@Override
-	public void remover(Curso referencia) {
-		// TODO Auto-generated method stub
+	public void remover(Curso curso) {
+		try {
+			String queryDeleteCurso = "DELETE FROM curso WHERE id_curso = " + curso.getID();
+			UtilBD.alterarBd(queryDeleteCurso);
+		} catch (SQLException e) {
+			System.err.println("Falha ao remover Curso do banco de dados");
+		}
 
 	}
 
