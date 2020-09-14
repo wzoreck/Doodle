@@ -9,11 +9,6 @@ public class Aluno extends Pessoa {
 
 	private boolean matriculado;
 
-	public Aluno(String nome, String email, Date dataNascimento) {
-		super(nome, email, dataNascimento);
-		this.matriculado = false;
-	}
-
 	public Aluno(String nome, String email, Date dataNascimento, String login, String passwd) {
 		super(nome, email, dataNascimento, login, passwd);
 		this.matriculado = false;

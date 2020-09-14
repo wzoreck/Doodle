@@ -24,81 +24,40 @@ import doodle.bd.ForumDAO;
 import doodle.bd.PerguntaDAO;
 import doodle.bd.ProfessorDAO;
 import doodle.bd.QuestionarioDAO;
+import doodle.bd.RespostaDAO;
 import doodle.bd.UtilBD;
 import doodle.entidades.Aluno;
-import doodle.entidades.Conteudo;
 import doodle.entidades.Curso;
 import doodle.entidades.Pessoa;
 import doodle.entidades.Professor;
-import doodle.forum.Forum;
-import doodle.forum.Pergunta;
-import doodle.questionario.Questionario;
 
 public class Main {
 
 	public static void main(String[] args) throws ParseException {
 
-		// Teste Iniciar BD
+		// Criar o banco de dados e inserir os primeiros registros
 		UtilBD.initBD();
 		UtilBD.fecharConexao();
-		// Teste
 
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato da data
 		Date data = new Date();
-
-		// Teste inserir aluno
-		AlunoDAO a = new AlunoDAO();
-		data = sdf.parse("01/01/2000");
-		a.adicionar(new Aluno("Marica", "aa", data, "marica", "1234"));
-
-		// Teste inserir professor
-		ProfessorDAO p = new ProfessorDAO();
-		Professor carlos = new Professor("Carlos", "ab", data, "carlos", "1234", 3400.01f, 30);
-		p.adicionar(carlos);
-
-		// Teste inserir curso e matricular alunos
-		Curso c = new Curso(carlos, "Análise de Sistemas", data);
-		Aluno lira = new Aluno("Lira", "çakdjka", data, "lira", "1234");
-		a.adicionar(lira);
-		c.adicionaAluno(lira);
-		Aluno liro = new Aluno("Liro", "iwetrja", data, "liro", "1234");
-		a.adicionar(liro);
-		c.adicionaAluno(liro);
-		
-		Conteudo conteudo1 = new Questionario("Teste de lógica 1", "questionario divertido", data, data, data);
-		c.adicionaConteudo(conteudo1);
-		Conteudo conteudo2 = new Forum("Forum AS 1", "xablau", data, false, data, data);
-		c.adicionaConteudo(conteudo2);
-		CursoDAO cd = new CursoDAO();
-		cd.adicionar(c);
-		
-		// Teste inserir Questao Questionarios
-		Questionario q1 = (Questionario) conteudo1;
-		q1.adicionaQuestao("Explique a diferença do diagrama de casos de uso para o de classes");
-		q1.adicionaQuestao("Como é representada uma classe no diagrama de classes?");
-		q1.adicionaQuestao("Quais são todos os diagramas UML?");
-		QuestionarioDAO questionarioDao = new QuestionarioDAO();
-		questionarioDao.adicionar(q1);
-		
-		// Teste inserir Forum e perguntas existentes
-		Forum forum1 = (Forum) conteudo2;
-		Pergunta x1 = new Pergunta(liro, "Duvida diagrama", "Como uso o Astah UML?", data);
-		forum1.adicionaPergunta(x1);
-		forum1.adicionaPergunta(new Pergunta(lira, "Duvida Prova", "Quando acontecerá a primeira prova ?", data));
-		ForumDAO f1 = new ForumDAO();
-		f1.adicionar(forum1);
-		
-		// Teste inserir Pergunta
-		PerguntaDAO pda1 = new PerguntaDAO();
-		pda1.adicionar(x1);
-		//
 
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
 
 		Professor professor = null;
 		Aluno aluno = null;
 		Curso curso = null;
+		
+		// Objetos DAO
+		AlunoDAO alunoDAO = new AlunoDAO();
+		ProfessorDAO professorDAO = new ProfessorDAO();
+		
+		QuestionarioDAO questionarioDAO = new QuestionarioDAO();
+		ForumDAO forumDAO = new ForumDAO();
+		PerguntaDAO perguntaDAO = new PerguntaDAO();
+		RespostaDAO respostaDAO = new RespostaDAO();
+		
 
 		String nome, email, nomeUsuario, senha, titulo, descricao, pergunta, resposta, titulo2;
 		boolean controle = true, controle2 = true;
@@ -140,6 +99,7 @@ public class Main {
 
 					professor = new Professor(nome, email, data, nomeUsuario, senha, salario, cargaHorariaSemanal);
 					pessoas.add(professor);
+					professorDAO.adicionar(professor, null);
 					break;
 
 				case 2:
@@ -156,6 +116,7 @@ public class Main {
 
 					aluno = new Aluno(nome, email, data, nomeUsuario, senha);
 					pessoas.add(aluno);
+					alunoDAO.adicionar(aluno, null);
 					break;
 
 				case 3:

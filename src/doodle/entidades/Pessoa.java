@@ -15,13 +15,7 @@ public abstract class Pessoa {
 	private String login;
 	private String passwd;
 	protected ArrayList<Curso> cursos;
-
-	public Pessoa(String nome, String email, Date dataNascimento) {
-		this.nome = nome;
-		this.email = email;
-		this.dataNascimento = dataNascimento;
-		this.cursos = new ArrayList<Curso>();
-	}
+	private static int proxID = 5;
 
 	public Pessoa(String nome, String email, Date dataNascimento, String login, String passwd) {
 		this.nome = nome;
@@ -30,6 +24,8 @@ public abstract class Pessoa {
 		this.login = login;
 		this.passwd = passwd;
 		this.cursos = new ArrayList<Curso>();
+		Pessoa.proxID++;
+		this.id = proxID;
 	}
 
 	public boolean validaUsuario(String login, String passwd) {

@@ -15,13 +15,7 @@ public class Curso {
 	private ArrayList<Aluno> alunos;
 	private ArrayList<Conteudo> conteudos;
 	private int vagas = 40;
-
-	public Curso(Professor professor, String nome) {
-		this.professor = professor;
-		this.nome = nome;
-		this.alunos = new ArrayList<Aluno>();
-		this.conteudos = new ArrayList<Conteudo>();
-	}
+	private static int proxID = 2;
 
 	public Curso(Professor professor, String nome, Date dataInicio) {
 		this.professor = professor;
@@ -29,6 +23,8 @@ public class Curso {
 		this.dataInicio = dataInicio;
 		this.alunos = new ArrayList<Aluno>();
 		this.conteudos = new ArrayList<Conteudo>();
+		Curso.proxID++;
+		this.id = proxID;
 	}
 
 	public void adicionaAluno(Aluno aluno) {

@@ -1,19 +1,15 @@
 package doodle.entidades;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import doodle.bd.CursoDAO;
 import doodle.forum.Forum;
 import doodle.forum.Resposta;
 
 public class Professor extends Pessoa {
 	private float salario;
 	private int cargaHorariaSemanal;
-
-	public Professor(String nome, String email, Date dataNascimento, float salario, int cargaHorariaSemanal) {
-		super(nome, email, dataNascimento);
-		this.salario = salario;
-		this.cargaHorariaSemanal = cargaHorariaSemanal;
-	}
 
 	public Professor(String nome, String email, Date dataNascimento, String login, String passwd, float salario,
 			int cargaHorariaSemanal) {
@@ -29,6 +25,11 @@ public class Professor extends Pessoa {
 
 		Curso c = new Curso(this, nome, data);
 		this.cursos.add(c);
+		CursoDAO cursoDAO = new CursoDAO();
+		// id[0] -> id do professor
+		ArrayList<Integer> id = new ArrayList<Integer>();
+		id.add(this.getId());
+		cursoDAO.adicionar(c, id);
 	}
 
 	public void removeCurso(String nome) {

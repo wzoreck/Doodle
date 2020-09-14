@@ -2,6 +2,7 @@ package doodle.bd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -76,21 +77,21 @@ public class UtilBD {
 	private static void criarPessoa(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS pessoa");
 
-		stm.executeUpdate("CREATE TABLE pessoa (" + "id_pessoa INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+		stm.executeUpdate("CREATE TABLE pessoa (" + "id_pessoa INTEGER NOT NULL PRIMARY KEY UNIQUE,"
 				+ "nome VARCHAR(100) NOT NULL," + "email VARCHAR(100) NOT NULL,"
 				+ "data_nascimento VARCHAR(10) NOT NULL," + "login VARCHAR(50) NOT NULL UNIQUE,"
 				+ "passwd VARCHAR(50) NOT NULL)");
 
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
-				+ "(NULL, 'Joao Nico', 'joao@aluno.email.com', '2000-01-01', 'joao', '1234')");
+				+ "(1, 'Joao Nico', 'joao@aluno.email.com', '2000-01-01', 'joao', '1234')");
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
-				+ "(NULL, 'Lucas', 'lucas@professor.email.com', '1980-08-28', 'lucas', '1234')");
+				+ "(2, 'Lucas', 'lucas@professor.email.com', '1980-08-28', 'lucas', '1234')");
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
-				+ "(NULL, 'Daniel Wzoreck', 'daniel@aluno.email.com', '2000-08-07', 'daniel', '1234')");
+				+ "(3, 'Daniel Wzoreck', 'daniel@aluno.email.com', '2000-08-07', 'daniel', '1234')");
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
-				+ "(NULL, 'Ana Luiza', 'ana@aluno.email.com', '1999-02-05', 'ana', '1234')");
+				+ "(4, 'Ana Luiza', 'ana@aluno.email.com', '1999-02-05', 'ana', '1234')");
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
-				+ "(NULL, 'Luciano', 'luciano@professor.email.com', '1979-06-15', 'luciano', '1234')");
+				+ "(5, 'Luciano', 'luciano@professor.email.com', '1979-06-15', 'luciano', '1234')");
 	}
 
 	private static void criarAluno(Statement stm) throws SQLException {
@@ -119,12 +120,12 @@ public class UtilBD {
 	private static void criarCurso(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS curso");
 
-		stm.executeUpdate("CREATE TABLE curso (" + "id_curso INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+		stm.executeUpdate("CREATE TABLE curso (" + "id_curso INTEGER NOT NULL PRIMARY KEY UNIQUE,"
 				+ "nome VARCHAR(70) NOT NULL UNIQUE," + "data_inicio VARCHAR(10) NOT NULL," + "id_professor INTEGER NOT NULL,"
 				+ "FOREIGN KEY (id_professor) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
-		stm.executeUpdate("INSERT INTO curso VALUES" + "(NULL, 'POO1-2020', '2020-01-01', 2)");
-		stm.executeUpdate("INSERT INTO curso VALUES" + "(NULL, 'Redes-2020', '2020-01-01', 5)");
+		stm.executeUpdate("INSERT INTO curso VALUES" + "(1, 'POO1-2020', '2020-01-01', 2)");
+		stm.executeUpdate("INSERT INTO curso VALUES" + "(2, 'Redes-2020', '2020-01-01', 5)");
 	}
 
 	private static void criarMatricula(Statement stm) throws SQLException {
@@ -223,5 +224,13 @@ public class UtilBD {
 		Statement stm = bd.createStatement();
 		stm.executeUpdate(sql);
 		stm.close();
+	}
+	
+	public static ResultSet consultarBD(String sql) throws SQLException {
+		Connection bd = UtilBD.getConexao();
+		Statement stm = bd.createStatement();
+		ResultSet retorno = stm.executeQuery(sql);
+		stm.close();
+		return retorno;
 	}
 }
