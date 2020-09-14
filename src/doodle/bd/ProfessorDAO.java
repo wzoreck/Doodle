@@ -1,6 +1,7 @@
 package doodle.bd;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import doodle.entidades.Professor;
@@ -8,7 +9,7 @@ import doodle.entidades.Professor;
 public class ProfessorDAO implements InterfaceDAO<Professor> {
 
 	@Override
-	public void adicionar(Professor professor) {
+	public void adicionar(Professor professor, ArrayList<Integer> id) {
 		try {
 			String queryPessoa = "INSERT INTO pessoa VALUES (NULL, '" + professor.getNome() + "', '"
 					+ professor.getEmail() + "', '" + professor.getDataNascimento() + "', '" + professor.getLogin()
@@ -30,7 +31,6 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 		} catch (SQLException e2) {
 			System.err.println("Falaha ao inserir Professor no banco de dados");
 		}
-
 	}
 
 	@Override

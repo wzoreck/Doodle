@@ -8,6 +8,7 @@ import doodle.forum.Forum;
 import doodle.questionario.Questionario;
 
 public class Curso {
+	private int id;
 	private String nome;
 	private Date dataInicio;
 	private Professor professor;
@@ -117,6 +118,14 @@ public class Curso {
 		}
 	}
 
+	public int getID() {
+		return id;
+	}
+	
+	public void setID(int id) {
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return this.nome;
 	}

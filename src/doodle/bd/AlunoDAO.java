@@ -1,6 +1,7 @@
 package doodle.bd;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import doodle.entidades.Aluno;
@@ -8,7 +9,7 @@ import doodle.entidades.Aluno;
 public class AlunoDAO implements InterfaceDAO<Aluno> {
 
 	@Override
-	public void adicionar(Aluno aluno) {
+	public void adicionar(Aluno aluno, ArrayList<Integer> id) {
 		try {
 			String queryPessoa = "INSERT INTO pessoa VALUES (NULL, '" + aluno.getNome() + "', '" + aluno.getEmail()
 					+ "', '" + aluno.getDataNascimento() + "', '" + aluno.getLogin() + "', '" + aluno.getPasswd()

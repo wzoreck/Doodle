@@ -1,6 +1,7 @@
 package doodle.bd;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import doodle.forum.Pergunta;
@@ -8,21 +9,17 @@ import doodle.forum.Pergunta;
 public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 
 	@Override
-	public void adicionar(Pergunta pergunta) {
+	public void adicionar(Pergunta pergunta, ArrayList<Integer> id) {
+		// id_pergunta, id_forum (id-0), id_autor (id-1), titulo, duvida, data
 		try {
-			System.out.println("Titulo Forum: "+pergunta.getTituloForum());
-			String queryPergunta = "INSERT INTO pergunta_forum VALUES (NULL,"
-					+ "(SELECT id_forum FROM forum INNER JOIN conteudo ON forum.id_conteudo = conteudo.id_conteudo WHERE titulo = '"
-					+ pergunta.getTituloForum() + "')," + " (SELECT id_pessoa FROM pessoa WHERE login = '"
-					+ pergunta.getObjetoAutor().getLogin() + "'), '" + pergunta.getTitulo() + "', '"
-					+ pergunta.getDuvida() + "', '" + pergunta.getData() + "')";
+			String queryPergunta = "INSERT INTO pergunta_forum VALUES (NULL," + id.get(0) + "," + id.get(1) + ", '"
+					+ pergunta.getTitulo() + "', '" + pergunta.getDuvida() + "', '" + pergunta.getData() + "')";
 
 			UtilBD.alterarBd(queryPergunta);
 
-		} catch (SQLException e) {
+		} catch (SQLException e1) {
 			System.err.println("Falha ao inserir Pergunta no banco de dados");
 		}
-		
 	}
 
 	@Override
@@ -34,13 +31,13 @@ public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 	@Override
 	public void atualizar(Pergunta referencia) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void remover(Pergunta referencia) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
