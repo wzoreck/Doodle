@@ -12,7 +12,10 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 	public void adicionar(Forum forum, ArrayList<Integer> id) {
 		// id_forum, id_conteudo (id-0), aberto
 		try {
-			String queryForum = "INSERT INTO forum VALUES (NULL, " + id.get(0) + "), " + forum.isAberto() + ")";
+			String queryForum = "INSERT INTO forum VALUES (" + forum.getIDForum() + ", " + id.get(0) + ", "
+					+ forum.isAberto() + ")";
+			
+			System.out.println("\n\n Executado: "+ queryForum);
 
 			UtilBD.alterarBd(queryForum);
 

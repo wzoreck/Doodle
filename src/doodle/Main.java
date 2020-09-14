@@ -271,8 +271,8 @@ public class Main {
 							System.out.println("\n[1] - adicionar aluno");
 							System.out.println("[2] - remover aluno");
 							System.out.println("[3] - listar alunos");
-							System.out.println("[4] - criar questionário");
-							System.out.println("[5] - remover questionário");
+							System.out.println("[4] - criar questionário X");
+							System.out.println("[5] - remover questionário X");
 							System.out.println("[6] - criar fórum");
 							System.out.println("[7] - remover fórum");
 							System.out.println("[8] - responder em fórum");
