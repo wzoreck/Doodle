@@ -9,8 +9,8 @@ public class Aluno extends Pessoa {
 
 	private boolean matriculado;
 
-	public Aluno(String nome, String email, Date dataNascimento, String login, String passwd) {
-		super(nome, email, dataNascimento, login, passwd);
+	public Aluno(String nome, String email, Date dataNascimento, String login, String passwd, boolean contID) {
+		super(nome, email, dataNascimento, login, passwd, contID);
 		this.matriculado = false;
 	}
 

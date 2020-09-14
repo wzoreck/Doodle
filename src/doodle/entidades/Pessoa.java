@@ -18,15 +18,17 @@ public abstract class Pessoa {
 	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
 	public static int proxID = 5;
 
-	public Pessoa(String nome, String email, Date dataNascimento, String login, String passwd) {
+	public Pessoa(String nome, String email, Date dataNascimento, String login, String passwd, boolean contID) {
 		this.nome = nome;
 		this.email = email;
 		this.dataNascimento = dataNascimento;
 		this.login = login;
 		this.passwd = passwd;
 		this.cursos = new ArrayList<Curso>();
-		Pessoa.proxID++;
-		this.id = proxID;
+		if (contID == true) {
+			Pessoa.proxID++;
+			this.id = proxID;
+		}
 	}
 
 	public boolean validaUsuario(String login, String passwd) {
@@ -83,7 +85,7 @@ public abstract class Pessoa {
 
 	public String getDataNascimento() {
 		// Formata a data e retorna como String
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(dataNascimento);
 	}
 

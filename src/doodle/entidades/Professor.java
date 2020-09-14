@@ -12,8 +12,8 @@ public class Professor extends Pessoa {
 	private int cargaHorariaSemanal;
 
 	public Professor(String nome, String email, Date dataNascimento, String login, String passwd, float salario,
-			int cargaHorariaSemanal) {
-		super(nome, email, dataNascimento, login, passwd);
+			int cargaHorariaSemanal, boolean contID) {
+		super(nome, email, dataNascimento, login, passwd, contID);
 		this.salario = salario;
 		this.cargaHorariaSemanal = cargaHorariaSemanal;
 	}

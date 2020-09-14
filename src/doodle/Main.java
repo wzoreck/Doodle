@@ -19,11 +19,9 @@ import java.util.Date;
 import java.util.Scanner;
 
 import doodle.bd.AlunoDAO;
-import doodle.bd.CursoDAO;
 import doodle.bd.ForumDAO;
 import doodle.bd.PerguntaDAO;
 import doodle.bd.ProfessorDAO;
-import doodle.bd.QuestionarioDAO;
 import doodle.bd.RespostaDAO;
 import doodle.bd.UtilBD;
 import doodle.entidades.Aluno;
@@ -33,6 +31,7 @@ import doodle.entidades.Professor;
 
 public class Main {
 
+	@SuppressWarnings("unlikely-arg-type")
 	public static void main(String[] args) throws ParseException {
 
 		// Criar o banco de dados e inserir os primeiros registros
@@ -44,6 +43,7 @@ public class Main {
 		Date data = new Date();
 
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 
 		Professor professor = null;
 		Aluno aluno = null;
@@ -95,8 +95,8 @@ public class Main {
 					System.out.print("Escolha uma senha: ");
 					senha = sc.nextLine();
 
-					professor = new Professor(nome, email, data, nomeUsuario, senha, salario, cargaHorariaSemanal);
-					pessoas.add(professor);
+					professor = new Professor(nome, email, data, nomeUsuario, senha, salario, cargaHorariaSemanal,
+							true);
 					professorDAO.adicionar(professor, null);
 					break;
 
@@ -112,8 +112,7 @@ public class Main {
 					System.out.print("Escolha uma senha: ");
 					senha = sc.nextLine();
 
-					aluno = new Aluno(nome, email, data, nomeUsuario, senha);
-					pessoas.add(aluno);
+					aluno = new Aluno(nome, email, data, nomeUsuario, senha, true);
 					alunoDAO.adicionar(aluno, null);
 					break;
 
@@ -165,7 +164,11 @@ public class Main {
 					break;
 
 				case 5:
-					System.out.println("\nULTIMO ID PESSOA: " + Pessoa.proxID);
+					alunos = alunoDAO.listar();
+					pessoas = new ArrayList<Pessoa>();
+					for (Aluno a : alunos)
+						pessoas.add(a);
+					
 					for (int i = 0; i < pessoas.size(); i++) {
 						System.out.println("\nID: " + pessoas.get(i).getId());
 						System.out.println("Nome: " + pessoas.get(i).getNome());

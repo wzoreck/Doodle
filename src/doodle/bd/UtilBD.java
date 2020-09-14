@@ -87,7 +87,7 @@ public class UtilBD {
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
 				+ "(2, 'Lucas', 'lucas@professor.email.com', '1980-08-28', 'lucas', '1234')");
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
-				+ "(3, 'Daniel Wzoreck', 'daniel@aluno.email.com', '2000-08-07', 'daniel', '1234')");
+				+ "(3, 'Daniel Wzoreck', 'daniel@aluno.email.com', '2000-07-08', 'daniel', '1234')");
 		stm.executeUpdate(
 				"INSERT INTO pessoa VALUES" + "(4, 'Ana Luiza', 'ana@aluno.email.com', '1999-02-05', 'ana', '1234')");
 		stm.executeUpdate("INSERT INTO pessoa VALUES"
@@ -229,7 +229,6 @@ public class UtilBD {
 		Connection bd = UtilBD.getConexao();
 		Statement stm = bd.createStatement();
 		ResultSet retorno = stm.executeQuery(sql);
-		stm.close();
 		return retorno;
 	}
 }
