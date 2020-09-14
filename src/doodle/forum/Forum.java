@@ -6,6 +6,7 @@ import java.util.Date;
 import doodle.entidades.Conteudo;
 
 public class Forum extends Conteudo {
+	private int id;
 	private boolean aberto;
 	private ArrayList<Pergunta> perguntas;
 
@@ -42,6 +43,14 @@ public class Forum extends Conteudo {
 		}
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public boolean isAberto() {
 		return aberto;
 	}

@@ -7,6 +7,7 @@ import java.util.Date;
 import doodle.entidades.Pessoa;
 
 public class Pergunta {
+	private int id;
 	private Pessoa autor;
 	private String titulo;
 	private String duvida;
@@ -45,6 +46,14 @@ public class Pergunta {
 		}
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getAutor() {
 		return autor.getNome();
 	}

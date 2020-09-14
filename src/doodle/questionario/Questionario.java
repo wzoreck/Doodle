@@ -7,6 +7,7 @@ import doodle.entidades.Conteudo;
 
 public class Questionario extends Conteudo {
 
+	private int id;
 	private ArrayList<String> questoes;
 
 	public Questionario(String titulo, String descricao, Date data) {
@@ -27,11 +28,19 @@ public class Questionario extends Conteudo {
 		for (int i = 0; i < this.questoes.size(); i++)
 			System.out.println("Questão " + (i + 1) + ": " + this.questoes.get(i));
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public ArrayList<String> getQuestoes() {
 		return questoes;
 	}
-	
+
 	@Override
 	protected String tipoConteudo() {
 		return "questionario";

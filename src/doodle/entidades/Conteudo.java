@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Conteudo {
+	protected int id;
 	protected String titulo;
 	protected String descricao;
 	protected Date dataPublicacao;
@@ -27,6 +28,14 @@ public abstract class Conteudo {
 		this.prazo = prazo;
 		this.dataInicio = dataInicio;
 		this.dataTermino = dataTermino;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitulo() {

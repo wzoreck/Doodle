@@ -6,6 +6,7 @@ import java.util.Date;
 import doodle.entidades.Pessoa;
 
 public class Resposta {
+	private int id;
 	private Pessoa autor;
 	private String resposta;
 	private Date data;
@@ -24,6 +25,14 @@ public class Resposta {
 		this.correta = correta;
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public Pessoa getAutor() {
 		return autor;
 	}
