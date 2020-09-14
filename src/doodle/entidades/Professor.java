@@ -45,8 +45,16 @@ public class Professor extends Pessoa {
 		return salario;
 	}
 
+	public void setSalario(float salario) {
+		this.salario = salario;
+	}
+
 	public int getCargaHorariaSemanal() {
 		return cargaHorariaSemanal;
+	}
+
+	public void setCargaHorariaSemanal(int c) {
+		this.cargaHorariaSemanal = c;
 	}
 
 	@Override

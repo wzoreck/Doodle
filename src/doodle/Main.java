@@ -161,11 +161,20 @@ public class Main {
 							System.out.print("Escolha uma senha: ");
 							senha = sc.nextLine();
 							p.setPasswd(senha);
-
-							if (p.getTipoPessoa().contentEquals("aluno"))
+							
+							if (p.getTipoPessoa().contentEquals("aluno")) {
 								alunoDAO.atualizar((Aluno) p);
-							else if (p.getTipoPessoa().contentEquals("professor"))
-								professorDAO.atualizar((Professor) p);
+							} else if (p.getTipoPessoa().contentEquals("professor")) {
+								professor = (Professor) p;
+								System.out.print("Salário: ");
+								salario = sc.nextFloat();
+								professor.setSalario(salario);
+								System.out.print("Carga horária Semanal: ");
+								cargaHorariaSemanal = sc.nextInt();
+								professor.setCargaHorariaSemanal(cargaHorariaSemanal);
+								sc.nextLine();
+								professorDAO.atualizar((Professor) professor);
+							}
 
 							break;
 						}

@@ -68,9 +68,20 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 	}
 
 	@Override
-	public void atualizar(Professor referencia) {
-		// TODO Auto-generated method stub
-
+	public void atualizar(Professor professor) {
+		try {
+			String queryUpdatePessoa = "UPDATE pessoa SET " + "nome = '" + professor.getNome() + "', email = '"
+					+ professor.getEmail() + "', data_nascimento = '" + professor.getDataNascimento() + "', login = '"
+					+ professor.getLogin() + "', passwd = '" + professor.getPasswd() + "' WHERE id_pessoa = "
+					+ professor.getId();
+			UtilBD.alterarBd(queryUpdatePessoa);
+			String queryUpdateProfessor = "UPDATE professor SET " + "salario = " + professor.getSalario()
+					+ ", carga_horaria_semanal = " + professor.getCargaHorariaSemanal() + " WHERE id_professor = "
+					+ professor.getId();	
+			UtilBD.alterarBd(queryUpdateProfessor);
+		} catch (SQLException e) {
+			System.err.println("Falha ao realizar o update de Pessoa-Professor");
+		}
 	}
 
 	@Override
