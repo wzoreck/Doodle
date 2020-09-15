@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import doodle.entidades.Aluno;
 import doodle.forum.Forum;
 
 public class ForumDAO implements InterfaceDAO<Forum> {
@@ -83,7 +84,32 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 		} catch (SQLException e) {
 			System.err.println("Falha ao remover Forum do banco de dados");
 		}
+	}
 
+	public Forum get(int idForum) {
+		Forum forum = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			String querySelectForum = "SELECT * FROM forum INNER JOIN conteudo ON forum.id_conteudo = conteudo.id_conteudo"
+					+ " WHERE id_forum = " + idForum;
+			ResultSet resultSet = UtilBD.consultarBD(querySelectForum);
+			while (resultSet.next()) {
+				String titulo = resultSet.getString("titulo");
+				String descricao = resultSet.getString("descricao");
+				String dataPublicacao = resultSet.getString("data_publicacao");
+				int idConteudo = resultSet.getInt("id_conteudo");
+
+				forum = new Forum(titulo, descricao, sdf.parse(dataPublicacao), false, false);
+				forum.setIDForum(idForum);
+				forum.setId(idConteudo);
+			}
+			resultSet.getStatement().close();
+		} catch (SQLException e) {
+			System.err.println("Falha ao buscar Forum no banco de dados");
+		} catch (ParseException e) {
+			System.err.println("Falha ao converter String para Data ForumDAO");
+		}
+		return forum;
 	}
 
 }

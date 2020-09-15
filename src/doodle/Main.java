@@ -28,6 +28,7 @@ import doodle.entidades.Aluno;
 import doodle.entidades.Curso;
 import doodle.entidades.Pessoa;
 import doodle.entidades.Professor;
+import doodle.forum.Forum;
 
 public class Main {
 
