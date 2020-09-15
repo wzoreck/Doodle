@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import doodle.entidades.Aluno;
 import doodle.entidades.Conteudo;
 import doodle.entidades.Curso;
 
@@ -74,19 +73,6 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 			UtilBD.alterarBd(queryDeleteCurso);
 		} catch (SQLException e) {
 			System.err.println("Falha ao remover Curso do banco de dados");
-		}
-
-	}
-
-	public void matricularAluno(Aluno aluno, Curso curso) {
-		// id_aluno, id_curso
-		try {
-			String queryMatricula = "INSERT INTO matricula_curso VALUES (" + aluno.getId() + ", " + curso.getID() + ")";
-
-			UtilBD.alterarBd(queryMatricula);
-
-		} catch (SQLException e) {
-			System.err.println("Falha ao inserir Matricula no banco de dados");
 		}
 	}
 

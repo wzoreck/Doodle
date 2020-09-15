@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import doodle.entidades.Aluno;
+import doodle.entidades.Curso;
 
 public class AlunoDAO implements InterfaceDAO<Aluno> {
 
@@ -119,6 +120,79 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			System.err.println("Falha ao converter String para Data AlunoDAO");
 		}
 		return aluno;
+	}
+
+	public void matricularAluno(Aluno aluno, Curso curso) {
+		// id_aluno, id_curso
+		try {
+			String queryMatricula = "INSERT INTO matricula_curso VALUES (" + aluno.getId() + ", " + curso.getID() + ")";
+
+			UtilBD.alterarBd(queryMatricula);
+
+		} catch (SQLException e) {
+			System.err.println("Falha ao inserir Matricula no banco de dados");
+		}
+	}
+
+	public ArrayList<Aluno> getMatriculaAlunos(Curso curso) {
+		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+		Aluno aluno = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato da data
+		try {
+			String querySelectMatriculas = "SELECT * FROM matricula_curso"
+					+ " INNER JOIN pessoa ON pessoa.id_pessoa = matricula_curso.id_aluno" + " WHERE id_curso = "
+					+ curso.getID();
+			ResultSet resultSet = UtilBD.consultarBD(querySelectMatriculas);
+			while (resultSet.next()) {
+				int idAluno = resultSet.getInt("id_aluno");
+				String nome = resultSet.getString("nome");
+				String email = resultSet.getString("email");
+				String data = resultSet.getString("data_nascimento");
+				String login = resultSet.getString("login");
+				String passwd = resultSet.getString("passwd");
+
+				aluno = new Aluno(nome, email, sdf.parse(data), login, passwd, false);
+				aluno.setId(idAluno);
+				alunos.add(aluno);
+			}
+			resultSet.getStatement().close();
+			sdf.clone();
+		} catch (SQLException e) {
+			System.err.println("Não foi possível buscar os Matriculas no banco de dados");
+		} catch (ParseException e) {
+			System.err.println("Falha ao converter String para Data CursoDAO");
+		}
+		return alunos;
+	}
+
+	public ArrayList<Curso> getCursos(int aux) {
+		ProfessorDAO professorDAO = new ProfessorDAO();
+		ArrayList<Curso> cursos = new ArrayList<Curso>();
+		Curso curso = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato da data
+		try {
+			String querySelectCursos = "SELECT * FROM curso"
+					+ " INNER JOIN matricula_curso ON curso.id_curso = matricula_curso.id_curso" + " WHERE id_aluno = "
+					+ aux;
+			ResultSet resultSet = UtilBD.consultarBD(querySelectCursos);
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id_curso");
+				String nome = resultSet.getString("nome");
+				String dataInicio = resultSet.getString("data_inicio");
+				int idProfessor = resultSet.getInt("id_professor");
+
+				curso = new Curso(professorDAO.get(idProfessor), nome, sdf.parse(dataInicio));
+				curso.setID(id);
+				cursos.add(curso);
+			}
+			resultSet.getStatement().close();
+			sdf.clone();
+		} catch (SQLException e) {
+			System.err.println("Não foi possível buscar os Cursos-Aluno no banco de dados");
+		} catch (ParseException e) {
+			System.err.println("Falha ao converter String para Data AlunoDAO");
+		}
+		return cursos;
 	}
 
 }

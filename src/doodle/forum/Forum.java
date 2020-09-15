@@ -3,6 +3,7 @@ package doodle.forum;
 import java.util.ArrayList;
 import java.util.Date;
 
+import doodle.bd.PerguntaDAO;
 import doodle.entidades.Conteudo;
 
 public class Forum extends Conteudo {
@@ -23,8 +24,9 @@ public class Forum extends Conteudo {
 	}
 
 	public void adicionaPergunta(Pergunta pergunta) {
-		this.perguntas.add(pergunta);
-		pergunta.setTituloForum(this.titulo);
+		PerguntaDAO perguntaDAO = new PerguntaDAO();
+		ArrayList<Integer> id = new ArrayList<Integer>();
+		perguntaDAO.adicionar(pergunta, id);
 	}
 
 	public void removePergunta(int indice) {

@@ -10,10 +10,11 @@ public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 
 	@Override
 	public void adicionar(Pergunta pergunta, ArrayList<Integer> id) {
-		// id_pergunta, id_forum (id-0), id_autor (id-1), titulo, duvida, data
+		// id_pergunta, id_forum, id_autor, titulo, duvida, data
 		try {
-			String queryPergunta = "INSERT INTO pergunta_forum VALUES (NULL," + id.get(0) + "," + id.get(1) + ", '"
-					+ pergunta.getTitulo() + "', '" + pergunta.getDuvida() + "', '" + pergunta.getData() + "')";
+			String queryPergunta = "INSERT INTO pergunta_forum VALUES (" + pergunta.getIDPergunta() + ", " + pergunta.getIDForum()
+					+ "," + pergunta.getObjetoAutor().getId() + ", '" + pergunta.getTitulo() + "', '" + pergunta.getDuvida() + "', '"
+					+ pergunta.getData() + "')";
 
 			UtilBD.alterarBd(queryPergunta);
 
@@ -35,9 +36,13 @@ public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 	}
 
 	@Override
-	public void remover(Pergunta referencia) {
-		// TODO Auto-generated method stub
-
+	public void remover(Pergunta pergunta) {
+		try {
+			String queryDeletePergunta = "DELETE FROM pergunta_forum WHERE id_pergunta = " + pergunta.getIDPergunta();
+			UtilBD.alterarBd(queryDeletePergunta);
+		} catch (SQLException e) {
+			System.err.println("Falha ao remover Pergunta do banco de dados");
+		}
 	}
 
 }

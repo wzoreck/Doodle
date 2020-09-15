@@ -28,11 +28,9 @@ import doodle.entidades.Aluno;
 import doodle.entidades.Curso;
 import doodle.entidades.Pessoa;
 import doodle.entidades.Professor;
-import doodle.forum.Forum;
 
 public class Main {
 
-	@SuppressWarnings("unlikely-arg-type")
 	public static void main(String[] args) throws ParseException {
 
 		// Criar o banco de dados e inserir os primeiros registros
@@ -233,10 +231,10 @@ public class Main {
 
 			// Pessoa Logada
 			while (controle) {
-				professor.adicionaCursos();
 				switch (escolha1) {
 
 				case 1: // Se for uma Professor
+					professor.adicionaCursos();
 					System.out.println("\n[1] - criar curso");
 					System.out.println("[2] - acessar curso");
 					System.out.println("[3] - remover curso");
@@ -287,7 +285,7 @@ public class Main {
 							switch (escolhaCurso) {
 
 							case 1: // adicionar aluno no curso
-								System.out.print("\nQual o email do aluno que deseja adicionar: ");
+								System.out.print("\nQual o ID do aluno que deseja adicionar: ");
 								email = sc.nextLine();
 								aluno = obterPessoa(pessoas, email);
 								if (aluno == null)
@@ -305,6 +303,13 @@ public class Main {
 								break;
 
 							case 3: // listar alunos "matriculados"
+								for (Pessoa p : pessoas) {
+									System.out.println("\nID: " + p.getId());
+									System.out.println("Nome: " + p.getNome());
+									System.out.println("Email: " + p.getEmail());
+									System.out.println("Data de nascimento: " + p.getDataNascimento());
+									System.out.println(p.getNome() + " é um " + p.getTipoPessoa());
+								}
 								System.out.println("\n---Alunos matriculados---");
 								curso.listaAlunos();
 								break;
@@ -405,6 +410,7 @@ public class Main {
 					break;
 
 				case 2: // Se for um Aluno
+					aluno.adicionaCursos();
 					System.out.println("\n---Seus Cursos---");
 					aluno.listaCursos();
 					System.out.print("\nInforme o nome do curso que deseja acessar: ");
@@ -436,14 +442,15 @@ public class Main {
 							break;
 
 						case 2:
-							System.out.print("\nInforme o título do fórum: ");
-							titulo = sc.nextLine();
+							System.out.print("\nInforme ID do fórum: ");
+							id = sc.nextInt(); 
+							sc.nextLine();
 							System.out.print("Titulo para a pergunta: ");
-							titulo2 = sc.nextLine();
+							titulo = sc.nextLine();
 							System.out.print("Pergunta: ");
 							pergunta = sc.nextLine();
 
-							aluno.perguntaForum(curso, titulo, titulo2, pergunta);
+							aluno.perguntaForum(curso, id, titulo, pergunta);
 							break;
 
 						case 3:

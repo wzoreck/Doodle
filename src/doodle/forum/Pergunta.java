@@ -13,18 +13,21 @@ public class Pergunta {
 	private String duvida;
 	private ArrayList<Resposta> respostas;
 	private Date data;
-	private String tituloForumPertencente;
+	private int idForum;
 	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
 	private static int proxIDPergunta = 2;
 
-	public Pergunta(Pessoa autor, String titulo, String duvida, Date data) {
+	public Pergunta(Pessoa autor, String titulo, String duvida, Date data, int idForum, boolean contIDPergunta) {
 		this.autor = autor;
 		this.titulo = titulo;
 		this.duvida = duvida;
 		this.data = data;
 		this.respostas = new ArrayList<Resposta>();
-		Pergunta.proxIDPergunta++;
-		this.idPergunta = proxIDPergunta;
+		this.idForum = idForum;
+		if (contIDPergunta == true) {
+			Pergunta.proxIDPergunta++;
+			this.idPergunta = proxIDPergunta;
+		}
 	}
 
 	public void adicionaResposta(Resposta resposta) {
@@ -45,6 +48,10 @@ public class Pergunta {
 
 	public int getIDPergunta() {
 		return idPergunta;
+	}
+	
+	public void setIDPergunta(int id) {
+		this.idPergunta = id;
 	}
 	
 	public String getAutor() {
@@ -80,11 +87,11 @@ public class Pergunta {
 		return sdf.format(this.data);
 	}
 	
-	public String getTituloForum() {
-		return tituloForumPertencente;
+	public int getIDForum() {
+		return idForum;
 	}
 	
-	public void setTituloForum(String titulo) {
-		tituloForumPertencente = titulo;
+	public void setIDForum(int idForum) {
+		this.idForum = idForum;
 	}
 }

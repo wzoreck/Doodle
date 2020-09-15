@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import doodle.bd.AlunoDAO;
 import doodle.bd.CursoDAO;
 import doodle.bd.ForumDAO;
 import doodle.bd.QuestionarioDAO;
@@ -41,7 +42,9 @@ public class Curso {
 
 		this.alunos.add(aluno);
 		aluno.setMatriculado(true);
-		aluno.adicionaCurso(this);
+		AlunoDAO alunoDAO = new AlunoDAO();
+		alunoDAO.matricularAluno(aluno, this);
+		aluno.adicionaCursos();
 	}
 
 	public void removeAluno(Aluno aluno) {
@@ -54,6 +57,8 @@ public class Curso {
 	}
 
 	public void listaAlunos() {
+		AlunoDAO alunoDAO = new AlunoDAO();
+		alunos = alunoDAO.getMatriculaAlunos(this);
 		for (int i = 0; i < this.alunos.size(); i++) {
 			System.out.println("\nNome: " + this.alunos.get(i).getNome());
 			System.out.println("Email: " + this.alunos.get(i).getEmail());
@@ -91,12 +96,12 @@ public class Curso {
 		id.add(f.getId());
 		forumDAO.adicionar(f, id);
 	}
-	
+
 	public void atualizarForum(int idForum, String titulo, String descricao) {
 		ForumDAO forumDAO = new ForumDAO();
 		ArrayList<Forum> foruns = forumDAO.listar(this.getID());
 		Date data = new Date();
-		
+
 		for (Forum forum : foruns) {
 			if (forum.getIDForum() == idForum) {
 				Forum f = new Forum(titulo, descricao, data, false, false);
@@ -133,7 +138,7 @@ public class Curso {
 		ForumDAO forumDAO = new ForumDAO();
 		ArrayList<Forum> foruns = new ArrayList<Forum>();
 		foruns = forumDAO.listar(this.getID());
-		
+
 		for (Forum forum : foruns) {
 			System.out.println("\nID Forum: " + forum.getIDForum());
 			System.out.println("Titulo: " + forum.getTitulo());

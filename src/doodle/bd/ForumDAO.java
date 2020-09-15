@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import doodle.entidades.Aluno;
 import doodle.forum.Forum;
 
 public class ForumDAO implements InterfaceDAO<Forum> {

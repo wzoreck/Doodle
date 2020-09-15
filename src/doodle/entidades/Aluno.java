@@ -1,7 +1,9 @@
 package doodle.entidades;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import doodle.bd.AlunoDAO;
 import doodle.forum.Forum;
 import doodle.forum.Pergunta;
 
@@ -13,27 +15,26 @@ public class Aluno extends Pessoa {
 		super(nome, email, dataNascimento, login, passwd, contID);
 		this.matriculado = false;
 	}
-
-	public void adicionaCurso(Curso curso) {
-		this.cursos.add(curso);
+	
+	public void adicionaCursos() {
+		AlunoDAO alunoDAO = new AlunoDAO();
+		this.cursos = alunoDAO.getCursos(this.getId());
 	}
+	
+	public void perguntaForum(Curso curso, int idForum, String tituloPergunta, String pergunta) {
+		Forum forum = null;
+		ArrayList<Conteudo> conteudos = null;
+		conteudos = curso.getConteudos();
 
-	public void perguntaForum(Curso curso, String titulo, String tituloPergunta, String pergunta) {
-		Forum f = null;
+		for (Conteudo conteudo : conteudos) {
+			forum = (Forum) conteudo;
+			if (forum.getIDForum() == idForum) {
+				Date data = new Date();
+				forum.adicionaPergunta(new Pergunta(this, tituloPergunta, pergunta, data, forum.getIDForum(), true));
+				return;
+			}
 
-		for (int i = 0; i < curso.getConteudos().size(); i++)
-			if (curso.getConteudos().get(i).getTipoConteudo().contentEquals("forum"))
-				if (curso.getConteudos().get(i).getTitulo().contentEquals(titulo)) {
-					f = (Forum) curso.getConteudos().get(i);
-					break;
-				}
-
-		if (f == null)
-			return;
-
-		Date data = new Date();
-
-		f.adicionaPergunta(new Pergunta(this, tituloPergunta, pergunta, data));
+		}
 	}
 
 	public boolean isMatriculado() {
