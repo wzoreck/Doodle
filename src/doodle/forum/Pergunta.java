@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import doodle.bd.RespostaDAO;
 import doodle.entidades.Pessoa;
 
 public class Pergunta {
@@ -31,7 +32,8 @@ public class Pergunta {
 	}
 
 	public void adicionaResposta(Resposta resposta) {
-		this.respostas.add(resposta);
+		RespostaDAO respostaDAO = new RespostaDAO();
+		respostaDAO.adicionar(resposta, null);
 	}
 
 	public void removeResposta(int indice) {

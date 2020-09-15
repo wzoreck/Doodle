@@ -181,8 +181,9 @@ public class Curso {
 		return alunos;
 	}
 
-	public ArrayList<Conteudo> getConteudos() {
-		return conteudos;
+	public ArrayList<Forum> getConteudos() {
+		ForumDAO forumDAO = new ForumDAO();
+		return forumDAO.listar(this.getID());
 	}
 
 }

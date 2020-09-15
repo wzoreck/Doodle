@@ -10,11 +10,12 @@ public class RespostaDAO implements InterfaceDAO<Resposta> {
 
 	@Override
 	public void adicionar(Resposta resposta, ArrayList<Integer> id) {
-		// id_resposta, id_forum (id-0), id_pergunta (id-1), id_autor (id-2), resposta, data, correta
+		// id_resposta, id_forum (id-0), id_pergunta (id-1), id_autor (id-2), resposta,
+		// data, correta
 		try {
-			String queryPergunta = "INSERT INTO resposta_forum VALUES (NULL," + id.get(0) + "," + id.get(1) + ","
-					+ id.get(2) + ", '" + resposta.getResposta() + "','" + resposta.getData() + "', '"
-					+ resposta.isCorreta() + "')";
+			String queryPergunta = "INSERT INTO resposta_forum VALUES (" + resposta.getIDResposta() + ","
+					+ resposta.getIDForum() + "," + resposta.getIDPergunta() + "," + resposta.getAutor().getId() + ", '"
+					+ resposta.getResposta() + "','" + resposta.getData() + "', " + resposta.isCorreta() + ")";
 
 			UtilBD.alterarBd(queryPergunta);
 

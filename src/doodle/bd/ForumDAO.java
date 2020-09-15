@@ -110,5 +110,5 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 		}
 		return forum;
 	}
-
+	
 }

@@ -454,14 +454,16 @@ public class Main {
 							break;
 
 						case 3:
-							System.out.print("\nInforme o título do fórum: ");
-							titulo = sc.nextLine();
-							System.out.print("Informe o título da pergunta: ");
-							pergunta = sc.nextLine();
+							System.out.print("\nInforme o ID do fórum: ");
+							id = sc.nextInt();
+							sc.nextLine();
+							System.out.print("Informe o ID da pergunta: ");
+							int idPergunta = sc.nextInt();
+							sc.nextLine();
 							System.out.print("Resposta: ");
 							resposta = sc.nextLine();
 
-							aluno.respondeForum(curso, titulo, pergunta, resposta);
+							aluno.respondeForum(curso, id, idPergunta, resposta);
 							break;
 
 						case 4:

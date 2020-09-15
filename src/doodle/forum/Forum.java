@@ -64,7 +64,8 @@ public class Forum extends Conteudo {
 	}
 
 	public ArrayList<Pergunta> getPerguntas() {
-		return perguntas;
+		PerguntaDAO perguntaDAO = new PerguntaDAO();
+		return perguntaDAO.listar(this.getIDForum());
 	}
 
 	@Override

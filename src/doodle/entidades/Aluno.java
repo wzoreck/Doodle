@@ -22,20 +22,15 @@ public class Aluno extends Pessoa {
 	}
 	
 	public void perguntaForum(Curso curso, int idForum, String tituloPergunta, String pergunta) {
-		Forum forum = null;
-		ArrayList<Conteudo> conteudos = null;
-		conteudos = curso.getConteudos();
+		ArrayList<Forum> foruns = null;
+		foruns = curso.getConteudos();
 		
-		for (Conteudo conteudo : conteudos) {
-			System.out.println("\n\nENTROU FOR");
-			forum = (Forum) conteudo;
+		for (Forum forum : foruns) {
 			if (forum.getIDForum() == idForum) {
-				System.out.println("\n\nENTROU IF");
 				Date data = new Date();
 				forum.adicionaPergunta(new Pergunta(this, tituloPergunta, pergunta, data, forum.getIDForum(), true));
 				return;
 			}
-
 		}
 	}
 

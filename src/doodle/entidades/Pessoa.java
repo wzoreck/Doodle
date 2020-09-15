@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import doodle.forum.Forum;
+import doodle.forum.Pergunta;
 import doodle.forum.Resposta;
 
 public abstract class Pessoa {
@@ -38,21 +39,27 @@ public abstract class Pessoa {
 			return false;
 	}
 
-	public void respondeForum(Curso curso, String titulo, String pergunta, String resposta) {
-		Forum f = null;
-		for (int i = 0; i < curso.getConteudos().size(); i++)
-			if (curso.getConteudos().get(i).getTipoConteudo().contentEquals("forum"))
-				if (curso.getConteudos().get(i).getTitulo().contentEquals(titulo))
-					f = (Forum) curso.getConteudos().get(i);
-
-		if (f == null)
-			return;
-
-		Date data = new Date();
-
-		for (int j = 0; j < f.getPerguntas().size(); j++)
-			if (f.getPerguntas().get(j).getTitulo().contentEquals(pergunta))
-				f.getPerguntas().get(j).adicionaResposta(new Resposta(this, resposta, data));
+	public void respondeForum(Curso curso, int idForum, int idPergunta, String resposta) {
+		ArrayList<Forum> foruns = new ArrayList<Forum>();
+		ArrayList<Pergunta> perguntas = new ArrayList<Pergunta>();
+		foruns = curso.getConteudos();
+		boolean correta = false;
+		
+		if (this.getTipoPessoa() == "professor") {
+			correta = true;
+		}
+		
+		for (Forum forum : foruns) {
+			if (forum.getIDForum() == idForum) {
+				perguntas = forum.getPerguntas();
+				for (Pergunta pergunta : perguntas) {
+					if (pergunta.getIDPergunta() == idPergunta) {
+						Date data = new Date();
+						pergunta.adicionaResposta(new Resposta(idPergunta, idForum, this, resposta, data, correta, false));
+					}
+				}
+			}
+		}
 	}
 
 	public Curso getCurso(String nome) {
@@ -61,20 +68,20 @@ public abstract class Pessoa {
 				return this.cursos.get(i);
 		return null;
 	}
-	
+
 	public void listaCursos() {
 		for (int i = 0; i < this.cursos.size(); i++)
 			System.out.println("Curso " + (i + 1) + ": " + this.cursos.get(i).getNome());
 	}
-	
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -104,7 +111,7 @@ public abstract class Pessoa {
 	public String getLogin() {
 		return login;
 	}
-	
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
@@ -112,7 +119,7 @@ public abstract class Pessoa {
 	public String getPasswd() {
 		return passwd;
 	}
-	
+
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
