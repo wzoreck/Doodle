@@ -278,6 +278,7 @@ public class Main {
 							System.out.println("[8] - responder em fórum");
 							System.out.println("[9] - listar conteúdos");
 							System.out.println("[10] - voltar");
+							System.out.println("[11] - alterar forum");
 							System.out.print("Informe sua escolha: ");
 							escolhaCurso = sc.nextInt();
 							sc.nextLine();
@@ -360,6 +361,15 @@ public class Main {
 								controle2 = false;
 								break;
 
+							case 11:
+								System.out.print("\nInforme o ID do forum que deseja alterar: ");
+								id = sc.nextInt();
+								sc.nextLine();
+								System.out.print("Informe o novo titulo para o forum: ");
+								titulo = sc.nextLine();
+								System.out.print("Nova descrição: ");
+								descricao = sc.nextLine();
+								curso.atualizarForum(id, titulo, descricao);
 							}
 						}
 

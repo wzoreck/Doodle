@@ -11,7 +11,6 @@ public class UtilBD {
 
 	public static Connection getConexao() {
 		try {
-			System.out.println("Entrou getConexao()");
 			if (conexao == null)
 				abrirConexao();
 
@@ -27,7 +26,6 @@ public class UtilBD {
 
 	public static void abrirConexao() {
 		try {
-			System.out.println("Entrou abrirConexao()");
 			Class.forName("org.sqlite.JDBC");
 			conexao = DriverManager.getConnection("jdbc:sqlite:db.sqlite");
 		} catch (SQLException exception) {

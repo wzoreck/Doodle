@@ -91,6 +91,22 @@ public class Curso {
 		id.add(f.getId());
 		forumDAO.adicionar(f, id);
 	}
+	
+	public void atualizarForum(int idForum, String titulo, String descricao) {
+		ForumDAO forumDAO = new ForumDAO();
+		ArrayList<Forum> foruns = forumDAO.listar(this.getID());
+		Date data = new Date();
+		
+		for (Forum forum : foruns) {
+			if (forum.getIDForum() == idForum) {
+				Forum f = new Forum(titulo, descricao, data, false, false);
+				f.setId(forum.getId());
+				f.setIDForum(forum.getIDForum());
+				forumDAO.atualizar(f, 0);
+				return;
+			}
+		}
+	}
 
 	public void removeConteudo(int id) {
 		ForumDAO forumDAO = new ForumDAO();

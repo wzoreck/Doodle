@@ -40,9 +40,11 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 				String descricao = resultSet.getString("descricao");
 				String dataPublicacao = resultSet.getString("data_publicacao");
 				int idForum = resultSet.getInt("id_forum");
+				int idConteudo = resultSet.getInt("id_conteudo");
 
 				forum = new Forum(titulo, descricao, sdf.parse(dataPublicacao), false, false);
 				forum.setIDForum(idForum);
+				forum.setId(idConteudo);
 				foruns.add(forum);
 			}
 			resultSet.getStatement().close();
@@ -56,8 +58,18 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 	}
 
 	@Override
-	public void atualizar(Forum referencia, int aux) {
-		// TODO Auto-generated method stub
+	public void atualizar(Forum forum, int aux) {
+		try {
+			String queryUpdateForum = "UPDATE forum SET aberto = " + forum.isAberto() + " WHERE id_forum = "
+					+ forum.getIDForum();
+			UtilBD.alterarBd(queryUpdateForum);
+			String queryUpdateConteudo = "UPDATE conteudo SET " + "titulo = '" + forum.getTitulo() + "', descricao = '"
+					+ forum.getDescricao() + "', data_publicacao = '" + forum.getDataPublicacao()
+					+ "' WHERE id_conteudo = " + forum.getId();
+			UtilBD.alterarBd(queryUpdateConteudo);
+		} catch (SQLException e) {
+			System.err.println("Falha ao realizar o update de Forum");
+		}
 
 	}
 
