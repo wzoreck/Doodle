@@ -34,24 +34,27 @@ public class Forum extends Conteudo {
 	}
 
 	public void listar() {
-		for (int i = 0; i < this.perguntas.size(); i++) {
-			System.out.println("\n	Pergunta " + (i + 1) + ": " + this.perguntas.get(i).getTitulo());
-			System.out.println("	Duvida: " + this.perguntas.get(i).getDuvida());
-			System.out.println("	Autor: " + this.perguntas.get(i).getAutor());
-			System.out.println("	publicado em " + this.perguntas.get(i).getData());
+		PerguntaDAO perguntaDAO = new PerguntaDAO();
+		perguntas = perguntaDAO.listar(this.getIDForum());
+		
+		for (Pergunta pergunta : perguntas) {
+			System.out.println("\n	ID Pergunta " + pergunta.getIDPergunta() + ": " + pergunta.getTitulo());
+			System.out.println("	Duvida: " + pergunta.getDuvida());
+			System.out.println("	Autor: " + pergunta.getAutor());
+			System.out.println("	publicado em " + pergunta.getData());
 
-			this.perguntas.get(i).listaRespostas();
+			pergunta.listaRespostas();
 		}
 	}
 
 	public int getIDForum() {
 		return idForum;
 	}
-	
+
 	public void setIDForum(int id) {
 		this.idForum = id;
 	}
-	
+
 	public boolean isAberto() {
 		return aberto;
 	}

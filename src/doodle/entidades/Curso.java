@@ -144,6 +144,7 @@ public class Curso {
 			System.out.println("Titulo: " + forum.getTitulo());
 			System.out.println("Descrição: " + forum.getDescricao());
 			System.out.println("Data Pubicação: " + forum.getDataPublicacao());
+			forum.listar();
 		}
 	}
 

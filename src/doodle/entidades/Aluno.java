@@ -25,10 +25,12 @@ public class Aluno extends Pessoa {
 		Forum forum = null;
 		ArrayList<Conteudo> conteudos = null;
 		conteudos = curso.getConteudos();
-
+		
 		for (Conteudo conteudo : conteudos) {
+			System.out.println("\n\nENTROU FOR");
 			forum = (Forum) conteudo;
 			if (forum.getIDForum() == idForum) {
+				System.out.println("\n\nENTROU IF");
 				Date data = new Date();
 				forum.adicionaPergunta(new Pergunta(this, tituloPergunta, pergunta, data, forum.getIDForum(), true));
 				return;
