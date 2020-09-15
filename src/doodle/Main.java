@@ -317,9 +317,10 @@ public class Main {
 								break;
 
 							case 5: // remover questionario do curso
-								System.out.print("\nInforme o título do questionário que deseja remover: ");
-								titulo = sc.nextLine();
-								curso.removeConteudo(titulo);
+								System.out.print("\nInforme o ID do questionário que deseja remover: ");
+								id = sc.nextInt();
+								sc.nextLine();
+								curso.removeConteudo(id);
 								break;
 
 							case 6: // criar fórum no curso
@@ -332,9 +333,11 @@ public class Main {
 								break;
 
 							case 7: // remover fórum do curso
-								System.out.print("\nInforme o título do fórum que deseja remover: ");
-								titulo = sc.nextLine();
-								curso.removeConteudo(titulo);
+								curso.listaConteudos();
+								System.out.print("\nInforme o ID do fórum que deseja remover: ");
+								id = sc.nextInt();
+								sc.nextLine();
+								curso.removeConteudo(id);
 								break;
 
 							case 8: // responder em fórum

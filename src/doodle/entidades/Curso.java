@@ -81,7 +81,7 @@ public class Curso {
 			if (this.conteudos.get(i).getTitulo().contentEquals(titulo))
 				return;
 
-		Forum f = new Forum(titulo, descricao, data);
+		Forum f = new Forum(titulo, descricao, data, true, true);
 		this.conteudos.add(f);
 
 		CursoDAO cursoDAO = new CursoDAO();
@@ -92,10 +92,14 @@ public class Curso {
 		forumDAO.adicionar(f, id);
 	}
 
-	public void removeConteudo(String titulo) {
-		for (int i = 0; i < this.conteudos.size(); i++) {
-			if (this.conteudos.get(i).getTitulo().contentEquals(titulo)) {
-				this.conteudos.remove(i);
+	public void removeConteudo(int id) {
+		ForumDAO forumDAO = new ForumDAO();
+		Forum forum = null;
+		for (Conteudo conteudo : conteudos) {
+			forum = (Forum) conteudo;
+			if (forum.getIDForum() == id) {
+				forumDAO.remover(forum);
+				this.conteudos.remove(conteudo);
 				return;
 			}
 		}
@@ -110,31 +114,15 @@ public class Curso {
 	}
 
 	public void listaConteudos() {
-		Forum f = null;
-		Questionario q = null;
-		QuestionarioDAO questionarioDAO = new QuestionarioDAO();
-		ArrayList<Questionario> questionarios = new ArrayList<Questionario>();
-
-		for (int i = 0; i < this.conteudos.size(); i++) {
-
-			System.out.println(
-					"\nTítulo " + this.conteudos.get(i).getTipoConteudo() + ": " + this.conteudos.get(i).getTitulo());
-			System.out.println("Descrição: " + this.conteudos.get(i).getDescricao());
-			System.out.println("Data de publicação: " + this.conteudos.get(i).getDataPublicacao());
-
-			if (this.conteudos.get(i).getTipoConteudo().contentEquals("forum")) {
-				f = (Forum) this.conteudos.get(i);
-				f.listar();
-			} else {
-				questionarios = questionarioDAO.listar(q.getId());
-
-				for (Questionario quest : questionarios)
-					this.conteudos.add(quest);
-
-				q = (Questionario) this.conteudos.get(i);
-				q.listaQuestoes();
-			}
-
+		ForumDAO forumDAO = new ForumDAO();
+		ArrayList<Forum> foruns = new ArrayList<Forum>();
+		foruns = forumDAO.listar(this.getID());
+		
+		for (Forum forum : foruns) {
+			System.out.println("\nID Forum: " + forum.getIDForum());
+			System.out.println("Titulo: " + forum.getTitulo());
+			System.out.println("Descrição: " + forum.getDescricao());
+			System.out.println("Data Pubicação: " + forum.getDataPublicacao());
 		}
 	}
 

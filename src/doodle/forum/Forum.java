@@ -12,12 +12,14 @@ public class Forum extends Conteudo {
 	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
 	private static int proxIDForum = 1;
 
-	public Forum(String titulo, String descricao, Date dataPublicacao) {
-		super(titulo, descricao, dataPublicacao);
+	public Forum(String titulo, String descricao, Date dataPublicacao, boolean contID, boolean contIDForum) {
+		super(titulo, descricao, dataPublicacao, contID);
 		this.aberto = true;
 		this.perguntas = new ArrayList<Pergunta>();
-		Forum.proxIDForum++;
-		this.idForum = proxIDForum;
+		if (contIDForum == true) {
+			Forum.proxIDForum++;
+			this.idForum = proxIDForum;
+		}
 	}
 
 	public void adicionaPergunta(Pergunta pergunta) {
@@ -42,6 +44,10 @@ public class Forum extends Conteudo {
 
 	public int getIDForum() {
 		return idForum;
+	}
+	
+	public void setIDForum(int id) {
+		this.idForum = id;
 	}
 	
 	public boolean isAberto() {

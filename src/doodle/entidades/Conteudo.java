@@ -11,13 +11,15 @@ public abstract class Conteudo {
 	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
 	private static int proxID = 3;
 	
-	public Conteudo(String titulo, String descricao, Date dataPublicacao) {
+	public Conteudo(String titulo, String descricao, Date dataPublicacao, boolean contID) {
 		super();
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataPublicacao = dataPublicacao;
-		Conteudo.proxID++;
-		this.id = proxID;
+		if (contID == true) {
+			Conteudo.proxID++;
+			this.id = proxID;
+		}
 	}
 
 	public int getId() {
@@ -45,7 +47,7 @@ public abstract class Conteudo {
 	}
 
 	public String getDataPublicacao() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(dataPublicacao);
 	}
 	
