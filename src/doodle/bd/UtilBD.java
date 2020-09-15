@@ -99,9 +99,9 @@ public class UtilBD {
 				+ "matriculado BOOLEAN NOT NULL DEFAULT FALSE,"
 				+ "FOREIGN KEY (id_aluno) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
-		stm.executeUpdate("INSERT INTO aluno VALUES" + "(1, FALSE)");
-		stm.executeUpdate("INSERT INTO aluno VALUES" + "(3, FALSE)");
-		stm.executeUpdate("INSERT INTO aluno VALUES" + "(4, FALSE)");
+		stm.executeUpdate("INSERT INTO aluno VALUES" + "(1, true)");
+		stm.executeUpdate("INSERT INTO aluno VALUES" + "(3, true)");
+		stm.executeUpdate("INSERT INTO aluno VALUES" + "(4, true)");
 	}
 
 	private static void criarProfessor(Statement stm) throws SQLException {

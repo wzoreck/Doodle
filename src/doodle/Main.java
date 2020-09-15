@@ -65,17 +65,15 @@ public class Main {
 		while (true) {
 			controle = true;
 
-			// Preencher a lista de pessoas com os dados vindos do banco de dados
-			alunos = alunoDAO.listar(0);
-			professores = professorDAO.listar(0);
-			pessoas = new ArrayList<Pessoa>();
-			for (Aluno a : alunos)
-				pessoas.add(a);
-			for (Professor p : professores)
-				pessoas.add(p);
-			//
-
 			while (controle) {
+				alunos = alunoDAO.listar(0);
+				professores = professorDAO.listar(0);
+				pessoas = new ArrayList<Pessoa>();
+				for (Aluno a : alunos)
+					pessoas.add(a);
+				for (Professor p : professores)
+					pessoas.add(p);
+				
 				System.out.println("\n[1] - criar professor");
 				System.out.println("[2] - crirar aluno");
 				System.out.println("[3] - remover pessoa");
@@ -285,20 +283,44 @@ public class Main {
 							switch (escolhaCurso) {
 
 							case 1: // adicionar aluno no curso
+								for (Aluno a : alunos) {
+									System.out.println("\nID: " + a.getId());
+									System.out.println("Nome: " + a.getNome());
+									System.out.println("Email: " + a.getEmail());
+									System.out.println("Data de nascimento: " + a.getDataNascimento());
+								}
+								
 								System.out.print("\nQual o ID do aluno que deseja adicionar: ");
-								email = sc.nextLine();
-								aluno = obterPessoa(pessoas, email);
-								if (aluno == null)
-									break;
+								id = sc.nextInt();
+								sc.nextLine();
+								
+								for (Aluno a : alunos) {
+									if (a.getId() == id) {
+										aluno = a;
+									}
+								}
+								
 								curso.adicionaAluno(aluno);
 								break;
 
 							case 2: // remover aluno do curso
-								System.out.print("\nInforme o email do aluno para removê-lo: ");
-								email = sc.nextLine();
-								aluno = obterPessoa(pessoas, email);
-								if (aluno == null)
-									break;
+								for (Aluno a : alunos) {
+									System.out.println("\nID: " + a.getId());
+									System.out.println("Nome: " + a.getNome());
+									System.out.println("Email: " + a.getEmail());
+									System.out.println("Data de nascimento: " + a.getDataNascimento());
+								}
+								
+								System.out.print("\nQual o ID do aluno que deseja remover: ");
+								id = sc.nextInt();
+								sc.nextLine();
+								
+								for (Aluno a : alunos) {
+									if (a.getId() == id) {
+										aluno = a;
+									}
+								}
+								
 								curso.removeAluno(aluno);
 								break;
 
@@ -348,14 +370,16 @@ public class Main {
 								break;
 
 							case 8: // responder em fórum
-								System.out.print("\nInforme o título do fórum: ");
-								titulo = sc.nextLine();
-								System.out.print("Informe o título da pergunta: ");
-								pergunta = sc.nextLine();
+								System.out.print("\nInforme o ID do fórum: ");
+								id = sc.nextInt();
+								sc.nextLine();
+								System.out.print("Informe o ID da pergunta: ");
+								int idPergunta = sc.nextInt();
+								sc.nextLine();
 								System.out.print("Resposta: ");
 								resposta = sc.nextLine();
 
-								professor.respondeForum(curso, titulo, pergunta, resposta);
+								professor.respondeForum(curso, id, idPergunta, resposta);
 								break;
 
 							case 9: // listar conteúdos do curso

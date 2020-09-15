@@ -126,12 +126,26 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 		// id_aluno, id_curso
 		try {
 			String queryMatricula = "INSERT INTO matricula_curso VALUES (" + aluno.getId() + ", " + curso.getID() + ")";
-
 			UtilBD.alterarBd(queryMatricula);
 
+			String queryMatriculaAluno = "UPDATE aluno SET matriculado = true WHERE id_aluno = " + aluno.getId();
+			UtilBD.alterarBd(queryMatriculaAluno);
 		} catch (SQLException e) {
 			System.err.println("Falha ao inserir Matricula no banco de dados");
 		}
+	}
+
+	public void desMatricularAluno(Aluno aluno) {
+		try {
+			String queryDeleteMatriculaAluno = "DELETE FROM matricula_curso WHERE id_aluno = '" + aluno.getId() + "'";
+			UtilBD.alterarBd(queryDeleteMatriculaAluno);
+			
+			String queryMatriculaAluno = "UPDATE aluno SET matriculado = false WHERE id_aluno = " + aluno.getId();
+			UtilBD.alterarBd(queryMatriculaAluno);
+		} catch (SQLException e) {
+			System.err.println("Falha ao remover Matricula-Aluno do banco de dados");
+		}
+
 	}
 
 	public ArrayList<Aluno> getMatriculaAlunos(Curso curso) {

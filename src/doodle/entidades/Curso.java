@@ -36,10 +36,6 @@ public class Curso {
 		if (this.alunos.size() >= this.vagas)
 			return;
 
-		for (int i = 0; i < this.alunos.size(); i++)
-			if (this.alunos.get(i).equals(aluno))
-				return;
-
 		this.alunos.add(aluno);
 		aluno.setMatriculado(true);
 		AlunoDAO alunoDAO = new AlunoDAO();
@@ -48,12 +44,8 @@ public class Curso {
 	}
 
 	public void removeAluno(Aluno aluno) {
-		for (int i = 0; i < this.alunos.size(); i++) {
-			if (this.alunos.get(i).equals(aluno)) {
-				this.alunos.remove(i);
-				return;
-			}
-		}
+		AlunoDAO alunoDAO = new AlunoDAO();
+		alunoDAO.desMatricularAluno(aluno);
 	}
 
 	public void listaAlunos() {
