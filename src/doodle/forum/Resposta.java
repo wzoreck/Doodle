@@ -67,7 +67,7 @@ public class Resposta {
 	}
 
 	public String getData() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(this.data);
 	}
 

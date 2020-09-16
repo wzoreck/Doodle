@@ -50,7 +50,7 @@ public abstract class Pessoa {
 				for (Pergunta pergunta : perguntas) {
 					if (pergunta.getIDPergunta() == idPergunta) {
 						Date data = new Date();
-						pergunta.adicionaResposta(new Resposta(idPergunta, idForum, this, resposta, data, false, false));
+						pergunta.adicionaResposta(new Resposta(idPergunta, idForum, this, resposta, data, false, true));
 					}
 				}
 			}

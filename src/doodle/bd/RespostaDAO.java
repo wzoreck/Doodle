@@ -70,13 +70,13 @@ public class RespostaDAO implements InterfaceDAO<Resposta> {
 
 	@Override
 	public void atualizar(Resposta referencia, int aux) {
-		// TODO Auto-generated method stub
+		// Não implementado - Ainda não há essa funcionalidade na Main
 
 	}
 
 	@Override
 	public void remover(Resposta referencia) {
-		// TODO Auto-generated method stub
+		// Não implementado - Ainda não há essa funcionalidade na Main
 
 	}
 

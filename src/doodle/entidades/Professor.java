@@ -98,7 +98,7 @@ public class Professor extends Pessoa {
 				for (Pergunta pergunta : perguntas) {
 					if (pergunta.getIDPergunta() == idPergunta) {
 						Date data = new Date();
-						pergunta.adicionaResposta(new Resposta(idPergunta, idForum, this, resposta, data, true, false));
+						pergunta.adicionaResposta(new Resposta(idPergunta, idForum, this, resposta, data, true, true));
 					}
 				}
 			}
