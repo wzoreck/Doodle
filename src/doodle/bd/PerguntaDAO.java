@@ -90,40 +90,4 @@ public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 		}
 	}
 
-	/*
-	public Pergunta get(int idPergunta, int idForum) {
-		Pergunta pergunta = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			String querySelectPergunta = "SELECT * FROM pergunta_forum"
-					+ " INNER JOIN pessoa ON pergunta_forum.id_autor = pessoa.id_pessoa" + " WHERE id_forum = "
-					+ idForum + " AND id_pergunta = " + idPergunta;
-			ResultSet resultSet = UtilBD.consultarBD(querySelectPergunta);
-			while (resultSet.next()) {
-				int idAutor = resultSet.getInt("id_autor");
-				String titulo = resultSet.getString("titulo");
-				String duvida = resultSet.getString("duvida");
-				String dataPublicacao = resultSet.getString("data");
-
-				String nome = resultSet.getString("nome");
-				String email = resultSet.getString("email");
-				String data = resultSet.getString("data_nascimento");
-				String login = resultSet.getString("login");
-				String passwd = resultSet.getString("passwd");
-				Aluno aluno = new Aluno(nome, email, sdf.parse(data), login, passwd, false);
-				aluno.setId(idAutor);
-				pergunta = new Pergunta((Pessoa) aluno, titulo, duvida, sdf.parse(dataPublicacao), idForum, false);
-				pergunta.setIDPergunta(idPergunta);
-				pergunta.setIDForum(idForum);
-			}
-			resultSet.getStatement().close();
-		} catch (SQLException e) {
-			System.err.println("Falha ao buscar Pergunta no banco de dados");
-		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data PerguntaDAO");
-		}
-		return pergunta;
-	}
-	*/
-
 }
