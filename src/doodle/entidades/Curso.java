@@ -7,9 +7,7 @@ import java.util.Date;
 import doodle.bd.AlunoDAO;
 import doodle.bd.CursoDAO;
 import doodle.bd.ForumDAO;
-import doodle.bd.QuestionarioDAO;
 import doodle.forum.Forum;
-import doodle.questionario.Questionario;
 
 public class Curso {
 	private int id;
@@ -58,17 +56,7 @@ public class Curso {
 			System.out.println(this.alunos.get(i).isMatriculado() ? "Está matriculado!" : "Não está matriculado!");
 		}
 	}
-
-	public void adicionaQuestionario(String titulo, String descricao, Date data) {
-		Questionario q = new Questionario(titulo, descricao, data);
-		this.conteudos.add(q);
-
-		ArrayList<Integer> id = new ArrayList<Integer>();
-		id.add(this.getID());
-		QuestionarioDAO questionarioDAO = new QuestionarioDAO();
-		questionarioDAO.adicionar(q, id);
-	}
-
+	
 	public void adicionaConteudo(Conteudo conteudo) {
 		this.conteudos.add(conteudo);
 	}

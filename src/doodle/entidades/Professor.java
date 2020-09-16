@@ -5,6 +5,7 @@ import java.util.Date;
 
 import doodle.bd.CursoDAO;
 import doodle.forum.Forum;
+import doodle.forum.Pergunta;
 import doodle.forum.Resposta;
 
 public class Professor extends Pessoa {
@@ -86,22 +87,22 @@ public class Professor extends Pessoa {
 	}
 
 	@Override
-	public void respondeForum(Curso curso, String titulo, String pergunta, String resposta) {
-		Forum f = null;
-		for (int i = 0; i < curso.getConteudos().size(); i++)
-			if (curso.getConteudos().get(i).getTipoConteudo().contentEquals("forum"))
-				if (curso.getConteudos().get(i).getTitulo().contentEquals(titulo))
-					f = (Forum) curso.getConteudos().get(i);
-
-		if (f == null)
-			return;
-
-		Date data = new Date();
-
-		// A resposta de um professor sempre será correta
-		for (int j = 0; j < f.getPerguntas().size(); j++)
-			if (f.getPerguntas().get(j).getTitulo().contentEquals(pergunta))
-				f.getPerguntas().get(j).adicionaResposta(new Resposta(this, resposta, data, true));
+	public void respondeForum(Curso curso, int idForum, int idPergunta, String resposta) {
+		ArrayList<Forum> foruns = new ArrayList<Forum>();
+		ArrayList<Pergunta> perguntas = new ArrayList<Pergunta>();
+		foruns = curso.getConteudos();
+		
+		for (Forum forum : foruns) {
+			if (forum.getIDForum() == idForum) {
+				perguntas = forum.getPerguntas();
+				for (Pergunta pergunta : perguntas) {
+					if (pergunta.getIDPergunta() == idPergunta) {
+						Date data = new Date();
+						pergunta.adicionaResposta(new Resposta(idPergunta, idForum, this, resposta, data, true, false));
+					}
+				}
+			}
+		}
 	}
 
 	@Override

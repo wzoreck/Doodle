@@ -61,7 +61,6 @@ public class UtilBD {
 			criarCurso(statement);
 			criarMatricula(statement);
 			criarConteudo(statement);
-			criarQuestionario(statement);
 			criarForum(statement);
 			criarPerguntaForum(statement);
 			criarRespostaForum(statement);
@@ -156,23 +155,6 @@ public class UtilBD {
 		stm.executeUpdate("INSERT INTO conteudo VALUES"
 				+ "(2, 2, 'Forum Dúvidas', 'Para dúvidas que surgirem na matéria', '2020-04-18')");
 		stm.executeUpdate("INSERT INTO conteudo VALUES" + "(3, 1, 'Questionario 1', 'Referente a POO', '2020-07-05')");
-	}
-
-	private static void criarQuestionario(Statement stm) throws SQLException {
-		stm.executeUpdate("DROP TABLE IF EXISTS questionario");
-
-		stm.executeUpdate("CREATE TABLE questionario (" + "id_questao INTEGER NOT NULL PRIMARY KEY UNIQUE,"
-				+ "id_conteudo INTEGER NOT NULL," + "questao VARCHAR(1000) NOT NULL,"
-				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo) ON DELETE CASCADE)");
-
-		stm.executeUpdate(
-				"INSERT INTO questionario VALUES" + "(1, 3, 'Para que serve o paradigma de Orientação a Objetos?')");
-		stm.executeUpdate(
-				"INSERT INTO questionario VALUES" + "(2, 3, 'Quais são os quatro pilares da Orientação a Objetos?')");
-		stm.executeUpdate("INSERT INTO questionario VALUES" + "(3, 3, 'Defina o processo de herança?')");
-		stm.executeUpdate("INSERT INTO questionario VALUES" + "(4, 3, 'Qual a utilidade do polimorfismo?')");
-		stm.executeUpdate("INSERT INTO questionario VALUES"
-				+ "(5, 3, 'Expliqu o que significa [establecer um contrato] quando falamos de interface?')");
 	}
 
 	private static void criarForum(Statement stm) throws SQLException {

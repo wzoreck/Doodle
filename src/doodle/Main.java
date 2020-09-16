@@ -53,11 +53,7 @@ public class Main {
 		AlunoDAO alunoDAO = new AlunoDAO();
 		ProfessorDAO professorDAO = new ProfessorDAO();
 
-		ForumDAO forumDAO = new ForumDAO();
-		PerguntaDAO perguntaDAO = new PerguntaDAO();
-		RespostaDAO respostaDAO = new RespostaDAO();
-
-		String nome, email, nomeUsuario, senha, titulo, descricao, pergunta, resposta, titulo2;
+		String nome, email, nomeUsuario, senha, titulo, descricao, pergunta, resposta;
 		boolean controle = true, controle2 = true;
 		int escolha1 = 0, escolha2, escolhaCurso, cargaHorariaSemanal, id;
 		float salario;
@@ -73,7 +69,7 @@ public class Main {
 					pessoas.add(a);
 				for (Professor p : professores)
 					pessoas.add(p);
-				
+
 				System.out.println("\n[1] - criar professor");
 				System.out.println("[2] - crirar aluno");
 				System.out.println("[3] - remover pessoa");
@@ -268,8 +264,6 @@ public class Main {
 							System.out.println("\n[1] - adicionar aluno");
 							System.out.println("[2] - remover aluno");
 							System.out.println("[3] - listar alunos");
-							System.out.println("[4] - criar questionário X");
-							System.out.println("[5] - remover questionário X");
 							System.out.println("[6] - criar fórum");
 							System.out.println("[7] - remover fórum");
 							System.out.println("[8] - responder em fórum");
@@ -289,17 +283,17 @@ public class Main {
 									System.out.println("Email: " + a.getEmail());
 									System.out.println("Data de nascimento: " + a.getDataNascimento());
 								}
-								
+
 								System.out.print("\nQual o ID do aluno que deseja adicionar: ");
 								id = sc.nextInt();
 								sc.nextLine();
-								
+
 								for (Aluno a : alunos) {
 									if (a.getId() == id) {
 										aluno = a;
 									}
 								}
-								
+
 								curso.adicionaAluno(aluno);
 								break;
 
@@ -310,17 +304,17 @@ public class Main {
 									System.out.println("Email: " + a.getEmail());
 									System.out.println("Data de nascimento: " + a.getDataNascimento());
 								}
-								
+
 								System.out.print("\nQual o ID do aluno que deseja remover: ");
 								id = sc.nextInt();
 								sc.nextLine();
-								
+
 								for (Aluno a : alunos) {
 									if (a.getId() == id) {
 										aluno = a;
 									}
 								}
-								
+
 								curso.removeAluno(aluno);
 								break;
 
@@ -334,22 +328,6 @@ public class Main {
 								}
 								System.out.println("\n---Alunos matriculados---");
 								curso.listaAlunos();
-								break;
-
-							case 4: // criar questionário no curso
-								System.out.print("\nTitulo para o questionário: ");
-								titulo = sc.nextLine();
-								System.out.print("Descrição: ");
-								descricao = sc.nextLine();
-								data = new Date();
-								curso.adicionaQuestionario(titulo, descricao, data);
-								break;
-
-							case 5: // remover questionario do curso
-								System.out.print("\nInforme o ID do questionário que deseja remover: ");
-								id = sc.nextInt();
-								sc.nextLine();
-								curso.removeConteudo(id);
 								break;
 
 							case 6: // criar fórum no curso
@@ -467,7 +445,7 @@ public class Main {
 
 						case 2:
 							System.out.print("\nInforme ID do fórum: ");
-							id = sc.nextInt(); 
+							id = sc.nextInt();
 							sc.nextLine();
 							System.out.print("Titulo para a pergunta: ");
 							titulo = sc.nextLine();

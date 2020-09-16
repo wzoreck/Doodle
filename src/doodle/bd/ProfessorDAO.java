@@ -20,7 +20,7 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 			UtilBD.alterarBd(queryPessoa);
 
 		} catch (SQLException e1) {
-			System.err.println("Falaha ao inserir Pessoa no banco de dados");
+			System.err.println("Falha ao inserir Pessoa no banco de dados");
 		}
 
 		try {

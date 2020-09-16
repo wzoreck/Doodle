@@ -43,11 +43,6 @@ public abstract class Pessoa {
 		ArrayList<Forum> foruns = new ArrayList<Forum>();
 		ArrayList<Pergunta> perguntas = new ArrayList<Pergunta>();
 		foruns = curso.getConteudos();
-		boolean correta = false;
-		
-		if (this.getTipoPessoa() == "professor") {
-			correta = true;
-		}
 		
 		for (Forum forum : foruns) {
 			if (forum.getIDForum() == idForum) {
@@ -55,7 +50,7 @@ public abstract class Pessoa {
 				for (Pergunta pergunta : perguntas) {
 					if (pergunta.getIDPergunta() == idPergunta) {
 						Date data = new Date();
-						pergunta.adicionaResposta(new Resposta(idPergunta, idForum, this, resposta, data, correta, false));
+						pergunta.adicionaResposta(new Resposta(idPergunta, idForum, this, resposta, data, false, false));
 					}
 				}
 			}
