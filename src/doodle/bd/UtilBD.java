@@ -224,6 +224,11 @@ public class UtilBD {
 		stm.executeUpdate(
 				"CREATE TRIGGER IF NOT EXISTS on_delete_pergunta_remove_resposta AFTER DELETE ON pergunta_forum BEGIN"
 						+ " DELETE FROM resposta_forum WHERE id_pergunta =  OLD.id_pergunta;" + "END;");
+
+		stm.executeUpdate(
+				"CREATE TRIGGER IF NOT EXISTS on_delete_aluno_remove_pergunta_and_resposta AFTER DELETE ON aluno BEGIN"
+						+ " DELETE FROM pergunta_forum WHERE id_autor = OLD.id_aluno;"
+						+ " DELETE FROM resposta_forum WHERE id_autor =  OLD.id_aluno;" + "END;");
 	}
 
 	public static void alterarBd(String sql) throws SQLException {

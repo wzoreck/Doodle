@@ -16,9 +16,6 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 		try {
 			String queryForum = "INSERT INTO forum VALUES (" + forum.getIDForum() + ", " + id.get(0) + ", "
 					+ forum.isAberto() + ")";
-
-			System.out.println("\n\n Executado: " + queryForum);
-
 			UtilBD.alterarBd(queryForum);
 
 		} catch (SQLException e1) {
@@ -80,6 +77,9 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 			UtilBD.alterarBd(queryDeleteForum);
 			String queryDeleteConteudo = "DELETE FROM conteudo WHERE id_conteudo = " + forum.getId();
 			UtilBD.alterarBd(queryDeleteConteudo);
+			
+			System.out.println("\n\nExecutou: " + queryDeleteForum);
+			System.out.println("\n\nExecutou: " + queryDeleteConteudo);
 		} catch (SQLException e) {
 			System.err.println("Falha ao remover Forum do banco de dados");
 		}

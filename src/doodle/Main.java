@@ -50,7 +50,7 @@ public class Main {
 		AlunoDAO alunoDAO = new AlunoDAO();
 		ProfessorDAO professorDAO = new ProfessorDAO();
 
-		String nome, email, nomeUsuario, senha, titulo, descricao, pergunta, resposta;
+		String nome, email, nomeUsuario = "x", senha, titulo, descricao, pergunta, resposta;
 		boolean controle = true, controle2 = true;
 		int escolha1 = 0, escolha2, escolhaCurso, cargaHorariaSemanal, id;
 		float salario;
@@ -91,8 +91,23 @@ public class Main {
 					System.out.print("Carga Horaria Semanal: ");
 					cargaHorariaSemanal = sc.nextInt();
 					sc.nextLine();
-					System.out.print("Escolha um nome de usuário: ");
-					nomeUsuario = sc.nextLine();
+
+					boolean x = true;
+					while (x) {
+						System.out.print("Escolha um nome de usuário: ");
+						nomeUsuario = sc.nextLine();
+
+						for (Pessoa p : pessoas) {
+							if (p.getLogin().contentEquals(nomeUsuario)) {
+								System.out.println("\nEste nome de usuário já existe no sistema!");
+								x = true;
+								break;
+							} else {
+								x = false;
+							}
+						}
+					}
+
 					System.out.print("Escolha uma senha: ");
 					senha = sc.nextLine();
 
@@ -108,8 +123,23 @@ public class Main {
 					email = sc.nextLine();
 					System.out.print("Data de Nascimento (DD/MM/AAAA): ");
 					data = sdf.parse(sc.nextLine());
-					System.out.print("Escolha um nome de usuário: ");
-					nomeUsuario = sc.nextLine();
+
+					boolean y = true;
+					while (y) {
+						System.out.print("Escolha um nome de usuário: ");
+						nomeUsuario = sc.nextLine();
+
+						for (Pessoa p : pessoas) {
+							if (p.getLogin().contentEquals(nomeUsuario)) {
+								System.out.println("\nEste nome de usuário já existe no sistema!");
+								y = true;
+								break;
+							} else {
+								y = false;
+							}
+						}
+					}
+
 					System.out.print("Escolha uma senha: ");
 					senha = sc.nextLine();
 
@@ -361,7 +391,7 @@ public class Main {
 								System.out.println("\n---Conteúdos do Curso---");
 								curso.listaConteudos();
 								break;
-								
+
 							case 8: // alterar forum
 								System.out.print("\nInforme o ID do forum que deseja alterar: ");
 								id = sc.nextInt();
@@ -402,11 +432,11 @@ public class Main {
 						nome = sc.nextLine();
 						data = new Date();
 						professor.editarCurso(nome, data, id);
-						
+
 					case 5:
 						controle = false;
 						break;
-						
+
 					}
 
 					break;

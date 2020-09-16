@@ -43,7 +43,7 @@ public class Curso {
 
 	public void removeAluno(Aluno aluno) {
 		AlunoDAO alunoDAO = new AlunoDAO();
-		alunoDAO.desMatricularAluno(aluno);
+		alunoDAO.desMatricularAluno(aluno, this);
 	}
 
 	public void listaAlunos() {
@@ -94,13 +94,14 @@ public class Curso {
 	}
 
 	public void removeConteudo(int id) {
+		System.out.println("\n\nID que chegou: " + id);
 		ForumDAO forumDAO = new ForumDAO();
-		Forum forum = null;
-		for (Conteudo conteudo : conteudos) {
-			forum = (Forum) conteudo;
+		
+		for (Forum forum : this.getConteudos()) {
+			System.out.println("\n\nEntrou FOR!");
 			if (forum.getIDForum() == id) {
+				System.out.println("\n\nEntrou IF!");
 				forumDAO.remover(forum);
-				this.conteudos.remove(conteudo);
 				return;
 			}
 		}

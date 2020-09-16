@@ -135,13 +135,12 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 		}
 	}
 
-	public void desMatricularAluno(Aluno aluno) {
+	public void desMatricularAluno(Aluno aluno, Curso curso) {
 		try {
-			String queryDeleteMatriculaAluno = "DELETE FROM matricula_curso WHERE id_aluno = '" + aluno.getId() + "'";
+			String queryDeleteMatriculaAluno = "DELETE FROM matricula_curso WHERE id_aluno = " + aluno.getId()
+					+ " AND id_curso = " + curso.getID();
 			UtilBD.alterarBd(queryDeleteMatriculaAluno);
-			
-			String queryMatriculaAluno = "UPDATE aluno SET matriculado = false WHERE id_aluno = " + aluno.getId();
-			UtilBD.alterarBd(queryMatriculaAluno);
+
 		} catch (SQLException e) {
 			System.err.println("Falha ao remover Matricula-Aluno do banco de dados");
 		}
@@ -154,8 +153,9 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato da data
 		try {
 			String querySelectMatriculas = "SELECT * FROM matricula_curso"
-					+ " INNER JOIN pessoa ON pessoa.id_pessoa = matricula_curso.id_aluno" + " WHERE id_curso = "
-					+ curso.getID();
+					+ " INNER JOIN pessoa ON pessoa.id_pessoa = matricula_curso.id_aluno"
+					+ " INNER JOIN aluno ON pessoa.id_pessoa = aluno.id_aluno" + " WHERE id_curso = " + curso.getID()
+					+ " AND aluno.id_aluno = pessoa.id_pessoa";
 			ResultSet resultSet = UtilBD.consultarBD(querySelectMatriculas);
 			while (resultSet.next()) {
 				int idAluno = resultSet.getInt("id_aluno");
