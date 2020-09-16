@@ -51,7 +51,6 @@ public class UtilBD {
 
 	public static void initBD() {
 		try {
-			System.out.println("1234");
 			conexao = getConexao();
 			Statement statement = conexao.createStatement();
 
@@ -64,6 +63,8 @@ public class UtilBD {
 			criarForum(statement);
 			criarPerguntaForum(statement);
 			criarRespostaForum(statement);
+
+			criarTriggers(statement);
 
 			// statement.execute("PRAGMA foreign_keys=ON");
 
@@ -142,10 +143,6 @@ public class UtilBD {
 		stm.executeUpdate("INSERT INTO matricula_curso VALUES" + "(3, 2)");
 		stm.executeUpdate("INSERT INTO matricula_curso VALUES" + "(4, 1)");
 		stm.executeUpdate("INSERT INTO matricula_curso VALUES" + "(4, 2)");
-
-		stm.executeUpdate(
-				"CREATE TRIGGER IF NOT EXISTS on_delete_aluno_remove_matricula_curso AFTER DELETE ON pessoa BEGIN"
-						+ " DELETE FROM matricula_curso WHERE id_aluno =  OLD.id_pessoa;" + "END;");
 	}
 
 	private static void criarConteudo(Statement stm) throws SQLException {
@@ -202,6 +199,31 @@ public class UtilBD {
 		stm.executeUpdate("INSERT INTO resposta_forum VALUES"
 				+ "(1, 1, 1, 2, 'Basta utilizar a classe List ou Arraylist!"
 				+ "E informar o tipo que será a lista, ela é modelada como tipo genérico!', '2020-06-17', TRUE)");
+	}
+
+	private static void criarTriggers(Statement stm) throws SQLException {
+		stm.executeUpdate(
+				"CREATE TRIGGER IF NOT EXISTS on_delete_aluno_remove_matricula_curso AFTER DELETE ON pessoa BEGIN"
+						+ " DELETE FROM matricula_curso WHERE id_aluno =  OLD.id_pessoa;" + "END;");
+
+		stm.executeUpdate(
+				"CREATE TRIGGER IF NOT EXISTS on_delete_professor_remove_curso AFTER DELETE ON professor BEGIN"
+						+ " DELETE FROM curso WHERE id_professor =  OLD.id_professor;" + "END;");
+
+		stm.executeUpdate("CREATE TRIGGER IF NOT EXISTS on_delete_curso_remove_matriculas_and_conteudos"
+				+ " AFTER DELETE ON curso BEGIN" + " DELETE FROM matricula_curso WHERE id_curso =  OLD.id_curso;"
+				+ " DELETE FROM conteudo WHERE id_curso =  OLD.id_curso;" + "END;");
+
+		stm.executeUpdate("CREATE TRIGGER IF NOT EXISTS on_delete_conteudo_remove_forum AFTER DELETE ON conteudo BEGIN"
+				+ " DELETE FROM forum WHERE id_conteudo =  OLD.id_conteudo;" + "END;");
+
+		stm.executeUpdate("CREATE TRIGGER IF NOT EXISTS on_delete_forum_remove_perguntas_and_respostas"
+				+ " AFTER DELETE ON forum BEGIN" + "  DELETE FROM pergunta_forum WHERE id_forum =  OLD.id_forum;"
+				+ " DELETE FROM resposta_forum WHERE id_forum =  OLD.id_forum;" + "END;");
+
+		stm.executeUpdate(
+				"CREATE TRIGGER IF NOT EXISTS on_delete_pergunta_remove_resposta AFTER DELETE ON pergunta_forum BEGIN"
+						+ " DELETE FROM resposta_forum WHERE id_pergunta =  OLD.id_pergunta;" + "END;");
 	}
 
 	public static void alterarBd(String sql) throws SQLException {
