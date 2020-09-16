@@ -19,10 +19,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import doodle.bd.AlunoDAO;
-import doodle.bd.ForumDAO;
-import doodle.bd.PerguntaDAO;
 import doodle.bd.ProfessorDAO;
-import doodle.bd.RespostaDAO;
 import doodle.bd.UtilBD;
 import doodle.entidades.Aluno;
 import doodle.entidades.Curso;
@@ -232,8 +229,8 @@ public class Main {
 					System.out.println("\n[1] - criar curso");
 					System.out.println("[2] - acessar curso");
 					System.out.println("[3] - remover curso");
-					System.out.println("[4] - voltar para tela de login");
-					System.out.println("[5] - editar curso");
+					System.out.println("[4] - editar curso");
+					System.out.println("[5] - voltar para tela de login");
 					System.out.print("Informe sua escolha: ");
 					escolha2 = sc.nextInt();
 					sc.nextLine();
@@ -264,12 +261,12 @@ public class Main {
 							System.out.println("\n[1] - adicionar aluno");
 							System.out.println("[2] - remover aluno");
 							System.out.println("[3] - listar alunos");
-							System.out.println("[6] - criar fórum");
-							System.out.println("[7] - remover fórum");
-							System.out.println("[8] - responder em fórum");
-							System.out.println("[9] - listar conteúdos");
-							System.out.println("[10] - voltar");
-							System.out.println("[11] - alterar forum");
+							System.out.println("[4] - criar fórum");
+							System.out.println("[5] - remover fórum");
+							System.out.println("[6] - responder em fórum");
+							System.out.println("[7] - listar conteúdos");
+							System.out.println("[8] - alterar forum");
+							System.out.println("[9] - voltar");
 							System.out.print("Informe sua escolha: ");
 							escolhaCurso = sc.nextInt();
 							sc.nextLine();
@@ -330,7 +327,7 @@ public class Main {
 								curso.listaAlunos();
 								break;
 
-							case 6: // criar fórum no curso
+							case 4: // criar fórum no curso
 								System.out.print("\nTitulo para o fórum: ");
 								titulo = sc.nextLine();
 								System.out.print("Descrição: ");
@@ -339,7 +336,7 @@ public class Main {
 								curso.adicionaForum(titulo, descricao, data);
 								break;
 
-							case 7: // remover fórum do curso
+							case 5: // remover fórum do curso
 								curso.listaConteudos();
 								System.out.print("\nInforme o ID do fórum que deseja remover: ");
 								id = sc.nextInt();
@@ -347,7 +344,7 @@ public class Main {
 								curso.removeConteudo(id);
 								break;
 
-							case 8: // responder em fórum
+							case 6: // responder em fórum
 								System.out.print("\nInforme o ID do fórum: ");
 								id = sc.nextInt();
 								sc.nextLine();
@@ -360,16 +357,12 @@ public class Main {
 								professor.respondeForum(curso, id, idPergunta, resposta);
 								break;
 
-							case 9: // listar conteúdos do curso
+							case 7: // listar conteúdos do curso
 								System.out.println("\n---Conteúdos do Curso---");
 								curso.listaConteudos();
 								break;
-
-							case 10: // voltar para o "menu" anterior
-								controle2 = false;
-								break;
-
-							case 11:
+								
+							case 8: // alterar forum
 								System.out.print("\nInforme o ID do forum que deseja alterar: ");
 								id = sc.nextInt();
 								sc.nextLine();
@@ -378,6 +371,12 @@ public class Main {
 								System.out.print("Nova descrição: ");
 								descricao = sc.nextLine();
 								curso.atualizarForum(id, titulo, descricao);
+								break;
+
+							case 9: // voltar para o "menu" anterior
+								controle2 = false;
+								break;
+
 							}
 						}
 
@@ -392,11 +391,7 @@ public class Main {
 						professor.removeCurso(id);
 						break;
 
-					case 4:
-						controle = false;
-						break;
-
-					case 5: // Editar Curso
+					case 4: // Editar Curso
 						System.out.println("\n---Editar curso---");
 						professor.listaCursos();
 						System.out.print("\nID do curso que deseja editar: ");
@@ -407,6 +402,11 @@ public class Main {
 						nome = sc.nextLine();
 						data = new Date();
 						professor.editarCurso(nome, data, id);
+						
+					case 5:
+						controle = false;
+						break;
+						
 					}
 
 					break;

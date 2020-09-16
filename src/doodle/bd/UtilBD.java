@@ -65,6 +65,8 @@ public class UtilBD {
 			criarPerguntaForum(statement);
 			criarRespostaForum(statement);
 
+			// statement.execute("PRAGMA foreign_keys=ON");
+
 			statement.close();
 		} catch (SQLException exception) {
 			System.err.println("Falha ao criar o banco!");
@@ -140,6 +142,10 @@ public class UtilBD {
 		stm.executeUpdate("INSERT INTO matricula_curso VALUES" + "(3, 2)");
 		stm.executeUpdate("INSERT INTO matricula_curso VALUES" + "(4, 1)");
 		stm.executeUpdate("INSERT INTO matricula_curso VALUES" + "(4, 2)");
+
+		stm.executeUpdate(
+				"CREATE TRIGGER IF NOT EXISTS on_delete_aluno_remove_matricula_curso AFTER DELETE ON pessoa BEGIN"
+						+ " DELETE FROM matricula_curso WHERE id_aluno =  OLD.id_pessoa;" + "END;");
 	}
 
 	private static void criarConteudo(Statement stm) throws SQLException {
@@ -170,10 +176,10 @@ public class UtilBD {
 	private static void criarPerguntaForum(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS pergunta_forum");
 
-		stm.executeUpdate("CREATE TABLE pergunta_forum ("
-				+ "id_pergunta INTEGER NOT NULL PRIMARY KEY UNIQUE," + "id_forum INTEGER NOT NULL,"
-				+ "id_autor INTEGER NOT NULL," + "titulo VARCHAR(150) NOT NULL," + "duvida VARCHAR(1000) NOT NULL,"
-				+ "data TEXT NOT NULL," + "FOREIGN KEY (id_forum) REFERENCES forum (id_forum),"
+		stm.executeUpdate("CREATE TABLE pergunta_forum (" + "id_pergunta INTEGER NOT NULL PRIMARY KEY UNIQUE,"
+				+ "id_forum INTEGER NOT NULL," + "id_autor INTEGER NOT NULL," + "titulo VARCHAR(150) NOT NULL,"
+				+ "duvida VARCHAR(1000) NOT NULL," + "data TEXT NOT NULL,"
+				+ "FOREIGN KEY (id_forum) REFERENCES forum (id_forum),"
 				+ "FOREIGN KEY (id_autor) REFERENCES pessoa (id_pessoa))");
 
 		stm.executeUpdate("INSERT INTO pergunta_forum VALUES"
@@ -185,10 +191,10 @@ public class UtilBD {
 	private static void criarRespostaForum(Statement stm) throws SQLException {
 		stm.executeUpdate("DROP TABLE IF EXISTS resposta_forum");
 
-		stm.executeUpdate("CREATE TABLE resposta_forum ("
-				+ "id_resposta INTEGER NOT NULL PRIMARY KEY UNIQUE," + "id_forum INTEGER NOT NULL,"
-				+ "id_pergunta INTEGER NOT NULL," + "id_autor INTEGER NOT NULL," + "resposta VARCHAR(1000) NOT NULL,"
-				+ "data VARCHAR(10) NOT NULL," + "correta BOOLEAN NOT NULL DEFAULT 0,"
+		stm.executeUpdate("CREATE TABLE resposta_forum (" + "id_resposta INTEGER NOT NULL PRIMARY KEY UNIQUE,"
+				+ "id_forum INTEGER NOT NULL," + "id_pergunta INTEGER NOT NULL," + "id_autor INTEGER NOT NULL,"
+				+ "resposta VARCHAR(1000) NOT NULL," + "data VARCHAR(10) NOT NULL,"
+				+ "correta BOOLEAN NOT NULL DEFAULT 0,"
 				+ "FOREIGN KEY (id_pergunta) REFERENCES pergunta_forum (id_pergunta) ON DELETE CASCADE,"
 				+ "FOREIGN KEY (id_forum) REFERENCES forum (id_forum) ON DELETE CASCADE,"
 				+ "FOREIGN KEY (id_autor) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
