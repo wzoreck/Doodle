@@ -197,7 +197,7 @@ public class UtilBD {
 				+ "FOREIGN KEY (id_autor) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE)");
 
 		stm.executeUpdate("INSERT INTO resposta_forum VALUES"
-				+ "(1, 1, 1, 2, 'Basta utilizar a classe List ou Arraylist!"
+				+ "(1, 1, 1, 5, 'Basta utilizar a classe List ou Arraylist!"
 				+ "E informar o tipo que será a lista, ela é modelada como tipo genérico!', '2020-06-17', TRUE)");
 	}
 

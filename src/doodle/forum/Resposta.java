@@ -34,12 +34,24 @@ public class Resposta {
 		return idResposta;
 	}
 
+	public void setIDResposta(int id) {
+		this.idResposta = id;
+	}
+	
 	public int getIDPergunta() {
 		return idPergunta;
+	}
+	
+	public void setIDPergunta(int id) {
+		this.idPergunta = id;
 	}
 
 	public int getIDForum() {
 		return idForum;
+	}
+	
+	public void setIDForum(int id) {
+		this.idForum = id;
 	}
 
 	public Pessoa getAutor() {

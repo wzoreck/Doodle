@@ -43,7 +43,7 @@ public class Forum extends Conteudo {
 			System.out.println("	Autor: " + pergunta.getAutor());
 			System.out.println("	publicado em " + pergunta.getData());
 
-			pergunta.listaRespostas();
+			pergunta.listaRespostas(this.idForum);
 		}
 	}
 

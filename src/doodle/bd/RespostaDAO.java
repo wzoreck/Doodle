@@ -1,9 +1,13 @@
 package doodle.bd;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
+import doodle.entidades.Aluno;
+import doodle.entidades.Pessoa;
 import doodle.forum.Resposta;
 
 public class RespostaDAO implements InterfaceDAO<Resposta> {
@@ -25,9 +29,43 @@ public class RespostaDAO implements InterfaceDAO<Resposta> {
 	}
 
 	@Override
-	public List<Resposta> listar(int aux) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Resposta> listar(int aux) {
+		Resposta resposta = null;
+		ArrayList<Resposta> respostas = new ArrayList<Resposta>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato da data
+		try {
+			String querySelectRespostas = "SELECT * FROM resposta_forum"
+					+ " INNER JOIN pessoa ON resposta_forum.id_autor = pessoa.id_pessoa" + " WHERE id_forum = " + aux;
+			ResultSet resultSet = UtilBD.consultarBD(querySelectRespostas);
+			while (resultSet.next()) {
+				int idResposta = resultSet.getInt("id_resposta");
+				int idPergunta = resultSet.getInt("id_pergunta");
+				int idForum = resultSet.getInt("id_forum");
+				int idAutor = resultSet.getInt("id_autor");
+				String respostaString = resultSet.getString("resposta");
+				String dataPublicacao = resultSet.getString("data");
+				boolean correta = resultSet.getBoolean("correta");
+
+				String nome = resultSet.getString("nome");
+				String email = resultSet.getString("email");
+				String data = resultSet.getString("data_nascimento");
+				String login = resultSet.getString("login");
+				String passwd = resultSet.getString("passwd");
+				Aluno aluno = new Aluno(nome, email, sdf.parse(data), login, passwd, false);
+				aluno.setId(idAutor);
+				resposta = new Resposta(idPergunta, idForum, (Pessoa) aluno, respostaString, sdf.parse(dataPublicacao),
+						correta, false);
+				resposta.setIDResposta(idResposta);
+				respostas.add(resposta);
+			}
+			resultSet.getStatement().close();
+			sdf.clone();
+		} catch (SQLException e) {
+			System.err.println("Não foi possível buscar os Respostas no banco de dados");
+		} catch (ParseException e) {
+			System.err.println("Falha ao converter String para Data RespostaDAO");
+		}
+		return respostas;
 	}
 
 	@Override

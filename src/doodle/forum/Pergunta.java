@@ -40,26 +40,31 @@ public class Pergunta {
 		this.respostas.remove(indice);
 	}
 
-	public void listaRespostas() {
-		for (int i = 0; i < this.respostas.size(); i++) {
-			System.out.println("\n		Resposta " + (i + 1) + ": " + this.respostas.get(i).getResposta());
-			System.out.println("		Autor: " + this.respostas.get(i).getAutor().getNome());
-			System.out.println("		publicado em " + this.respostas.get(i).getData());
+	public void listaRespostas(int idForum) {
+		RespostaDAO respostaDAO = new RespostaDAO();
+		respostas = respostaDAO.listar(idForum);
+
+		for (Resposta resposta : respostas) {
+			if (resposta.getIDPergunta() == idPergunta) {
+				System.out.println("\n		ID Resposta " + resposta.getIDResposta() + ": " + resposta.getResposta());
+				System.out.println("		Autor: " + resposta.getAutor().getNome());
+				System.out.println("		publicado em " + resposta.getData());
+			}
 		}
 	}
 
 	public int getIDPergunta() {
 		return idPergunta;
 	}
-	
+
 	public void setIDPergunta(int id) {
 		this.idPergunta = id;
 	}
-	
+
 	public String getAutor() {
 		return autor.getNome();
 	}
-	
+
 	public Pessoa getObjetoAutor() {
 		return autor;
 	}
@@ -88,11 +93,11 @@ public class Pergunta {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(this.data);
 	}
-	
+
 	public int getIDForum() {
 		return idForum;
 	}
-	
+
 	public void setIDForum(int idForum) {
 		this.idForum = idForum;
 	}

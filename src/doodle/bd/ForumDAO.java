@@ -77,9 +77,7 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 			UtilBD.alterarBd(queryDeleteForum);
 			String queryDeleteConteudo = "DELETE FROM conteudo WHERE id_conteudo = " + forum.getId();
 			UtilBD.alterarBd(queryDeleteConteudo);
-			
-			System.out.println("\n\nExecutou: " + queryDeleteForum);
-			System.out.println("\n\nExecutou: " + queryDeleteConteudo);
+
 		} catch (SQLException e) {
 			System.err.println("Falha ao remover Forum do banco de dados");
 		}

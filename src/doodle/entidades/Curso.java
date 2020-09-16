@@ -94,13 +94,10 @@ public class Curso {
 	}
 
 	public void removeConteudo(int id) {
-		System.out.println("\n\nID que chegou: " + id);
 		ForumDAO forumDAO = new ForumDAO();
 		
 		for (Forum forum : this.getConteudos()) {
-			System.out.println("\n\nEntrou FOR!");
 			if (forum.getIDForum() == id) {
-				System.out.println("\n\nEntrou IF!");
 				forumDAO.remover(forum);
 				return;
 			}
