@@ -25,6 +25,8 @@ import doodle.entidades.Aluno;
 import doodle.entidades.Curso;
 import doodle.entidades.Pessoa;
 import doodle.entidades.Professor;
+import doodle.ihc.LoginFX;
+import javafx.application.Application;
 
 public class Main {
 
@@ -32,6 +34,7 @@ public class Main {
 
 		// Criar o banco de dados e inserir os primeiros registros
 		UtilBD.initBD();
+		Application.launch(LoginFX.class);
 		UtilBD.fecharConexao();
 
 		Scanner sc = new Scanner(System.in);
