@@ -24,13 +24,15 @@ public class LoginFX extends Application {
 		txtPasswd.setPromptText("Senha");
 
 		Button btnEntrar = new Button("Entrar");
+		
+		Button btnNovoUsuario = new Button("Criar novo usuário");
 
 		// Painel
 		Pane pane = new Pane();
-		pane.setPrefSize(320, 150);
+		pane.setPrefSize(320, 180);
 
 		// Adicionando os componentes no painel
-		pane.getChildren().addAll(lblDoodle, txtUsuario, txtPasswd, btnEntrar);
+		pane.getChildren().addAll(lblDoodle, txtUsuario, txtPasswd, btnEntrar, btnNovoUsuario);
 
 		// Configurar os componentes no painel
 		lblDoodle.setLayoutX(10);
@@ -40,22 +42,26 @@ public class LoginFX extends Application {
 		txtUsuario.setLayoutY(35);
 		txtUsuario.setPrefHeight(30);
 		txtUsuario.setPrefWidth(pane.getPrefWidth() - 20);
-		
+
 		txtPasswd.setLayoutX(10);
 		txtPasswd.setLayoutY(75);
 		txtPasswd.setPrefHeight(30);
-		txtPasswd.setPrefWidth(pane.getPrefWidth() -20);
-		
+		txtPasswd.setPrefWidth(pane.getPrefWidth() - 20);
+
 		btnEntrar.setLayoutX(10);
 		btnEntrar.setLayoutY(115);
 		btnEntrar.setPrefHeight(20);
 		btnEntrar.setPrefWidth(pane.getPrefWidth() - 20);
-		
-		
+
+		btnNovoUsuario.setLayoutX(10);
+		btnNovoUsuario.setLayoutY(145);
+		btnNovoUsuario.setPrefHeight(20);
+		btnNovoUsuario.setPrefWidth(pane.getPrefWidth() - 20);
+
 		// Cena
 		Scene scene = new Scene(pane);
 		btnEntrar.requestFocus();
-		
+
 		// Palco
 		stage.setScene(scene);
 		stage.setTitle("Doodle login");
