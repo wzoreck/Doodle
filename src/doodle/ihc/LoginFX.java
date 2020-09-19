@@ -50,7 +50,7 @@ public class LoginFX extends Application {
 				try {
 					new CadastrarUsuarioFX().start(new Stage());
 				} catch (Exception e) {
-					System.err.println("Não foi possível iniciar a tela de cadastro de usuário");
+					AlertaFX.erro("Não foi possível iniciar a tela de cadastro de usuário");
 				}
 
 			}
@@ -125,35 +125,34 @@ public class LoginFX extends Application {
 						AlertaFX.alerta("Campo usuário em branco");
 						return;
 					}
-					
+
 					if (txtPasswd.getText().isBlank()) {
-						System.err.println("Campo senha em branco");
+						AlertaFX.alerta("Campo senha em branco");
 						return;
 					}
-					
+
 					Pessoa usuarioBD = (Pessoa) new AlunoDAO().get(txtUsuario.getText());
-					
+
 					if (usuarioBD == null) {
-						System.err.println("Usuário ou senha inválidos");
+						AlertaFX.alerta("Usuário ou senha inválidos");
 						return;
 					}
-					
+
 					if (!usuarioBD.getPasswd().contentEquals(txtPasswd.getText())) {
-						System.err.println("Usuário ou senha inválidos");
+						AlertaFX.alerta("Usuário ou senha inválidos");
 						return;
 					}
-					
+
 					new MainFX(txtUsuario.getText()).start(stage);
-					
-					
+
 				} catch (Exception e) {
-					System.err.println("Não foi possível iniciar a tela principal");
+					AlertaFX.erro("Não foi possível iniciar a tela principal");
 				}
 
 			}
 		};
 	}
-	
+
 	private EventHandler<ActionEvent> sair() {
 		return new EventHandler<ActionEvent>() {
 			@Override
@@ -162,7 +161,7 @@ public class LoginFX extends Application {
 			}
 		};
 	}
-	
+
 	private EventHandler<ActionEvent> novoUsuario() {
 		return new EventHandler<ActionEvent>() {
 			@Override
@@ -170,7 +169,7 @@ public class LoginFX extends Application {
 				try {
 					new CadastrarUsuarioFX().start(stage);
 				} catch (Exception e) {
-					System.err.println("Não foi passível iniciar a tela de cadastro de novo usuário");
+					AlertaFX.erro("Não foi passível iniciar a tela de cadastro de novo usuário");
 				}
 			}
 		};
