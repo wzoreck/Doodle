@@ -1,6 +1,8 @@
 package doodle.ihc;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,7 +26,7 @@ public class LoginFX extends Application {
 		txtPasswd.setPromptText("Senha");
 
 		Button btnEntrar = new Button("Entrar");
-		
+
 		Button btnNovoUsuario = new Button("Criar novo usuário");
 
 		// Painel
@@ -67,6 +69,36 @@ public class LoginFX extends Application {
 		stage.setTitle("Doodle login");
 		stage.setResizable(false);
 		stage.show();
+
+		// Comportamento
+		btnNovoUsuario.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					new CadastrarUsuarioFX().start(new Stage());
+				} catch (Exception e) {
+					System.err.println("Não foi possível iniciar a tela de cadastro de usuário");
+				}
+
+			}
+		});
+		
+		btnEntrar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				try {
+					new MainFX(txtUsuario.getText()).start(stage);
+				} catch (Exception e) {
+					System.err.println("Não foi possível iniciar a tela principal");
+				}
+				
+			}
+			
+			
+		});
+
 	}
 
 }
