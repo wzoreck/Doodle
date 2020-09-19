@@ -41,21 +41,6 @@ public class LoginFX extends Application {
 		stage.setTitle("Doodle login");
 		stage.setResizable(false);
 		stage.show();
-
-		// Comportamento
-		btnNovoUsuario.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				try {
-					new CadastrarUsuarioFX().start(new Stage());
-				} catch (Exception e) {
-					AlertaFX.erro("Não foi possível iniciar a tela de cadastro de usuário");
-				}
-
-			}
-		});
-
 	}
 
 	public void initComponentes() {
