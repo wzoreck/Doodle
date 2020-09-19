@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import doodle.entidades.Aluno;
 import doodle.entidades.Curso;
+import doodle.entidades.Pessoa;
 
 public class AlunoDAO implements InterfaceDAO<Aluno> {
 
@@ -94,12 +95,38 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 		}
 	}
 
-	public Aluno get(int idPessoa) {
+	// Adaptado somente para o LoginFX
+	public Pessoa get(String loginUsuario) {
+		Pessoa pessoa = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			String querySelectAluno = "SELECT * FROM pessoa" + " WHERE login = '" + loginUsuario + "'";
+			ResultSet resultSet = UtilBD.consultarBD(querySelectAluno);
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id_pessoa");
+				String nome = resultSet.getString("nome");
+				String email = resultSet.getString("email");
+				String data = resultSet.getString("data_nascimento");
+				String login = resultSet.getString("login");
+				String passwd = resultSet.getString("passwd");
+				pessoa = new Aluno(nome, email, sdf.parse(data), login, passwd, false);
+				pessoa.setId(id);
+			}
+			resultSet.getStatement().close();
+		} catch (SQLException e) {
+			System.err.println("Falha ao buscar Aluno no banco de dados");
+		} catch (ParseException e) {
+			System.err.println("Falha ao converter String para Data AlunoDAO");
+		}
+		return pessoa;
+	}
+
+	public Aluno get(int idAluno) {
 		Aluno aluno = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			String querySelectAluno = "SELECT * FROM pessoa INNER JOIN aluno ON pessoa.id_pessoa = aluno.id_aluno"
-					+ " WHERE id_pessoa = " + idPessoa;
+					+ " WHERE id_pessoa = " + idAluno;
 			ResultSet resultSet = UtilBD.consultarBD(querySelectAluno);
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id_pessoa");
