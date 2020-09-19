@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import doodle.entidades.Professor;
+import doodle.ihc.AlertaFX;
 
 public class ProfessorDAO implements InterfaceDAO<Professor> {
 
@@ -20,7 +21,7 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 			UtilBD.alterarBd(queryPessoa);
 
 		} catch (SQLException e1) {
-			System.err.println("Falha ao inserir Pessoa no banco de dados");
+			AlertaFX.erro("Falha ao inserir Pessoa no banco de dados");
 		}
 
 		try {
@@ -31,7 +32,7 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 			UtilBD.alterarBd(queryProfessor);
 
 		} catch (SQLException e2) {
-			System.err.println("Falaha ao inserir Professor no banco de dados");
+			AlertaFX.erro("Falaha ao inserir Professor no banco de dados");
 		}
 	}
 
@@ -60,9 +61,9 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 			resultSet.getStatement().close();
 			sdf.clone();
 		} catch (SQLException e) {
-			System.err.println("Não foi possível buscar os Professores no banco de dados");
+			AlertaFX.erro("Não foi possível buscar os Professores no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao transformar String para Data - ProfessoroDAO");
+			AlertaFX.erro("Falha ao transformar String para Data - ProfessoroDAO");
 		}
 		return professores;
 	}
@@ -80,7 +81,7 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 					+ professor.getId();	
 			UtilBD.alterarBd(queryUpdateProfessor);
 		} catch (SQLException e) {
-			System.err.println("Falha ao realizar o update de Pessoa-Professor");
+			AlertaFX.erro("Falha ao realizar o update de Pessoa-Professor");
 		}
 	}
 
@@ -92,7 +93,7 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 			String queryDeletePessoa = "DELETE FROM pessoa WHERE id_pessoa = '" + professor.getId() + "'";
 			UtilBD.alterarBd(queryDeletePessoa);
 		} catch (SQLException e) {
-			System.err.println("Falha ao remover Pessoa-Professor do banco de dados");
+			AlertaFX.erro("Falha ao remover Pessoa-Professor do banco de dados");
 		}
 
 	}
@@ -118,9 +119,9 @@ public class ProfessorDAO implements InterfaceDAO<Professor> {
 			}
 			resultSet.getStatement().close();
 		} catch (SQLException e) {
-			System.err.println("Falha ao buscar Professor no banco de dados");
+			AlertaFX.erro("Falha ao buscar Professor no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data ProfessorDAO");
+			AlertaFX.erro("Falha ao converter String para Data ProfessorDAO");
 		}
 		return professor;
 	}

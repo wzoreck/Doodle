@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import doodle.entidades.Aluno;
 import doodle.entidades.Pessoa;
 import doodle.forum.Pergunta;
+import doodle.ihc.AlertaFX;
 
 public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 
@@ -23,7 +24,7 @@ public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 			UtilBD.alterarBd(queryPergunta);
 
 		} catch (SQLException e1) {
-			System.err.println("Falha ao inserir Pergunta no banco de dados");
+			AlertaFX.erro("Falha ao inserir Pergunta no banco de dados");
 		}
 	}
 
@@ -59,9 +60,9 @@ public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 			resultSet.getStatement().close();
 			sdf.clone();
 		} catch (SQLException e) {
-			System.err.println("Não foi possível buscar os Perguntas no banco de dados");
+			AlertaFX.erro("Não foi possível buscar os Perguntas no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data PerguntaDAO");
+			AlertaFX.erro("Falha ao converter String para Data PerguntaDAO");
 		}
 		return perguntas;
 	}
@@ -76,7 +77,7 @@ public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 					+ " WHERE id_pergunta = " + pergunta.getIDPergunta();
 			UtilBD.alterarBd(queryUpdateCurso);
 		} catch (SQLException e) {
-			System.err.println("Falha ao realizar o update de Pergunta");
+			AlertaFX.erro("Falha ao realizar o update de Pergunta");
 		}
 	}
 
@@ -86,7 +87,7 @@ public class PerguntaDAO implements InterfaceDAO<Pergunta> {
 			String queryDeletePergunta = "DELETE FROM pergunta_forum WHERE id_pergunta = " + pergunta.getIDPergunta();
 			UtilBD.alterarBd(queryDeletePergunta);
 		} catch (SQLException e) {
-			System.err.println("Falha ao remover Pergunta do banco de dados");
+			AlertaFX.erro("Falha ao remover Pergunta do banco de dados");
 		}
 	}
 

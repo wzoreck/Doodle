@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import doodle.entidades.Aluno;
 import doodle.entidades.Pessoa;
 import doodle.forum.Resposta;
+import doodle.ihc.AlertaFX;
 
 public class RespostaDAO implements InterfaceDAO<Resposta> {
 
@@ -24,7 +25,7 @@ public class RespostaDAO implements InterfaceDAO<Resposta> {
 			UtilBD.alterarBd(queryPergunta);
 
 		} catch (SQLException e1) {
-			System.err.println("Falha ao inserir Resposta no banco de dados");
+			AlertaFX.erro("Falha ao inserir Resposta no banco de dados");
 		}
 	}
 
@@ -61,9 +62,9 @@ public class RespostaDAO implements InterfaceDAO<Resposta> {
 			resultSet.getStatement().close();
 			sdf.clone();
 		} catch (SQLException e) {
-			System.err.println("Não foi possível buscar os Respostas no banco de dados");
+			AlertaFX.erro("Não foi possível buscar os Respostas no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data RespostaDAO");
+			AlertaFX.erro("Falha ao converter String para Data RespostaDAO");
 		}
 		return respostas;
 	}

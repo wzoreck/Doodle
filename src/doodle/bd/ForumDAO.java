@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import doodle.forum.Forum;
+import doodle.ihc.AlertaFX;
 
 public class ForumDAO implements InterfaceDAO<Forum> {
 
@@ -19,7 +20,7 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 			UtilBD.alterarBd(queryForum);
 
 		} catch (SQLException e1) {
-			System.err.println("Falha ao inserir Forum no banco de dados");
+			AlertaFX.erro("Falha ao inserir Forum no banco de dados");
 		}
 	}
 
@@ -47,9 +48,9 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 			resultSet.getStatement().close();
 			sdf.clone();
 		} catch (SQLException e) {
-			System.err.println("Não foi possível buscar os Foruns no banco de dados");
+			AlertaFX.erro("Não foi possível buscar os Foruns no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data ForumDAO");
+			AlertaFX.erro("Falha ao converter String para Data ForumDAO");
 		}
 		return foruns;
 	}
@@ -65,7 +66,7 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 					+ "' WHERE id_conteudo = " + forum.getId();
 			UtilBD.alterarBd(queryUpdateConteudo);
 		} catch (SQLException e) {
-			System.err.println("Falha ao realizar o update de Forum");
+			AlertaFX.erro("Falha ao realizar o update de Forum");
 		}
 
 	}
@@ -79,7 +80,7 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 			UtilBD.alterarBd(queryDeleteConteudo);
 
 		} catch (SQLException e) {
-			System.err.println("Falha ao remover Forum do banco de dados");
+			AlertaFX.erro("Falha ao remover Forum do banco de dados");
 		}
 	}
 
@@ -102,9 +103,9 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 			}
 			resultSet.getStatement().close();
 		} catch (SQLException e) {
-			System.err.println("Falha ao buscar Forum no banco de dados");
+			AlertaFX.erro("Falha ao buscar Forum no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data ForumDAO");
+			AlertaFX.erro("Falha ao converter String para Data ForumDAO");
 		}
 		return forum;
 	}

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import doodle.entidades.Aluno;
 import doodle.entidades.Curso;
 import doodle.entidades.Pessoa;
+import doodle.ihc.AlertaFX;
 
 public class AlunoDAO implements InterfaceDAO<Aluno> {
 
@@ -22,7 +23,7 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			UtilBD.alterarBd(queryPessoa);
 
 		} catch (SQLException e1) {
-			System.err.println("Falaha ao inserir Pessoa no banco de dados");
+			AlertaFX.erro("Falaha ao inserir Pessoa no banco de dados");
 		}
 
 		try {
@@ -32,7 +33,7 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			UtilBD.alterarBd(queryAluno);
 
 		} catch (SQLException e2) {
-			System.err.println("Falaha ao inserir Aluno no banco de dados");
+			AlertaFX.erro("Falaha ao inserir Aluno no banco de dados");
 		}
 
 	}
@@ -61,9 +62,9 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			resultSet.getStatement().close();
 			sdf.clone();
 		} catch (SQLException e) {
-			System.err.println("Não foi possível buscar os Alunos no banco de dados");
+			AlertaFX.erro("Não foi possível buscar os Alunos no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao transformar String para Data - AlunoDAO");
+			AlertaFX.erro("Falha ao transformar String para Data - AlunoDAO");
 		}
 		return alunos;
 	}
@@ -79,7 +80,7 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 					+ " WHERE id_aluno = " + aluno.getId();
 			UtilBD.alterarBd(queryUpdateAluno);
 		} catch (SQLException e) {
-			System.err.println("Falha ao realizar o update de Pessoa-Aluno");
+			AlertaFX.erro("Falha ao realizar o update de Pessoa-Aluno");
 		}
 	}
 
@@ -91,7 +92,7 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			String queryDeletePessoa = "DELETE FROM pessoa WHERE id_pessoa = '" + aluno.getId() + "'";
 			UtilBD.alterarBd(queryDeletePessoa);
 		} catch (SQLException e) {
-			System.err.println("Falha ao remover Pessoa-Aluno do banco de dados");
+			AlertaFX.erro("Falha ao remover Pessoa-Aluno do banco de dados");
 		}
 	}
 
@@ -114,9 +115,9 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			}
 			resultSet.getStatement().close();
 		} catch (SQLException e) {
-			System.err.println("Falha ao buscar Aluno no banco de dados");
+			AlertaFX.erro("Falha ao buscar Aluno no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data AlunoDAO");
+			AlertaFX.erro("Falha ao converter String para Data AlunoDAO");
 		}
 		return pessoa;
 	}
@@ -142,9 +143,9 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			}
 			resultSet.getStatement().close();
 		} catch (SQLException e) {
-			System.err.println("Falha ao buscar Aluno no banco de dados");
+			AlertaFX.erro("Falha ao buscar Pessoa no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data AlunoDAO");
+			AlertaFX.erro("Falha ao converter String para Data AlunoDAO");
 		}
 		return aluno;
 	}
@@ -158,7 +159,7 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			String queryMatriculaAluno = "UPDATE aluno SET matriculado = true WHERE id_aluno = " + aluno.getId();
 			UtilBD.alterarBd(queryMatriculaAluno);
 		} catch (SQLException e) {
-			System.err.println("Falha ao inserir Matricula no banco de dados");
+			AlertaFX.erro("Falha ao inserir Matricula no banco de dados");
 		}
 	}
 
@@ -169,7 +170,7 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			UtilBD.alterarBd(queryDeleteMatriculaAluno);
 
 		} catch (SQLException e) {
-			System.err.println("Falha ao remover Matricula-Aluno do banco de dados");
+			AlertaFX.erro("Falha ao remover Matricula-Aluno do banco de dados");
 		}
 
 	}
@@ -199,9 +200,9 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			resultSet.getStatement().close();
 			sdf.clone();
 		} catch (SQLException e) {
-			System.err.println("Não foi possível buscar os Matriculas no banco de dados");
+			AlertaFX.erro("Não foi possível buscar os Matriculas no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data CursoDAO");
+			AlertaFX.erro("Falha ao converter String para Data CursoDAO");
 		}
 		return alunos;
 	}
@@ -229,9 +230,9 @@ public class AlunoDAO implements InterfaceDAO<Aluno> {
 			resultSet.getStatement().close();
 			sdf.clone();
 		} catch (SQLException e) {
-			System.err.println("Não foi possível buscar os Cursos-Aluno no banco de dados");
+			AlertaFX.erro("Não foi possível buscar os Cursos-Aluno no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data AlunoDAO");
+			AlertaFX.erro("Falha ao converter String para Data AlunoDAO");
 		}
 		return cursos;
 	}

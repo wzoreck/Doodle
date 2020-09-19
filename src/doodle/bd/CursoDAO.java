@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import doodle.entidades.Conteudo;
 import doodle.entidades.Curso;
+import doodle.ihc.AlertaFX;
 
 public class CursoDAO implements InterfaceDAO<Curso> {
 
@@ -21,7 +22,7 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 			UtilBD.alterarBd(queryCurso);
 
 		} catch (SQLException e) {
-			System.err.println("Falha ao inserir Curso no banco de dados");
+			AlertaFX.erro("Falha ao inserir Curso no banco de dados");
 		}
 	}
 
@@ -47,9 +48,9 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 			resultSet.getStatement().close();
 			sdf.clone();
 		} catch (SQLException e) {
-			System.err.println("Não foi possível buscar os Cursos no banco de dados");
+			AlertaFX.erro("Não foi possível buscar os Cursos no banco de dados");
 		} catch (ParseException e) {
-			System.err.println("Falha ao converter String para Data CursoDAO");
+			AlertaFX.erro("Falha ao converter String para Data CursoDAO");
 		}
 		return cursos;
 	}
@@ -61,7 +62,7 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 					+ curso.getDataInicio() + "', id_professor = " + aux + " WHERE id_curso =" + curso.getID();
 			UtilBD.alterarBd(queryUpdateCurso);
 		} catch (SQLException e) {
-			System.err.println("Falha ao realizar o update de Curso");
+			AlertaFX.erro("Falha ao realizar o update de Curso");
 		}
 
 	}
@@ -72,7 +73,7 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 			String queryDeleteCurso = "DELETE FROM curso WHERE id_curso = " + curso.getID();
 			UtilBD.alterarBd(queryDeleteCurso);
 		} catch (SQLException e) {
-			System.err.println("Falha ao remover Curso do banco de dados");
+			AlertaFX.erro("Falha ao remover Curso do banco de dados");
 		}
 	}
 
@@ -87,7 +88,7 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 			UtilBD.alterarBd(queryConteudo);
 
 		} catch (SQLException e) {
-			System.err.println("Falaha ao inserir Conteudo no banco de dados");
+			AlertaFX.erro("Falaha ao inserir Conteudo no banco de dados");
 		}
 	}
 
