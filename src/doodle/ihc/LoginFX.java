@@ -122,7 +122,7 @@ public class LoginFX extends Application {
 			public void handle(ActionEvent event) {
 				try {
 					if (txtUsuario.getText().isBlank()) {
-						System.err.println("Campo usuário em branco");
+						AlertaFX.alerta("Campo usuário em branco");
 						return;
 					}
 					
