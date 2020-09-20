@@ -37,10 +37,12 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 				String titulo = resultSet.getString("titulo");
 				String descricao = resultSet.getString("descricao");
 				String dataPublicacao = resultSet.getString("data_publicacao");
+				String dataTermino = resultSet.getString("data_termino");
 				int idForum = resultSet.getInt("id_forum");
 				int idConteudo = resultSet.getInt("id_conteudo");
 
 				forum = new Forum(titulo, descricao, sdf.parse(dataPublicacao), false, false);
+				forum.setDataTermino(sdf.parse(dataTermino));
 				forum.setIDForum(idForum);
 				forum.setId(idConteudo);
 				foruns.add(forum);
@@ -58,8 +60,8 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 	@Override
 	public void atualizar(Forum forum, int aux) {
 		try {
-			String queryUpdateForum = "UPDATE forum SET aberto = " + forum.isAberto() + " WHERE id_forum = "
-					+ forum.getIDForum();
+			String queryUpdateForum = "UPDATE forum SET aberto = " + forum.isAberto() + ", data_termino = '"
+					+ forum.getDataTermino() + "' WHERE id_forum = " + forum.getIDForum();
 			UtilBD.alterarBd(queryUpdateForum);
 			String queryUpdateConteudo = "UPDATE conteudo SET " + "titulo = '" + forum.getTitulo() + "', descricao = '"
 					+ forum.getDescricao() + "', data_publicacao = '" + forum.getDataPublicacao()
@@ -95,10 +97,12 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 				String titulo = resultSet.getString("titulo");
 				String descricao = resultSet.getString("descricao");
 				String dataPublicacao = resultSet.getString("data_publicacao");
+				String dataTermino = resultSet.getString("data_termino");
 				int idConteudo = resultSet.getInt("id_conteudo");
 
 				forum = new Forum(titulo, descricao, sdf.parse(dataPublicacao), false, false);
 				forum.setIDForum(idForum);
+				forum.setDataTermino(sdf.parse(dataTermino));
 				forum.setId(idConteudo);
 			}
 			resultSet.getStatement().close();

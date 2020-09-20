@@ -224,10 +224,7 @@ public class CadastrarUsuarioFX extends Application {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 				AlertaFX.info("Usuário cadastrado com sucesso");
-
-				abrirJanelaLogin();
 			}
 		};
 	}

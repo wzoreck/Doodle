@@ -51,6 +51,10 @@ public abstract class Conteudo {
 		return sdf.format(dataPublicacao);
 	}
 	
+	public void setDataPublicacao(Date data) {
+		this.dataPublicacao = data;
+	}
+	
 	public String getTipoConteudo() {
 		return tipoConteudo();
 	}

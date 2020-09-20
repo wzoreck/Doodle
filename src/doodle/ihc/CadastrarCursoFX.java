@@ -109,6 +109,7 @@ public class CadastrarCursoFX extends Application {
 				
 				try {
 					cursoDAO.adicionar(new Curso(professor, txtNomeCurso.getText(), sdf.parse(txtDataInicio.getText())), id);
+					voltar();
 				} catch (ParseException e) {
 					AlertaFX.erro("O formato da data informada é incompatível com o sistema!");
 				}
