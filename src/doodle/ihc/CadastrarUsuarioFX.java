@@ -49,7 +49,7 @@ public class CadastrarUsuarioFX extends Application {
 
 		stage.setScene(scene);
 		stage.setTitle("Cadastro de novo usuário");
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.show();
 
 	}

@@ -49,7 +49,7 @@ public class LoginFX extends Application {
 		// Palco
 		stage.setScene(scene);
 		stage.setTitle("Doodle login");
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.show();
 	}
 

@@ -9,6 +9,8 @@ import doodle.entidades.Professor;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -44,11 +46,11 @@ public class ProfessorMainFX extends Application {
 		configLayout();
 
 		Scene scene = new Scene(pane);
-//		btnSair.requestFocus();
-		
+		btnSair.requestFocus();
+
 		stage.setScene(scene);
 		stage.setTitle("Doodle de " + usuarioLogado);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.show();
 
 	}
@@ -58,20 +60,20 @@ public class ProfessorMainFX extends Application {
 		ObservableList<String> items = FXCollections.observableArrayList(geraListaCursos());
 		listaCursos.setItems(items);
 
-//		btnCadastrarCurso = new Button("Cadastrar curso");
-//		btnCadastrarCurso.setOnAction();
-//
-//		btnAlterarCurso = new Button("Alterar curso");
+		btnCadastrarCurso = new Button("Cadastrar curso");
+		btnCadastrarCurso.setOnAction(cadastrarCurso());
+
+		btnAlterarCurso = new Button("Alterar curso");
 //		btnAlterarCurso.setOnAction();
-//
-//		btnExcluirCurso = new Button("Excluir curso");
+
+		btnExcluirCurso = new Button("Excluir curso");
 //		btnExcluirCurso.setOnAction();
-//
-//		btnSair = new Button("Sair");
-//		btnSair.setOnAction();
+
+		btnSair = new Button("Sair");
+		btnSair.setOnAction(sair());
 
 		pane = new AnchorPane();
-		pane.getChildren().addAll(listaCursos);
+		pane.getChildren().addAll(listaCursos, btnCadastrarCurso, btnAlterarCurso, btnExcluirCurso, btnSair);
 
 	}
 
@@ -83,25 +85,25 @@ public class ProfessorMainFX extends Application {
 		listaCursos.setPrefHeight(pane.getPrefHeight() - 55);
 		listaCursos.setPrefWidth(pane.getPrefWidth() - 20);
 
-//		btnCadastrarCurso.setLayoutX(pane.getPrefWidth() - 590);
-//		btnCadastrarCurso.setLayoutY(pane.getPrefHeight() - 35);
-//		btnCadastrarCurso.setPrefHeight(20);
-//		btnCadastrarCurso.setPrefWidth(150);
-//
-//		btnAlterarCurso.setLayoutX(pane.getPrefWidth() - 430);
-//		btnAlterarCurso.setLayoutY(pane.getPrefHeight() - 35);
-//		btnAlterarCurso.setPrefHeight(20);
-//		btnAlterarCurso.setPrefWidth(150);
-//
-//		btnExcluirCurso.setLayoutX(pane.getPrefWidth() - 270);
-//		btnExcluirCurso.setLayoutY(pane.getPrefHeight() - 35);
-//		btnExcluirCurso.setPrefHeight(20);
-//		btnExcluirCurso.setPrefWidth(150);
-//
-//		btnSair.setLayoutX(pane.getPrefWidth() - 110);
-//		btnSair.setLayoutY(pane.getPrefHeight() - 35);
-//		btnSair.setPrefHeight(20);
-//		btnSair.setPrefWidth(100);
+		btnCadastrarCurso.setLayoutX(pane.getPrefWidth() - 590);
+		btnCadastrarCurso.setLayoutY(pane.getPrefHeight() - 35);
+		btnCadastrarCurso.setPrefHeight(20);
+		btnCadastrarCurso.setPrefWidth(150);
+
+		btnAlterarCurso.setLayoutX(pane.getPrefWidth() - 430);
+		btnAlterarCurso.setLayoutY(pane.getPrefHeight() - 35);
+		btnAlterarCurso.setPrefHeight(20);
+		btnAlterarCurso.setPrefWidth(150);
+
+		btnExcluirCurso.setLayoutX(pane.getPrefWidth() - 270);
+		btnExcluirCurso.setLayoutY(pane.getPrefHeight() - 35);
+		btnExcluirCurso.setPrefHeight(20);
+		btnExcluirCurso.setPrefWidth(150);
+
+		btnSair.setLayoutX(pane.getPrefWidth() - 110);
+		btnSair.setLayoutY(pane.getPrefHeight() - 35);
+		btnSair.setPrefHeight(20);
+		btnSair.setPrefWidth(100);
 	}
 
 	private List<String> geraListaCursos() {
@@ -110,6 +112,33 @@ public class ProfessorMainFX extends Application {
 		for (Curso curso : cursos)
 			retorno.add(curso.getNome());
 		return retorno;
+	}
+
+	private EventHandler<ActionEvent> cadastrarCurso() {
+		return new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					new CadastrarCursoFX(professor).start(stage);
+				} catch (Exception e) {
+					AlertaFX.erro("Não foi possível iniciar a tela de cadastro de um curso!");
+				}
+			}
+		};
+	}
+	
+	
+	private EventHandler<ActionEvent> sair() {
+		return new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					new LoginFX().start(stage);
+				} catch (Exception e) {
+					AlertaFX.erro("Não foi possível iniciar a tela de login");
+				}
+			}
+		};
 	}
 
 }
