@@ -23,7 +23,7 @@ public class ProfessorMainFX extends Application {
 	private Stage stage;
 	private Pane pane;
 	private String usuarioLogado;
-	private Button btnSair;
+	private Button btnVoltar;
 	private Button btnCadastrarCurso;
 	private Button btnAcessarCurso;
 	private Label lblCurso;
@@ -69,11 +69,11 @@ public class ProfessorMainFX extends Application {
 		btnAcessarCurso = new Button("Acessar curso");
 		btnAcessarCurso.setOnAction(acessarCurso());
 
-		btnSair = new Button("Voltar");
-		btnSair.setOnAction(voltar());
+		btnVoltar = new Button("Voltar");
+		btnVoltar.setOnAction(voltar());
 
 		pane = new AnchorPane();
-		pane.getChildren().addAll(lblCurso, cmbCursos, btnCadastrarCurso, btnAcessarCurso, btnSair);
+		pane.getChildren().addAll(lblCurso, cmbCursos, btnCadastrarCurso, btnAcessarCurso, btnVoltar);
 
 	}
 
@@ -98,10 +98,10 @@ public class ProfessorMainFX extends Application {
 		btnAcessarCurso.setPrefHeight(20);
 		btnAcessarCurso.setPrefWidth(150);
 
-		btnSair.setLayoutX(pane.getPrefWidth() - 110);
-		btnSair.setLayoutY(pane.getPrefHeight() - 35);
-		btnSair.setPrefHeight(20);
-		btnSair.setPrefWidth(100);
+		btnVoltar.setLayoutX(pane.getPrefWidth() - 110);
+		btnVoltar.setLayoutY(pane.getPrefHeight() - 35);
+		btnVoltar.setPrefHeight(20);
+		btnVoltar.setPrefWidth(100);
 	}
 
 	private List<String> geraListaCursos() {

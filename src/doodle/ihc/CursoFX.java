@@ -31,6 +31,7 @@ public class CursoFX extends Application{
 	
 	private Professor professor;
 	private Curso curso;
+	private List<Forum> foruns;
 
 	public CursoFX(Professor professor, Curso curso) {
 		this.professor = professor;
@@ -67,7 +68,7 @@ public class CursoFX extends Application{
 //		btnAlterarForum.setOnAction(abrirAlteracaoJogo());
 
 		btnExcluirForum = new Button("Excluir forum");
-//		btnExcluirForum.setOnAction(excluirJogo());
+		btnExcluirForum.setOnAction(excluirForum());
 
 		btnVoltar = new Button("Voltar");
 		btnVoltar.setOnAction(voltar());
@@ -108,7 +109,7 @@ public class CursoFX extends Application{
 	
 	private List<String> geraListaForuns() {
 		List<String> retorno = new ArrayList<String>();
-		List<Forum> foruns = new ForumDAO().listar(curso.getID());
+		foruns = new ForumDAO().listar(curso.getID());
 		for (Forum forum : foruns)
 			retorno.add(forum.getTitulo());
 		return retorno;
@@ -126,6 +127,19 @@ public class CursoFX extends Application{
 			}
 		};
 	}	
+	
+	private EventHandler<ActionEvent> excluirForum() {
+		return new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					new ExcluirForumFX(foruns, professor, curso).start(stage);
+				} catch (Exception e) {
+					AlertaFX.erro("Não foi possível iniciar a tela de cadastro de um forum!");
+				}
+			}
+		};
+	}
 	
 	private EventHandler<ActionEvent> voltar() {
 		return new EventHandler<ActionEvent>() {
