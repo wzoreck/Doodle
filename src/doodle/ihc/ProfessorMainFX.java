@@ -8,12 +8,12 @@ import doodle.entidades.Curso;
 import doodle.entidades.Professor;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -25,11 +25,12 @@ public class ProfessorMainFX extends Application {
 	private String usuarioLogado;
 	private Button btnSair;
 	private Button btnCadastrarCurso;
-	private Button btnAlterarCurso;
-	private Button btnExcluirCurso;
-	private ListView<String> listaCursos;
+	private Button btnAcessarCurso;
+	private Label lblCurso;
+	private ComboBox<String> cmbCursos;
 
 	private Professor professor;
+	private Curso curso;
 
 	public ProfessorMainFX(Professor professor) {
 		if (professor == null)
@@ -46,7 +47,7 @@ public class ProfessorMainFX extends Application {
 		configLayout();
 
 		Scene scene = new Scene(pane);
-		btnSair.requestFocus();
+		cmbCursos.requestFocus();
 
 		stage.setScene(scene);
 		stage.setTitle("Doodle de " + usuarioLogado);
@@ -56,49 +57,46 @@ public class ProfessorMainFX extends Application {
 	}
 
 	private void initComponentes() {
-		listaCursos = new ListView<String>();
-		ObservableList<String> items = FXCollections.observableArrayList(geraListaCursos());
-		listaCursos.setItems(items);
+		
+		lblCurso = new Label("Curso:");
+		cmbCursos = new ComboBox<>();
+		cmbCursos.setItems(FXCollections.observableArrayList(geraListaCursos()));
+		cmbCursos.getSelectionModel().selectFirst();
 
-		btnCadastrarCurso = new Button("Cadastrar curso");
+		btnCadastrarCurso = new Button("Cadastrar novo curso");
 		btnCadastrarCurso.setOnAction(cadastrarCurso());
 
-		btnAlterarCurso = new Button("Alterar curso");
-//		btnAlterarCurso.setOnAction();
+		btnAcessarCurso = new Button("Acessar curso");
+		btnAcessarCurso.setOnAction(acessarCurso());
 
-		btnExcluirCurso = new Button("Excluir curso");
-//		btnExcluirCurso.setOnAction();
-
-		btnSair = new Button("Sair");
-		btnSair.setOnAction(sair());
+		btnSair = new Button("Voltar");
+		btnSair.setOnAction(voltar());
 
 		pane = new AnchorPane();
-		pane.getChildren().addAll(listaCursos, btnCadastrarCurso, btnAlterarCurso, btnExcluirCurso, btnSair);
+		pane.getChildren().addAll(lblCurso, cmbCursos, btnCadastrarCurso, btnAcessarCurso, btnSair);
 
 	}
 
 	private void configLayout() {
-		pane.setPrefSize(640, 480);
+		pane.setPrefSize(640, 115);
 
-		listaCursos.setLayoutX(10);
-		listaCursos.setLayoutY(10);
-		listaCursos.setPrefHeight(pane.getPrefHeight() - 55);
-		listaCursos.setPrefWidth(pane.getPrefWidth() - 20);
+		lblCurso.setLayoutX(10);
+		lblCurso.setLayoutY(10);
+		
+		cmbCursos.setLayoutX(10);
+		cmbCursos.setLayoutY(35);
+		cmbCursos.setPrefHeight(30);
+		cmbCursos.setPrefWidth(pane.getPrefWidth() - 20);
 
-		btnCadastrarCurso.setLayoutX(pane.getPrefWidth() - 590);
+		btnCadastrarCurso.setLayoutX(pane.getPrefWidth() - 430);
 		btnCadastrarCurso.setLayoutY(pane.getPrefHeight() - 35);
 		btnCadastrarCurso.setPrefHeight(20);
 		btnCadastrarCurso.setPrefWidth(150);
 
-		btnAlterarCurso.setLayoutX(pane.getPrefWidth() - 430);
-		btnAlterarCurso.setLayoutY(pane.getPrefHeight() - 35);
-		btnAlterarCurso.setPrefHeight(20);
-		btnAlterarCurso.setPrefWidth(150);
-
-		btnExcluirCurso.setLayoutX(pane.getPrefWidth() - 270);
-		btnExcluirCurso.setLayoutY(pane.getPrefHeight() - 35);
-		btnExcluirCurso.setPrefHeight(20);
-		btnExcluirCurso.setPrefWidth(150);
+		btnAcessarCurso.setLayoutX(pane.getPrefWidth() - 270);
+		btnAcessarCurso.setLayoutY(pane.getPrefHeight() - 35);
+		btnAcessarCurso.setPrefHeight(20);
+		btnAcessarCurso.setPrefWidth(150);
 
 		btnSair.setLayoutX(pane.getPrefWidth() - 110);
 		btnSair.setLayoutY(pane.getPrefHeight() - 35);
@@ -125,10 +123,22 @@ public class ProfessorMainFX extends Application {
 				}
 			}
 		};
-	}
+	}	
 	
+	private EventHandler<ActionEvent> acessarCurso() {
+		return new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					new CursoFX(professor, getCurso()).start(stage);
+				} catch (Exception e) {
+					AlertaFX.erro("Não foi possível iniciar a tela do curso!");
+				}
+			}
+		};
+	}	
 	
-	private EventHandler<ActionEvent> sair() {
+	private EventHandler<ActionEvent> voltar() {
 		return new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -141,4 +151,9 @@ public class ProfessorMainFX extends Application {
 		};
 	}
 
+	private Curso getCurso() {
+		CursoDAO cursoDAO = new CursoDAO();
+		curso = cursoDAO.get(this.cmbCursos.getSelectionModel().getSelectedItem());
+		return curso;
+	}
 }

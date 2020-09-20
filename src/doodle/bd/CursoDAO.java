@@ -92,4 +92,29 @@ public class CursoDAO implements InterfaceDAO<Curso> {
 		}
 	}
 
+	public Curso get(String nomeCurso) {
+		Curso curso = null;
+		ProfessorDAO professorDAO = new ProfessorDAO();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			String querySelectProfessor = "SELECT * FROM curso WHERE nome = '" + nomeCurso + "'";
+			ResultSet resultSet = UtilBD.consultarBD(querySelectProfessor);
+			while (resultSet.next()) {
+				int idCurso = resultSet.getInt("id_curso");
+				String nome = resultSet.getString("nome");
+				String dataInicio = resultSet.getString("data_inicio");
+				int idProfessor = resultSet.getInt("id_professor");
+
+				curso = new Curso(professorDAO.get(idProfessor), nome, sdf.parse(dataInicio));
+				curso.setID(idCurso);
+			}
+			resultSet.getStatement().close();
+		} catch (SQLException e) {
+			AlertaFX.erro("Falha ao buscar Curso no banco de dados");
+		} catch (ParseException e) {
+			AlertaFX.erro("Falha ao converter String para Data CursoDAO");
+		}
+		return curso;
+	}
+
 }
