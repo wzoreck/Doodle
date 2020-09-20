@@ -1,7 +1,10 @@
 package doodle.ihc;
 
-import doodle.bd.AlunoDAO;
+import java.util.ArrayList;
+
+import doodle.bd.ProfessorDAO;
 import doodle.entidades.Pessoa;
+import doodle.entidades.Professor;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -25,10 +28,17 @@ public class LoginFX extends Application {
 	private Button btnNovoUsuario;
 	private Stage stage;
 
+	private ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+	private ArrayList<Professor> professores = new ArrayList<Professor>();
+	private Professor professor = null;
+	private ProfessorDAO professorDAO = new ProfessorDAO();
+
 	@Override
 	public void start(Stage stage) throws Exception {
 
 		this.stage = stage;
+
+		buscarUsuariosBD();
 		initComponentes();
 		configLayout();
 
@@ -116,19 +126,19 @@ public class LoginFX extends Application {
 						return;
 					}
 
-					Pessoa usuarioBD = (Pessoa) new AlunoDAO().get(txtUsuario.getText());
-
-					if (usuarioBD == null) {
-						AlertaFX.alerta("Usuário ou senha inválidos");
-						return;
+					for (Pessoa pessoa : pessoas) {
+						if (pessoa.getLogin().contentEquals(txtUsuario.getText())) {
+							if (pessoa.getPasswd().contentEquals(txtPasswd.getText())) {
+								
+								if (pessoa.getTipoPessoa().contentEquals("professor")) {
+									professor = (Professor) pessoa;
+									new ProfessorMainFX(professor).start(stage);
+									break;
+								}
+								
+							}
+						}
 					}
-
-					if (!usuarioBD.getPasswd().contentEquals(txtPasswd.getText())) {
-						AlertaFX.alerta("Usuário ou senha inválidos");
-						return;
-					}
-
-					new MainFX(txtUsuario.getText()).start(stage);
 
 				} catch (Exception e) {
 					AlertaFX.erro("Não foi possível iniciar a tela principal");
@@ -158,6 +168,13 @@ public class LoginFX extends Application {
 				}
 			}
 		};
+	}
+
+	private void buscarUsuariosBD() {
+		professores = professorDAO.listar(0);
+		pessoas = new ArrayList<Pessoa>();
+		for (Professor p : professores)
+			pessoas.add(p);
 	}
 
 }
