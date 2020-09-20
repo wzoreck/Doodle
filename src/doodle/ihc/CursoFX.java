@@ -61,7 +61,7 @@ public class CursoFX extends Application{
 		listaForuns.setItems(items);
 
 		btnCadastrarForum = new Button("Cadastrar forum");
-//		btnCadastrarForum.setOnAction(abrirCadastroJogo());
+		btnCadastrarForum.setOnAction(cadastrarForum());
 
 		btnAlterarForum = new Button("Alterar forum");
 //		btnAlterarForum.setOnAction(abrirAlteracaoJogo());
@@ -113,6 +113,19 @@ public class CursoFX extends Application{
 			retorno.add(forum.getTitulo());
 		return retorno;
 	}
+	
+	private EventHandler<ActionEvent> cadastrarForum() {
+		return new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					new CadastrarForumFX(professor, curso).start(stage);
+				} catch (Exception e) {
+					AlertaFX.erro("Não foi possível iniciar a tela de cadastro de um forum!");
+				}
+			}
+		};
+	}	
 	
 	private EventHandler<ActionEvent> voltar() {
 		return new EventHandler<ActionEvent>() {

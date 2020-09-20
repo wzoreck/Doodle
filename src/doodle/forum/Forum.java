@@ -1,5 +1,6 @@
 package doodle.forum;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import doodle.entidades.Conteudo;
 public class Forum extends Conteudo {
 	private int idForum;
 	private boolean aberto;
+	private Date dataTermino;
 	private ArrayList<Pergunta> perguntas;
 	// Valor inicial baseado na quantidade de INSERTs iniciais em UtilBD
 	private static int proxIDForum = 1;
@@ -36,7 +38,7 @@ public class Forum extends Conteudo {
 	public void listar() {
 		PerguntaDAO perguntaDAO = new PerguntaDAO();
 		perguntas = perguntaDAO.listar(this.getIDForum());
-		
+
 		for (Pergunta pergunta : perguntas) {
 			System.out.println("\n	ID Pergunta " + pergunta.getIDPergunta() + ": " + pergunta.getTitulo());
 			System.out.println("	Duvida: " + pergunta.getDuvida());
@@ -66,6 +68,15 @@ public class Forum extends Conteudo {
 	public ArrayList<Pergunta> getPerguntas() {
 		PerguntaDAO perguntaDAO = new PerguntaDAO();
 		return perguntaDAO.listar(this.getIDForum());
+	}
+
+	public String getDataTermino() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(dataTermino);
+	}
+	
+	public void setDataTermino(Date data) {
+		this.dataTermino = data;
 	}
 
 	@Override

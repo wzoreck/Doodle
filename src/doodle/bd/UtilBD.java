@@ -167,9 +167,10 @@ public class UtilBD {
 
 		stm.executeUpdate("CREATE TABLE forum (" + "id_forum INTEGER NOT NULL PRIMARY KEY UNIQUE,"
 				+ "id_conteudo INTEGER NOT NULL," + "aberto	BOOLEAN NOT NULL DEFAULT 'TRUE',"
+				+ "data_termino VARCHAR(10), "
 				+ "FOREIGN KEY (id_conteudo) REFERENCES conteudo (id_conteudo) ON DELETE CASCADE)");
 
-		stm.executeUpdate("INSERT INTO FORUM VALUES" + "(1, 2, TRUE)");
+		stm.executeUpdate("INSERT INTO FORUM VALUES" + "(1, 2, TRUE, '2010-09-02')");
 	}
 
 	private static void criarPerguntaForum(Statement stm) throws SQLException {

@@ -16,7 +16,7 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 		// id_forum, id_conteudo (id-0), aberto
 		try {
 			String queryForum = "INSERT INTO forum VALUES (" + forum.getIDForum() + ", " + id.get(0) + ", "
-					+ forum.isAberto() + ")";
+					+ forum.isAberto() + ", '" + forum.getDataTermino() + "')";
 			UtilBD.alterarBd(queryForum);
 
 		} catch (SQLException e1) {
@@ -109,5 +109,5 @@ public class ForumDAO implements InterfaceDAO<Forum> {
 		}
 		return forum;
 	}
-	
+
 }
